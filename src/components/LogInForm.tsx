@@ -13,8 +13,9 @@ import { useForm } from '@mantine/form'
 import { GoogleButton } from './buttons/GoogleButton'
 import { GithubButton } from './buttons/GithubButton'
 import { CustomInput } from './Input'
+import Link from 'next/link'
 
-export function SignUpForm(props: PaperProps) {
+export function LogInForm(props: PaperProps) {
 	const form = useForm({
 		initialValues: {
 			email: '',
@@ -36,10 +37,10 @@ export function SignUpForm(props: PaperProps) {
 			p='lg'
 			withBorder
 			{...props}
-			className='w-full max-w-1/3'
+			className='w-full max-w-1/3 relative'
 		>
 			<Text size='lg' fw={500}>
-				Welcome to Mantine, register with
+				Welcome back to The Flavour Exchange, log in with
 			</Text>
 
 			<Group grow mb='md' mt='md'>
@@ -50,7 +51,6 @@ export function SignUpForm(props: PaperProps) {
 			<Divider label='Or continue with email' labelPosition='center' my='lg' />
 
 			<form onSubmit={form.onSubmit(() => {})} className='space-y-10'>
-				<CustomInput label='Name' placeholder='Fernando Alonso' type='text' />
 				<CustomInput
 					label='Email'
 					placeholder='fernandoalonso@astonmartin.com'
@@ -59,11 +59,13 @@ export function SignUpForm(props: PaperProps) {
 				<CustomInput label='Password' placeholder='******' type='password' />
 
 				<Group justify='space-between' mt='xl'>
-					<Anchor component='button' type='button' c='dimmed' size='xs'>
-						Already have an account? Login
+					<Anchor component='div' c='dimmed' size='xs'>
+						<Link href={'/auth/signup'}>
+							Don&apos;t have an account? Sign up
+						</Link>
 					</Anchor>
-					<Button type='submit' radius='xl'>
-						Register
+					<Button type='submit' radius='xl' color='#15803d'>
+						Log in
 					</Button>
 				</Group>
 			</form>

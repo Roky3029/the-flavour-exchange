@@ -37,10 +37,10 @@ export function SignUpForm(props: PaperProps) {
 			p='lg'
 			withBorder
 			{...props}
-			className='w-full max-w-1/3'
+			className='w-full max-w-1/3 relative'
 		>
 			<Text size='lg' fw={500}>
-				Welcome to Mantine, register with
+				Welcome to The Flavour Exchange, register with
 			</Text>
 
 			<Group grow mb='md' mt='md'>
@@ -61,9 +61,9 @@ export function SignUpForm(props: PaperProps) {
 
 				<Group justify='space-between' mt='xl'>
 					<Anchor component='div' c='dimmed' size='xs'>
-						<Link href={'/'}>Already have an account? Log in</Link>
+						<Link href={'/auth/login'}>Already have an account? Log in</Link>
 					</Anchor>
-					<Button type='submit' radius='xl'>
+					<Button type='submit' radius='xl' color='#15803d'>
 						Register
 					</Button>
 				</Group>
