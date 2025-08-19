@@ -1,0 +1,24 @@
+.icon {
+	width: 22px;
+	height: 22px;
+}
+
+/* hidden in dark theme */
+html[data-mantine-color-scheme='dark'] .dark {
+	display: none;
+}
+
+/* visible in light theme */
+html[data-mantine-color-scheme='light'] .dark {
+	display: block;
+}
+
+/* hidden in light theme */
+html[data-mantine-color-scheme='light'] .light {
+	display: none;
+}
+
+/* visible in dark theme */
+html[data-mantine-color-scheme='dark'] .light {
+	display: block;
+}
