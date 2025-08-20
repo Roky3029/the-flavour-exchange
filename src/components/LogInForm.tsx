@@ -9,26 +9,29 @@ import {
 	PaperProps,
 	Text
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
 import { GoogleButton } from './buttons/GoogleButton'
 import { GithubButton } from './buttons/GithubButton'
 import { CustomInput } from './Input'
 import Link from 'next/link'
+import { useForm, Controller } from 'react-hook-form'
+import { formDataSchema, FormDataZod } from '@/schemas/logInSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export function LogInForm(props: PaperProps) {
-	const form = useForm({
-		initialValues: {
+	const {
+		control,
+		handleSubmit,
+		formState: { errors }
+	} = useForm<FormDataZod>({
+		resolver: zodResolver(formDataSchema),
+		defaultValues: {
 			email: '',
-			name: '',
-			password: '',
-			terms: true
-		},
-
-		validate: {
-			email: val => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-			password: val =>
-				val.length <= 6 ? 'Password should include at least 6 characters' : null
+			password: ''
 		}
+	})
+
+	const onSubmit = handleSubmit(async (data: FormDataZod) => {
+		console.log(data)
 	})
 
 	return (
@@ -37,10 +40,10 @@ export function LogInForm(props: PaperProps) {
 			p='lg'
 			withBorder
 			{...props}
-			className='w-full max-w-1/3 relative'
+			className='w-full md:max-w-1/3 mx-4 relative'
 		>
 			<Text size='lg' fw={500}>
-				Welcome back to The Flavour Exchange, log in with
+				Welcome back to The Flavour Exchange! Log in with
 			</Text>
 
 			<Group grow mb='md' mt='md'>
@@ -50,13 +53,46 @@ export function LogInForm(props: PaperProps) {
 
 			<Divider label='Or continue with email' labelPosition='center' my='lg' />
 
-			<form onSubmit={form.onSubmit(() => {})} className='space-y-10'>
-				<CustomInput
-					label='Email'
-					placeholder='fernandoalonso@astonmartin.com'
-					type='email'
+			<form onSubmit={onSubmit}>
+				<Controller
+					name='email'
+					control={control}
+					rules={{
+						required: {
+							message: 'The email is required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<CustomInput
+							label='Email'
+							placeholder='sprucespringclean@domain.com'
+							type='text'
+							field={field}
+							error={errors.email ? errors.email.message : ''}
+						/>
+					)}
 				/>
-				<CustomInput label='Password' placeholder='******' type='password' />
+
+				<Controller
+					name='password'
+					control={control}
+					rules={{
+						required: {
+							message: 'The password is required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<CustomInput
+							label='Password'
+							placeholder='******'
+							type='password'
+							field={field}
+							error={errors.password ? errors.password.message : ''}
+						/>
+					)}
+				/>
 
 				<Group justify='space-between' mt='xl'>
 					<Anchor component='div' c='dimmed' size='xs'>

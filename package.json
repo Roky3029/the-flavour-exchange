@@ -9,10 +9,11 @@
 		"lint": "next lint"
 	},
 	"dependencies": {
+		"@auth/mongodb-adapter": "^3.10.0",
+		"@hookform/resolvers": "^5.2.1",
 		"@mantine/carousel": "^8.2.5",
 		"@mantine/core": "^8.2.5",
 		"@mantine/dropzone": "^8.2.5",
-		"@mantine/form": "^8.2.5",
 		"@mantine/hooks": "^8.2.5",
 		"@mantine/modals": "^8.2.5",
 		"@mantine/notifications": "^8.2.5",
@@ -24,13 +25,18 @@
 		"@tiptap/pm": "^3.2.0",
 		"@tiptap/react": "^3.2.0",
 		"@tiptap/starter-kit": "^3.2.0",
+		"@types/bcrypt": "^6.0.0",
+		"bcrypt": "^6.0.0",
 		"embla-carousel": "^8.6.0",
 		"embla-carousel-react": "^8.6.0",
+		"mongodb": "^6.18.0",
 		"mongoose": "^8.17.1",
-		"next": "15.4.6",
-		"next-auth": "^4.24.11",
+		"next": "^15.5.0",
+		"next-auth": "^5.0.0-beta.29",
 		"react": "19.1.0",
-		"react-dom": "19.1.0"
+		"react-dom": "19.1.0",
+		"react-hook-form": "^7.62.0",
+		"zod": "^4.0.17"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "^3",

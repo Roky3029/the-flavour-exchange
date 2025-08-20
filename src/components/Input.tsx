@@ -1,17 +1,33 @@
-import { HTMLInputTypeAttribute, useState } from 'react'
+import { HTMLInputTypeAttribute } from 'react'
 import { TextInput } from '@mantine/core'
-import classes from './../styles/Input.module.css'
+import { ControllerRenderProps, FieldError } from 'react-hook-form'
 
 interface InputProps {
 	label: string
 	placeholder: string
 	type: HTMLInputTypeAttribute
+	field: ControllerRenderProps<
+		{
+			name: string
+			email: string
+			password: string
+			confirmPassword: string
+		},
+		'name' | 'email' | 'password' | 'confirmPassword'
+	>
+	error?: string | FieldError
 }
 
-export function CustomInput({ label, placeholder, type }: InputProps) {
-	const [focused, setFocused] = useState(false)
-	const [value, setValue] = useState('')
-	const floating = value.trim().length !== 0 || focused || undefined
+export function CustomInput({
+	label,
+	placeholder,
+	type,
+	field,
+	error
+}: InputProps) {
+	// const [focused, setFocused] = useState(false)
+	// const [value, setValue] = useState('')
+	// const floating = value.trim().length !== 0 || focused || undefined
 
 	return (
 		<TextInput
@@ -19,16 +35,11 @@ export function CustomInput({ label, placeholder, type }: InputProps) {
 			label={label}
 			placeholder={placeholder}
 			required
-			classNames={classes}
-			value={value}
-			onChange={event => setValue(event.currentTarget.value)}
-			onFocus={() => setFocused(true)}
-			onBlur={() => setFocused(false)}
 			mt='md'
 			autoComplete='nope'
-			data-floating={floating}
-			labelProps={{ 'data-floating': floating }}
 			radius='lg'
+			error={error?.toString()}
+			{...field}
 		/>
 	)
 }

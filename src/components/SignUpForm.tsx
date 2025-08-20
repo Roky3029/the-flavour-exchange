@@ -9,26 +9,31 @@ import {
 	PaperProps,
 	Text
 } from '@mantine/core'
-import { useForm } from '@mantine/form'
 import { GoogleButton } from './buttons/GoogleButton'
 import { GithubButton } from './buttons/GithubButton'
 import { CustomInput } from './Input'
 import Link from 'next/link'
+import { useForm, Controller } from 'react-hook-form'
+import { formDataSchema, FormDataZod } from '@/schemas/signUpSchema'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export function SignUpForm(props: PaperProps) {
-	const form = useForm({
-		initialValues: {
-			email: '',
+	const {
+		control,
+		handleSubmit,
+		formState: { errors }
+	} = useForm<FormDataZod>({
+		resolver: zodResolver(formDataSchema),
+		defaultValues: {
 			name: '',
+			email: '',
 			password: '',
-			terms: true
-		},
-
-		validate: {
-			email: val => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-			password: val =>
-				val.length <= 6 ? 'Password should include at least 6 characters' : null
+			confirmPassword: ''
 		}
+	})
+
+	const onSubmit = handleSubmit(async (data: FormDataZod) => {
+		console.log(data)
 	})
 
 	return (
@@ -37,7 +42,7 @@ export function SignUpForm(props: PaperProps) {
 			p='lg'
 			withBorder
 			{...props}
-			className='w-full max-w-1/3 relative'
+			className='w-full md:max-w-1/3 mx-4 relative'
 		>
 			<Text size='lg' fw={500}>
 				Welcome to The Flavour Exchange, register with
@@ -50,14 +55,86 @@ export function SignUpForm(props: PaperProps) {
 
 			<Divider label='Or continue with email' labelPosition='center' my='lg' />
 
-			<form onSubmit={form.onSubmit(() => {})} className='space-y-10'>
-				<CustomInput label='Name' placeholder='Fernando Alonso' type='text' />
-				<CustomInput
-					label='Email'
-					placeholder='fernandoalonso@astonmartin.com'
-					type='email'
+			<form onSubmit={onSubmit}>
+				<Controller
+					name='name'
+					control={control}
+					rules={{
+						required: {
+							message: 'The name is required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<CustomInput
+							label='Name'
+							placeholder='Spruce Springclean'
+							type='text'
+							field={field}
+							error={errors.name ? errors.name.message : ''}
+						/>
+					)}
 				/>
-				<CustomInput label='Password' placeholder='******' type='password' />
+
+				<Controller
+					name='email'
+					control={control}
+					rules={{
+						required: {
+							message: 'The email is required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<CustomInput
+							label='Email'
+							placeholder='sprucespringclean@domain.com'
+							type='text'
+							field={field}
+							error={errors.email ? errors.email.message : ''}
+						/>
+					)}
+				/>
+
+				<Controller
+					name='password'
+					control={control}
+					rules={{
+						required: {
+							message: 'The password is required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<CustomInput
+							label='Password'
+							placeholder='******'
+							type='password'
+							field={field}
+							error={errors.password ? errors.password.message : ''}
+						/>
+					)}
+				/>
+
+				<Controller
+					name='confirmPassword'
+					control={control}
+					rules={{
+						required: {
+							message: 'The confirm password field is required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<CustomInput
+							label='Confirm password'
+							placeholder='******'
+							type='password'
+							field={field}
+							error={errors.password ? errors.password.message : ''}
+						/>
+					)}
+				/>
 
 				<Group justify='space-between' mt='xl'>
 					<Anchor component='div' c='dimmed' size='xs'>
