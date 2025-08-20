@@ -1,19 +1,21 @@
+// lib/mongodb.ts
 import { MongoClient } from 'mongodb'
 
+const uri = process.env.MONGODB_URI!
+const options = {}
+
 declare global {
-	var _mongoClientPromise: Promise<MongoClient> | undefined
+	var _mongoClientPromise: Promise<MongoClient>
 }
 
-const MONGO_URI = process.env.MONGO_URI || ''
-
+let client: MongoClient
 let clientPromise: Promise<MongoClient>
 
 if (!global._mongoClientPromise) {
-	const client = new MongoClient(MONGO_URI)
+	client = new MongoClient(uri, options)
 	global._mongoClientPromise = client.connect()
 }
-
 // eslint-disable-next-line prefer-const
 clientPromise = global._mongoClientPromise
 
-export default clientPromise as Promise<MongoClient>
+export default clientPromise

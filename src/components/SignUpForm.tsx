@@ -16,6 +16,7 @@ import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { formDataSchema, FormDataZod } from '@/schemas/signUpSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { registerUser } from '@/actions/registerUser'
 
 export function SignUpForm(props: PaperProps) {
 	const {
@@ -33,7 +34,8 @@ export function SignUpForm(props: PaperProps) {
 	})
 
 	const onSubmit = handleSubmit(async (data: FormDataZod) => {
-		console.log(data)
+		const result = await registerUser(data)
+		console.log(result)
 	})
 
 	return (
@@ -131,7 +133,9 @@ export function SignUpForm(props: PaperProps) {
 							placeholder='******'
 							type='password'
 							field={field}
-							error={errors.password ? errors.password.message : ''}
+							error={
+								errors.confirmPassword ? errors.confirmPassword.message : ''
+							}
 						/>
 					)}
 				/>
