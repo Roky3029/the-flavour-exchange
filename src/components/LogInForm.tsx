@@ -16,8 +16,12 @@ import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { formDataSchema, FormDataZod } from '@/schemas/logInSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { signIn } from '@/utils/signIn'
+import { showNotification } from '@/utils/showNotification'
+import { useRouter } from 'next/navigation'
 
 export function LogInForm(props: PaperProps) {
+	const router = useRouter()
 	const {
 		control,
 		handleSubmit,
@@ -30,8 +34,19 @@ export function LogInForm(props: PaperProps) {
 		}
 	})
 
-	const onSubmit = handleSubmit(async (data: FormDataZod) => {
-		console.log(data)
+	const onSubmit = handleSubmit(async (formData: FormDataZod) => {
+		// TODO: handle better
+		const { data, error } = await signIn(formData)
+
+		if (!error) {
+			showNotification(
+				'Log in successful!',
+				'Enjoy your browsing through The Flavour Exchange. Redirecting to main page...',
+				4000,
+				'grape',
+				() => router.push('/')
+			)
+		}
 	})
 
 	return (

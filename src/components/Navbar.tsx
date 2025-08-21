@@ -6,10 +6,14 @@ import classes from './../styles/HeaderMenu.module.css'
 import { ActionToggle } from './ThemeButton'
 import Link from 'next/link'
 import Image from 'next/image'
+import { UserButton } from './UserProfileNavbar'
+import { useEffect, useState } from 'react'
+import { Response } from '@/types/session'
 
 const links = [
 	{ link: '/auth/signup', label: 'Sign Up' },
 	{ link: '/auth/login', label: 'Log In' }
+	// { link: '/auth/logout', label: 'Log Out' }
 	// {
 	// 	link: '#2',
 	// 	label: 'Support',
@@ -23,15 +27,17 @@ const links = [
 
 export function Navbar() {
 	const [opened, { toggle }] = useDisclosure(false)
+	const [session, setSession] = useState<Response | null>(null)
+
+	useEffect(() => {
+		fetch('/api/session')
+			.then(res => res.json())
+			.then(setSession)
+	}, [])
 
 	const items = links.map(link => {
 		return (
-			<Link
-				key={link.label}
-				href={link.link}
-				className={classes.link}
-				// onClick={event => event.preventDefault()}
-			>
+			<Link key={link.label} href={link.link} className={classes.link}>
 				{link.label}
 			</Link>
 		)
@@ -41,12 +47,12 @@ export function Navbar() {
 		<header className={classes.header}>
 			<Container size='md'>
 				<div className={classes.inner}>
-					{/* <MantineLogo size={28} /> */}
-					{/* <Image alt='Logo' src='logo.png' className='w-5 h-5' /> */}
 					<Image src='/logo.png' alt='Logo' width={40} height={40} />
 					<Group gap={5} visibleFrom='sm'>
 						{items}
 					</Group>
+
+					{session && <UserButton session={session} />}
 					<ActionToggle />
 					<Burger opened={opened} onClick={toggle} size='sm' hiddenFrom='sm' />
 				</div>

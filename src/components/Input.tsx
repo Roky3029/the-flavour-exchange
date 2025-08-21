@@ -18,13 +18,27 @@ interface InputProps {
 	error?: string | FieldError
 }
 
+interface InputLoginProps {
+	label: string
+	placeholder: string
+	type: HTMLInputTypeAttribute
+	field: ControllerRenderProps<
+		{
+			email: string
+			password: string
+		},
+		'email' | 'password'
+	>
+	error?: string | FieldError
+}
+
 export function CustomInput({
 	label,
 	placeholder,
 	type,
 	field,
 	error
-}: InputProps) {
+}: InputProps | InputLoginProps) {
 	// const [focused, setFocused] = useState(false)
 	// const [value, setValue] = useState('')
 	// const floating = value.trim().length !== 0 || focused || undefined

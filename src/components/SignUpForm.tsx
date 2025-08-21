@@ -16,7 +16,8 @@ import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { formDataSchema, FormDataZod } from '@/schemas/signUpSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { registerUser } from '@/actions/registerUser'
+import { registerUser } from '@/utils/registerUser'
+import { authClient } from '@/lib/authClient'
 
 export function SignUpForm(props: PaperProps) {
 	const {
@@ -33,9 +34,17 @@ export function SignUpForm(props: PaperProps) {
 		}
 	})
 
-	const onSubmit = handleSubmit(async (data: FormDataZod) => {
-		const result = await registerUser(data)
-		console.log(result)
+	const onSubmit = handleSubmit(async (formData: FormDataZod) => {
+		// const result = await registerUser(data)
+		// console.log(result)
+		const { data, error } = await authClient.signUp.email({
+			name: formData.name,
+			email: formData.email,
+			password: formData.password,
+			image: 'https://images.pexels.com/photos/432059/pexels-photo-432059.jpeg'
+		})
+
+		console.log(data, error)
 	})
 
 	return (

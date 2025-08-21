@@ -1,13 +1,15 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import '@mantine/core/styles.css'
-import './globals.css'
-
 import {
 	ColorSchemeScript,
 	MantineProvider,
 	mantineHtmlProps
 } from '@mantine/core'
+import { Notifications } from '@mantine/notifications'
+
+import '@mantine/core/styles.css'
+import '@mantine/notifications/styles.css'
+import './globals.css'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -38,7 +40,10 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<MantineProvider>{children}</MantineProvider>
+				<MantineProvider>
+					<Notifications />
+					{children}
+				</MantineProvider>
 			</body>
 		</html>
 	)
