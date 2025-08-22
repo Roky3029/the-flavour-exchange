@@ -6,13 +6,15 @@ export const showNotification = (
 	message: string,
 	autoClose: number,
 	color: DefaultMantineColor,
-	onClose?: () => void
+	onClose?: () => void,
+	loading?: boolean
 ) => {
-	sN({
+	return sN({
 		title,
 		message,
 		onClose,
 		autoClose,
-		color
+		color,
+		loading
 	})
 }

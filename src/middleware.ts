@@ -7,14 +7,13 @@ export async function middleware(request: NextRequest) {
 		headers: await headers()
 	})
 
-	console.log(session)
-
-	if (!session) return NextResponse.redirect(new URL('/signup', request.url))
+	if (!session)
+		return NextResponse.redirect(new URL('/auth/signup', request.url))
 
 	return NextResponse.next()
 }
 
 export const config = {
 	runtime: 'nodejs',
-	matcher: ['/']
+	matcher: ['/timeline', '/user']
 }

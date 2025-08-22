@@ -19,9 +19,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { signIn } from '@/utils/signIn'
 import { showNotification } from '@/utils/showNotification'
 import { useRouter } from 'next/navigation'
+import { notifications } from '@mantine/notifications'
+import { useState } from 'react'
 
 export function LogInForm(props: PaperProps) {
 	const router = useRouter()
+	const [loading, setLoading] = useState(false)
 	const {
 		control,
 		handleSubmit,
@@ -35,17 +38,39 @@ export function LogInForm(props: PaperProps) {
 	})
 
 	const onSubmit = handleSubmit(async (formData: FormDataZod) => {
+		setLoading(true)
 		// TODO: handle better
-		const { data, error } = await signIn(formData)
+		const id = showNotification(
+			'We are processing your request!',
+			'Please wait while we resolve it',
+			4000,
+			'green',
+			() => {},
+			true
+		)
+		const { error } = await signIn(formData)
 
 		if (!error) {
-			showNotification(
-				'Log in successful!',
-				'Enjoy your browsing through The Flavour Exchange. Redirecting to main page...',
-				4000,
-				'grape',
-				() => router.push('/')
-			)
+			notifications.update({
+				id,
+				title: 'Log in successful!',
+				message:
+					'Enjoy your browsing through The Flavour Exchange. Redirecting to main page...',
+				autoClose: 5000,
+				color: 'grape',
+				onClose: () => router.push('/timeline'),
+				loading: false
+			})
+		} else {
+			notifications.update({
+				id,
+				title: 'Oops, something went wrong during log in!',
+				message: 'Please check your credentials or try again later',
+				autoClose: 5000,
+				color: 'red',
+				loading: false
+			})
+			setLoading(false)
 		}
 	})
 
@@ -115,7 +140,7 @@ export function LogInForm(props: PaperProps) {
 							Don&apos;t have an account? Sign up
 						</Link>
 					</Anchor>
-					<Button type='submit' radius='xl' color='#15803d'>
+					<Button type='submit' radius='xl' color='#15803d' disabled={loading}>
 						Log in
 					</Button>
 				</Group>

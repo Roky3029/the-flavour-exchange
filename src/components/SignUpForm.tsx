@@ -16,8 +16,11 @@ import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { formDataSchema, FormDataZod } from '@/schemas/signUpSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { registerUser } from '@/utils/registerUser'
 import { authClient } from '@/lib/authClient'
+import { showNotification } from '@/utils/showNotification'
+import { notifications } from '@mantine/notifications'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 export function SignUpForm(props: PaperProps) {
 	const {
@@ -33,18 +36,49 @@ export function SignUpForm(props: PaperProps) {
 			confirmPassword: ''
 		}
 	})
+	const [loading, setLoading] = useState(false)
+	const router = useRouter()
 
 	const onSubmit = handleSubmit(async (formData: FormDataZod) => {
-		// const result = await registerUser(data)
-		// console.log(result)
+		// TODO: create the google and github signup
+		setLoading(true)
+
+		const id = showNotification(
+			'We are trying to sign you up',
+			'Please wait while we do so',
+			5000,
+			'teal',
+			() => {},
+			true
+		)
+
 		const { data, error } = await authClient.signUp.email({
 			name: formData.name,
 			email: formData.email,
-			password: formData.password,
-			image: 'https://images.pexels.com/photos/432059/pexels-photo-432059.jpeg'
+			password: formData.password
 		})
 
-		console.log(data, error)
+		if (data && !error) {
+			notifications.update({
+				id,
+				title: 'Signed up correctly!',
+				message: 'You will now be redirected to your dashboard',
+				autoClose: 5000,
+				color: 'green',
+				onClose: () => router.push('/timeline'),
+				loading: false
+			})
+		} else {
+			notifications.update({
+				id,
+				title: 'Oops! Something strange happened',
+				message: 'Please check the data and/or try again later',
+				autoClose: 5000,
+				color: 'red',
+				onClose: () => {},
+				loading: false
+			})
+		}
 	})
 
 	return (

@@ -1,6 +1,5 @@
-import { IconChevronRight } from '@tabler/icons-react'
+import { IconChevronRight, IconUserHexagon } from '@tabler/icons-react'
 import {
-	Avatar,
 	Group,
 	Text,
 	UnstyledButton,
@@ -13,6 +12,10 @@ import { IconLogout } from '@tabler/icons-react'
 import { signOut } from '@/utils/signOut'
 import { useRouter } from 'next/navigation'
 import { showNotification } from '@/utils/showNotification'
+import { notifications } from '@mantine/notifications'
+import Avatar from 'boring-avatars'
+import Link from 'next/link'
+import { BoringAvatar } from './BoringAvatar'
 
 interface UserProfileNavbarInterface {
 	session: Response | null
@@ -23,15 +26,34 @@ export function UserButton({ session }: UserProfileNavbarInterface) {
 	const router = useRouter()
 
 	const handleSignOut = async () => {
-		await signOut()
-
-		showNotification(
-			'Sign out successful',
-			'You will now be redirected to login',
+		const id = showNotification(
+			'We are processing your request!',
+			'Please wait while we resolve it',
 			4000,
-			'cyan',
-			() => router.push('/auth/login')
+			'green',
+			() => {},
+			true
 		)
+		const { data, error } = await signOut()
+
+		if (data?.success && !error) {
+			notifications.update({
+				id,
+				title: 'Sign out successful',
+				message: 'You will now be redirected to login',
+				autoClose: 4000,
+				color: 'cyan',
+				onClose: () => router.push('/auth/login')
+			})
+		} else {
+			notifications.update({
+				id,
+				title: 'There was an error signing you out',
+				message: 'Please try again later',
+				autoClose: 4000,
+				color: 'red'
+			})
+		}
 	}
 
 	return (
@@ -45,8 +67,8 @@ export function UserButton({ session }: UserProfileNavbarInterface) {
 			<Menu.Target>
 				<UnstyledButton className={classes.user}>
 					<Group>
-						<Avatar src={session?.user.image} radius='xl' />
-
+						{/* <Avatar src={session?.user.image} radius='xl' /> */}
+						<BoringAvatar name={session!.user.name} />
 						<div style={{ flex: 1 }}>
 							<Text size='sm' fw={500}>
 								{session?.user.name}
@@ -56,12 +78,24 @@ export function UserButton({ session }: UserProfileNavbarInterface) {
 								{session?.user.email}
 							</Text>
 						</div>
-
 						<IconChevronRight size={14} stroke={1.5} />
 					</Group>
 				</UnstyledButton>
 			</Menu.Target>
 			<Menu.Dropdown>
+				<Link href={'/user'}>
+					<Menu.Item
+						leftSection={
+							<IconUserHexagon
+								size={16}
+								color={theme.colors.teal[6]}
+								stroke={1.5}
+							/>
+						}
+					>
+						Profile
+					</Menu.Item>
+				</Link>
 				<Menu.Item
 					leftSection={
 						<IconLogout size={16} color={theme.colors.red[6]} stroke={1.5} />

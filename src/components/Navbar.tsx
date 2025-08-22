@@ -7,8 +7,7 @@ import { ActionToggle } from './ThemeButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import { UserButton } from './UserProfileNavbar'
-import { useEffect, useState } from 'react'
-import { Response } from '@/types/session'
+import { useSession } from '@/utils/useSession'
 
 const links = [
 	{ link: '/auth/signup', label: 'Sign Up' },
@@ -25,15 +24,13 @@ const links = [
 	// }
 ]
 
-export function Navbar() {
-	const [opened, { toggle }] = useDisclosure(false)
-	const [session, setSession] = useState<Response | null>(null)
+interface NavbarProps {
+	wantMarginBottom: boolean
+}
 
-	useEffect(() => {
-		fetch('/api/session')
-			.then(res => res.json())
-			.then(setSession)
-	}, [])
+export function Navbar({ wantMarginBottom }: NavbarProps) {
+	const [opened, { toggle }] = useDisclosure(false)
+	const session = useSession()
 
 	const items = links.map(link => {
 		return (
@@ -44,13 +41,19 @@ export function Navbar() {
 	})
 
 	return (
-		<header className={classes.header}>
+		<header
+			className={`${classes.header} ${wantMarginBottom ? `${classes.mb}` : ''}`}
+		>
 			<Container size='md'>
 				<div className={classes.inner}>
-					<Image src='/logo.png' alt='Logo' width={40} height={40} />
-					<Group gap={5} visibleFrom='sm'>
-						{items}
-					</Group>
+					<Link href='/'>
+						<Image src='/logo.png' alt='Logo' width={40} height={40} />
+					</Link>
+					{!session && (
+						<Group gap={5} visibleFrom='sm'>
+							{items}
+						</Group>
+					)}
 
 					{session && <UserButton session={session} />}
 					<ActionToggle />
