@@ -17,6 +17,11 @@
 	color: var(--mantine-color-red-6);
 	width: 20px;
 	height: 20px;
+	margin-right: 10px;
+}
+
+.disabled {
+	pointer-events: none;
 }
 
 .label {

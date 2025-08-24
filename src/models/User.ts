@@ -1,41 +1,23 @@
-import mongoose, { Schema, Document, CallbackError } from 'mongoose'
-import bcrypt from 'bcrypt'
+import mongoose, { Schema, Document, Types } from 'mongoose'
 
 export interface IUser extends Document {
+	_id: Types.ObjectId
 	name: string
 	email: string
-	password: string
+	// password: string
 }
 
 const UserSchema = new Schema<IUser>(
 	{
+		_id: { type: Schema.Types.ObjectId, default: () => new Types.ObjectId() },
 		name: { type: String, required: true },
-		email: { type: String, required: true, unique: true },
-		password: { type: String, required: true, minLength: 6 }
+		email: { type: String, required: true, unique: true }
 	},
 	{ timestamps: true }
 )
 
-UserSchema.pre('save', async function (next) {
-	try {
-		// Check if the password has been modified
-		if (!this.isModified('password')) return next()
+// console.log(mongoose.models.User)
 
-		const salt = await bcrypt.genSalt(12)
-		this.password = await bcrypt.hash(this.password, salt)
+const User = mongoose.models?.User || mongoose.model<IUser>('User', UserSchema)
 
-		next()
-	} catch (e) {
-		next(e as CallbackError)
-	}
-})
-
-UserSchema.methods.isValidPassword = async function (password: string) {
-	try {
-		return await bcrypt.compare(password, this.password)
-	} catch (e) {
-		throw new Error('Password comparison failed', e as ErrorOptions)
-	}
-}
-
-export default mongoose.models.User || mongoose.model<IUser>('User', UserSchema)
+export default User

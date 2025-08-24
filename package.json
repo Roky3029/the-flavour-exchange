@@ -19,6 +19,7 @@
 		"@mantine/tiptap": "^8.2.5",
 		"@mantinex/dev-icons": "^2.0.0",
 		"@mantinex/mantine-logo": "^2.0.0",
+		"@smastrom/react-rating": "^1.5.0",
 		"@tabler/icons-react": "^3.34.1",
 		"@tiptap/extension-link": "^3.2.0",
 		"@tiptap/pm": "^3.2.0",

@@ -15,6 +15,7 @@ export const showNotification = (
 		onClose,
 		autoClose,
 		color,
-		loading
+		loading,
+		withCloseButton: false
 	})
 }

@@ -58,7 +58,18 @@ export function SignUpForm(props: PaperProps) {
 			password: formData.password
 		})
 
-		if (data && !error) {
+		const res = await fetch('/api/auth/register', {
+			method: 'POST',
+			body: JSON.stringify({
+				id: data?.user.id,
+				name: formData.name,
+				email: formData.email
+			})
+		})
+
+		const result = await res.json()
+
+		if (data && !error && result.success) {
 			notifications.update({
 				id,
 				title: 'Signed up correctly!',
@@ -79,6 +90,7 @@ export function SignUpForm(props: PaperProps) {
 				loading: false
 			})
 		}
+		setLoading(false)
 	})
 
 	return (
@@ -187,7 +199,7 @@ export function SignUpForm(props: PaperProps) {
 					<Anchor component='div' c='dimmed' size='xs'>
 						<Link href={'/auth/login'}>Already have an account? Log in</Link>
 					</Anchor>
-					<Button type='submit' radius='xl' color='#15803d'>
+					<Button type='submit' radius='xl' color='#15803d' disabled={loading}>
 						Register
 					</Button>
 				</Group>

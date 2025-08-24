@@ -10,6 +10,8 @@ import { Notifications } from '@mantine/notifications'
 import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
 import './globals.css'
+import '@smastrom/react-rating/style.css'
+import '@mantine/dropzone/styles.css'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',

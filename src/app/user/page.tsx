@@ -10,6 +10,7 @@ import {
 	Grid,
 	GridCol,
 	SimpleGrid,
+	Text,
 	Title
 } from '@mantine/core'
 import Link from 'next/link'
@@ -104,6 +105,28 @@ export default function User() {
 							</Link>
 						</GridCol>
 					</Grid>
+					<div className='text-center text-2xl'>
+						<Text
+							component='span'
+							inherit
+							variant='gradient'
+							gradient={{ from: 'green', to: 'yellow' }}
+						>
+							345
+						</Text>{' '}
+						followers
+					</div>
+					<div className='text-center text-2xl'>
+						<Text
+							component='span'
+							inherit
+							variant='gradient'
+							gradient={{ from: 'green', to: 'yellow' }}
+						>
+							3
+						</Text>{' '}
+						following
+					</div>
 				</SimpleGrid>
 			</Container>
 

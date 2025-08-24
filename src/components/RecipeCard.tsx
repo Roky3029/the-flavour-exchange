@@ -9,6 +9,8 @@ import {
 	Text
 } from '@mantine/core'
 import classes from './../styles/BadgeCard.module.css'
+import Link from 'next/link'
+import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
 
 interface Tag {
 	emoji: string
@@ -39,13 +41,25 @@ export function RecipeCard({ image, title, type, tags }: RecipeCardProps) {
 			</Card.Section>
 
 			<Card.Section className={classes.section} mt='md'>
-				<div>
-					<Text fz='lg' fw={500}>
+				<div className='flex justify-center gap-4 flex-col'>
+					<Text fz='lg' fw={500} className='text-start'>
 						{title}
 					</Text>
-					<Badge size='sm' variant='light'>
-						{type}
-					</Badge>
+					<div className='flex items-center justify-between w-full'>
+						<Badge size='sm' variant='light'>
+							{type}
+						</Badge>
+						<Rating
+							style={{ maxWidth: 100 }}
+							value={3}
+							readOnly
+							itemStyles={{
+								itemShapes: ThinRoundedStar,
+								activeFillColor: '#f59e0b',
+								inactiveFillColor: '#7a4e06'
+							}}
+						/>
+					</div>
 				</div>
 				{/* <Text fz='sm' mt='xs'>
 					{description}
@@ -62,11 +76,32 @@ export function RecipeCard({ image, title, type, tags }: RecipeCardProps) {
 			</Card.Section>
 
 			<Group mt='xs'>
-				<Button radius='md' style={{ flex: 1 }}>
-					Show details
-				</Button>
-				<ActionIcon variant='default' radius='md' size={36}>
+				<Link
+					href={`/recipes/${title.toLowerCase().split(' ').join('_')}`}
+					className='flex-4 w-full'
+				>
+					<Button radius='md' style={{ flex: 1, width: '100%' }}>
+						Show details
+					</Button>
+				</Link>
+				<ActionIcon
+					component='div'
+					variant='default'
+					radius='md'
+					size={36}
+					flex={1}
+					// disabled
+					className={classes.disabled}
+				>
 					<IconHeart className={classes.like} stroke={1.5} />
+					<Text
+						inherit
+						variant='gradient'
+						gradient={{ from: 'green', to: 'yellow' }}
+						size='lg'
+					>
+						345
+					</Text>
 				</ActionIcon>
 			</Group>
 		</Card>

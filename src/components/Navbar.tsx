@@ -25,7 +25,7 @@ const links = [
 ]
 
 interface NavbarProps {
-	wantMarginBottom: boolean
+	wantMarginBottom?: boolean
 }
 
 export function Navbar({ wantMarginBottom }: NavbarProps) {
