@@ -35,7 +35,7 @@ export function RecipeCard({ image, title, type, tags }: RecipeCardProps) {
 	return (
 		<Card withBorder radius='md' p='md' className={classes.card}>
 			<Card.Section>
-				<div className='h-[300px] overflow-hidden'>
+				<div className='h-[100px] md:h-[200px] xl:h-[300px] overflow-hidden'>
 					<Image src={image} alt={title} height={180} fit='cover' />
 				</div>
 			</Card.Section>

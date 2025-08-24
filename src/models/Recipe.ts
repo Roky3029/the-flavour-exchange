@@ -1,23 +1,21 @@
+import {
+	CATEGORIES,
+	CategoryType,
+	FoodType,
+	TYPES_OF_FOOD
+} from '@/data/typesOfFood'
 import mongoose, { Schema, Document, Types } from 'mongoose'
-
-type MainTag =
-	| 'side_dish'
-	| 'entree'
-	| 'dish'
-	| 'dessert'
-	| 'sauce'
-	| 'drink'
-	| 'snack'
 
 export interface IRecipe extends Document {
 	title: string
-	tag: MainTag
+	tag: FoodType
 	imageUrl: string
 	rating: number
 	steps: string[]
 	ingredients: string[]
 	etc: number // Estimated Time of Cooking (in min)
 	user: Types.ObjectId
+	labels: CategoryType
 }
 
 const RecipeSchema = new Schema<IRecipe>(
@@ -26,15 +24,7 @@ const RecipeSchema = new Schema<IRecipe>(
 		tag: {
 			type: String,
 			required: true,
-			enum: [
-				'side_dish',
-				'entree',
-				'dish',
-				'dessert',
-				'sauce',
-				'drink',
-				'snack'
-			]
+			enum: TYPES_OF_FOOD
 		},
 		imageUrl: { type: String, required: true },
 		rating: { type: Number, required: true },
@@ -45,12 +35,17 @@ const RecipeSchema = new Schema<IRecipe>(
 			type: Schema.Types.ObjectId,
 			ref: 'User',
 			required: true
+		},
+		labels: {
+			type: String,
+			required: true,
+			enum: CATEGORIES
 		}
 	},
 	{ timestamps: true }
 )
 
-const User =
+const Recipe =
 	mongoose.models?.Recipe || mongoose.model<IRecipe>('Recipe', RecipeSchema)
 
-export default User
+export default Recipe

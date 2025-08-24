@@ -11,18 +11,20 @@ import {
 } from '@mantine/core'
 import { GoogleButton } from './buttons/GoogleButton'
 import { GithubButton } from './buttons/GithubButton'
-import { CustomInput } from './Input'
+import { CustomInput } from './RegisterInput'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
-import { formDataSchema, FormDataZod } from '@/schemas/signUpSchema'
+import { formDataSchema, FormDataZod } from '@/schemas/logInSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { authClient } from '@/lib/authClient'
+import { signIn } from '@/utils/signIn'
 import { showNotification } from '@/utils/showNotification'
+import { useRouter } from 'next/navigation'
 import { notifications } from '@mantine/notifications'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
-export function SignUpForm(props: PaperProps) {
+export function LogInForm(props: PaperProps) {
+	const router = useRouter()
+	const [loading, setLoading] = useState(false)
 	const {
 		control,
 		handleSubmit,
@@ -30,67 +32,46 @@ export function SignUpForm(props: PaperProps) {
 	} = useForm<FormDataZod>({
 		resolver: zodResolver(formDataSchema),
 		defaultValues: {
-			name: '',
 			email: '',
-			password: '',
-			confirmPassword: ''
+			password: ''
 		}
 	})
-	const [loading, setLoading] = useState(false)
-	const router = useRouter()
 
 	const onSubmit = handleSubmit(async (formData: FormDataZod) => {
-		// TODO: create the google and github signup
 		setLoading(true)
-
+		// TODO: handle better
 		const id = showNotification(
-			'We are trying to sign you up',
-			'Please wait while we do so',
-			5000,
-			'teal',
+			'We are processing your request!',
+			'Please wait while we resolve it',
+			4000,
+			'green',
 			() => {},
 			true
 		)
+		const { error } = await signIn(formData)
 
-		const { data, error } = await authClient.signUp.email({
-			name: formData.name,
-			email: formData.email,
-			password: formData.password
-		})
-
-		const res = await fetch('/api/auth/register', {
-			method: 'POST',
-			body: JSON.stringify({
-				id: data?.user.id,
-				name: formData.name,
-				email: formData.email
-			})
-		})
-
-		const result = await res.json()
-
-		if (data && !error && result.success) {
+		if (!error) {
 			notifications.update({
 				id,
-				title: 'Signed up correctly!',
-				message: 'You will now be redirected to your dashboard',
+				title: 'Log in successful!',
+				message:
+					'Enjoy your browsing through The Flavour Exchange. Redirecting to main page...',
 				autoClose: 5000,
-				color: 'green',
+				color: 'grape',
 				onClose: () => router.push('/timeline'),
 				loading: false
 			})
 		} else {
 			notifications.update({
 				id,
-				title: 'Oops! Something strange happened',
-				message: 'Please check the data and/or try again later',
+				title: 'Oops, something went wrong during log in!',
+				message: 'Please check your credentials or try again later',
 				autoClose: 5000,
 				color: 'red',
-				onClose: () => {},
 				loading: false
 			})
+			setLoading(false)
 		}
-		setLoading(false)
 	})
 
 	return (
@@ -102,7 +83,7 @@ export function SignUpForm(props: PaperProps) {
 			className='w-full md:max-w-1/3 mx-4 relative'
 		>
 			<Text size='lg' fw={500}>
-				Welcome to The Flavour Exchange, register with
+				Welcome back to The Flavour Exchange! Log in with
 			</Text>
 
 			<Group grow mb='md' mt='md'>
@@ -113,26 +94,6 @@ export function SignUpForm(props: PaperProps) {
 			<Divider label='Or continue with email' labelPosition='center' my='lg' />
 
 			<form onSubmit={onSubmit}>
-				<Controller
-					name='name'
-					control={control}
-					rules={{
-						required: {
-							message: 'The name is required',
-							value: true
-						}
-					}}
-					render={({ field }) => (
-						<CustomInput
-							label='Name'
-							placeholder='Spruce Springclean'
-							type='text'
-							field={field}
-							error={errors.name ? errors.name.message : ''}
-						/>
-					)}
-				/>
-
 				<Controller
 					name='email'
 					control={control}
@@ -173,34 +134,14 @@ export function SignUpForm(props: PaperProps) {
 					)}
 				/>
 
-				<Controller
-					name='confirmPassword'
-					control={control}
-					rules={{
-						required: {
-							message: 'The confirm password field is required',
-							value: true
-						}
-					}}
-					render={({ field }) => (
-						<CustomInput
-							label='Confirm password'
-							placeholder='******'
-							type='password'
-							field={field}
-							error={
-								errors.confirmPassword ? errors.confirmPassword.message : ''
-							}
-						/>
-					)}
-				/>
-
 				<Group justify='space-between' mt='xl'>
 					<Anchor component='div' c='dimmed' size='xs'>
-						<Link href={'/auth/login'}>Already have an account? Log in</Link>
+						<Link href={'/auth/signup'}>
+							Don&apos;t have an account? Sign up
+						</Link>
 					</Anchor>
 					<Button type='submit' radius='xl' color='#15803d' disabled={loading}>
-						Register
+						Log in
 					</Button>
 				</Group>
 			</form>

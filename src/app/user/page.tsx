@@ -134,7 +134,9 @@ export default function User() {
 
 			<div
 				className={`grid ${
-					mockRecipes.length >= 1 ? 'grid-cols-3' : 'grid-cols-1'
+					mockRecipes.length >= 1
+						? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
+						: 'grid-cols-1'
 				} px-40 gap-16`}
 			>
 				{mockRecipes.length >= 1 ? (

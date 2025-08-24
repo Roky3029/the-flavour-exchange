@@ -1,5 +1,5 @@
 import { Navbar } from '@/components/Navbar'
-import { RecipeForm } from '@/components/RecipeForm'
+import { RecipeForm } from '@/components/forms/RecipeForm'
 import { Title } from '@mantine/core'
 
 export default function Create() {
