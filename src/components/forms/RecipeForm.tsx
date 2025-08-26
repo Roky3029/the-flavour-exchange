@@ -80,6 +80,7 @@ export function RecipeForm() {
 				<section className='grid grid-cols-1 md:grid-cols-2 w-full gap-10'>
 					<div className='flex items-center justify-center'>
 						{/* TODO: handle the image submission */}
+						{/* TODO: create the privary opcion (private, public, etc) */}
 						<DropzoneButton />
 					</div>
 					<div>
