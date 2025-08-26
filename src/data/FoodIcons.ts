@@ -1,197 +1,245 @@
-export const TYPES_OF_FOOD_ICONS = {
-	side_dish: {
+export const TYPES_OF_FOOD_ICONS = [
+	{
+		id: 'side_dish',
 		name: 'Side dish',
 		icon: '🍚'
 	},
-	entree: {
+	{
+		id: 'entree',
 		name: 'Entrée',
 		icon: '🍲'
 	},
-	dish: {
+	{
+		id: 'dish',
 		name: 'Main dish',
 		icon: '🍽️'
 	},
-	dessert: {
+	{
+		id: 'dessert',
 		name: 'Dessert',
 		icon: '🍦'
 	},
-	sauce: {
+	{
+		id: 'sauce',
 		name: 'Sauce',
 		icon: '🥫'
 	},
-	drink: {
+	{
+		id: 'drink',
 		name: 'Drink',
 		icon: '🍹'
 	},
-	snack: {
+	{
+		id: 'snack',
 		name: 'Snack',
 		icon: '🍟'
 	}
-}
+]
 
-export const CATEGORIES_ICONS = {
-	italian: {
+export const CATEGORIES_ICONS = [
+	{
+		id: 'italian',
 		name: 'Italian',
 		icon: '🍝'
 	},
-	mexican: {
+	{
+		id: 'mexican',
 		name: 'Mexican',
 		icon: '🌮'
 	},
-	spanish: {
+	{
+		id: 'spanish',
 		name: 'Spanish',
 		icon: '🥘'
 	},
-	japanese: {
+	{
+		id: 'japanese',
 		name: 'Japanese',
 		icon: '🍣'
 	},
-	asian: {
+	{
+		id: 'asian',
 		name: 'Asian',
 		icon: '🥡'
 	},
-	european: {
+	{
+		id: 'european',
 		name: 'European',
 		icon: '🌍'
 	},
-	american: {
+	{
+		id: 'american',
 		name: 'American',
 		icon: '🌍'
 	},
-	african: {
+	{
+		id: 'african',
 		name: 'African',
 		icon: '🌍'
 	},
-	oceania: {
+	{
+		id: 'oceania',
 		name: 'Oceania',
 		icon: '🌍'
 	},
-	vegerarian: {
+	{
+		id: 'vegetarian',
 		name: 'Vegetarian',
 		icon: '🫑'
 	},
-	vegan: {
+	{
+		id: 'vegan',
 		name: 'Vegan',
 		icon: '🌱'
 	},
-	'gluten-free': {
+	{
+		id: 'gluten-free',
 		name: 'Gluten free',
 		icon: '🥖❌'
 	},
-	'nut-free': {
+	{
+		id: 'nut-free',
 		name: 'Nut free',
 		icon: '🥜❌'
 	},
-	'dairy-free': {
+	{
+		id: 'dairy-free',
 		name: 'Dairy free',
 		icon: '🥛❌'
 	},
-	'soy-free': {
+	{
+		id: 'soy-free',
 		name: 'Soy free',
 		icon: '🫛❌'
 	},
-	'wheat-free': {
+	{
+		id: 'wheat-free',
 		name: 'Wheat free',
 		icon: '🫓❌'
 	},
-	baked: {
+	{
+		id: 'baked',
 		name: 'Baked',
 		icon: '♨️'
 	},
-	fried: {
+	{
+		id: 'fried',
 		name: 'Fried',
 		icon: '🫒'
 	},
-	grilled: {
+	{
+		id: 'grilled',
 		name: 'Grilled',
 		icon: '🍳'
 	},
-	steamed: {
+	{
+		id: 'steamed',
 		name: 'Steamed',
 		icon: '💨'
 	},
-	raw: {
+	{
+		id: 'raw',
 		name: 'Raw',
 		icon: '🥩'
 	},
-	'under-15-min': {
+	{
+		id: 'under-15-min',
 		name: 'Under 15min',
 		icon: '🕧'
 	},
-	'30-60min': {
+	{
+		id: '30-60min',
 		name: '30-60min',
 		icon: '🕧🕧'
 	},
-	'more-1h': {
+	{
+		id: 'more-1h',
 		name: 'More than 1h',
 		icon: '🕧🕧🕧'
 	},
-	easy: {
+	{
+		id: 'easy',
 		name: 'Easy',
 		icon: '🟢'
 	},
-	medium: {
+	{
+		id: 'medium',
 		name: 'Medium',
 		icon: '🟡'
 	},
-	hard: {
+	{
+		id: 'hard',
 		name: 'Hard',
 		icon: '🔴'
 	},
-	'single-size': {
+	{
+		id: 'single-size',
 		name: 'Single size',
 		icon: '🧑🏻'
 	},
-	'couple-size': {
+	{
+		id: 'couple-size',
 		name: 'Couple size',
 		icon: '🧑🏻‍🤝‍👩🏼'
 	},
-	'family-size': {
+	{
+		id: 'family-size',
 		name: 'Family size',
 		icon: '👨🏻‍👩🏽‍👧🏼‍👦🏻'
 	},
-	summer: {
+	{
+		id: 'summer',
 		name: 'Summer',
 		icon: '☀️'
 	},
-	winter: {
+	{
+		id: 'winter',
 		name: 'Winter',
 		icon: '❄️'
 	},
-	spring: {
+	{
+		id: 'spring',
 		name: 'Spring',
 		icon: '🍃'
 	},
-	automn: {
+	{
+		id: 'automn',
 		name: 'Automn',
 		icon: '🍂'
 	},
-	'spicy-free': {
+	{
+		id: 'spicy-free',
 		name: 'Spicy free',
 		icon: '🌶️❌'
 	},
-	'mild-spicy': {
+	{
+		id: 'mild-spicy',
 		name: 'Mild spicy',
 		icon: '🌶️'
 	},
-	'medium-spicy': {
+	{
+		id: 'medium-spicy',
 		name: 'Medium spicy',
 		icon: '🌶️🌶️'
 	},
-	'very-spicy': {
+	{
+		id: 'very-spicy',
 		name: 'Very spicy',
 		icon: '🌶️🌶️🌶️'
 	},
-	'low-calorie': {
+	{
+		id: 'low-calorie',
 		name: 'Low calorie',
 		icon: '📉'
 	},
-	'high-protein': {
+	{
+		id: 'high-protein',
 		name: 'High protein',
 		icon: '🍗'
 	},
-	'low-carb': {
+	{
+		id: 'low-carb',
 		name: 'Low carb',
 		icon: '🥚'
 	}
-}
+]

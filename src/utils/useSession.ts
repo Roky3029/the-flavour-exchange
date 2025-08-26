@@ -11,7 +11,5 @@ export const useSession = () => {
 			.then(res => res.json())
 			.then(setSession)
 	}, [])
-
-	// console.log(session)
 	return session as Response
 }

@@ -16,9 +16,15 @@ interface InputProps {
 			steps: string[]
 			ingredients: string[]
 			etc: number
-			categories: CategoryType
+			categories: CategoryType[]
 		},
-		'title' | 'tag' | 'imageUrl' | 'steps' | 'ingredients' | 'etc'
+		| 'title'
+		| 'categories'
+		| 'etc'
+		| 'imageUrl'
+		| 'ingredients'
+		| 'steps'
+		| 'tag'
 	>
 	error?: string | FieldError
 }
@@ -43,6 +49,16 @@ export function RecipeInput({
 			classNames={classes}
 			className='input'
 			{...field}
+			value={field.value ?? ''} // important: avoid uncontrolled warning
+			onChange={e =>
+				field.onChange(
+					type === 'number'
+						? e.currentTarget.value === ''
+							? undefined
+							: +e.currentTarget.value
+						: e.currentTarget.value
+				)
+			}
 		/>
 	)
 }

@@ -1,16 +1,7 @@
 'use client'
 
-import {
-	Anchor,
-	Button,
-	Container,
-	GridCol,
-	Group,
-	SimpleGrid,
-	Stack
-} from '@mantine/core'
+import { Button, Container, Stack } from '@mantine/core'
 import { RecipeInput } from './RecipeInput'
-import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
 import { RecipeFormZod, recipeFormDataSchema } from '@/schemas/recipeSchema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,8 +12,10 @@ import { notifications } from '@mantine/notifications'
 import { useState } from 'react'
 import { DropzoneButton } from './Dropzone'
 import { SelectInput } from './SelectInput'
-import { CATEGORIES, TYPES_OF_FOOD } from '@/data/typesOfFood'
 import { MultipleSelectionInput } from './MultipleSelectionInput'
+import { CATEGORIES_ICONS, TYPES_OF_FOOD_ICONS } from '../../data/FoodIcons'
+import { MultipleInputsTextareas } from './MultipleInputsTextareas'
+import { createRecipe } from '@/utils/createRecipe'
 
 export function RecipeForm() {
 	const router = useRouter()
@@ -35,60 +28,58 @@ export function RecipeForm() {
 		resolver: zodResolver(recipeFormDataSchema),
 		defaultValues: {
 			title: '',
-			tag: 'dish',
+			etc: 0,
 			imageUrl:
 				'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg',
 			steps: [],
 			ingredients: []
-			// etc: ,
-			// categories: ''
 		}
 	})
 
-	// const onSubmit = handleSubmit(async (formData: RecipeFormZod) => {
-	// 	setLoading(true)
-	// 	// TODO: handle better
-	// 	const id = showNotification(
-	// 		'We are processing your request!',
-	// 		'Please wait while we resolve it',
-	// 		4000,
-	// 		'green',
-	// 		() => {},
-	// 		true
-	// 	)
-	// 	const { error } = await signIn(formData)
+	const onSubmit = handleSubmit(async (formData: RecipeFormZod) => {
+		setLoading(true)
+		const id = showNotification(
+			'We are processing your request!',
+			'Please wait while we resolve it',
+			4000,
+			'green',
+			() => {},
+			true
+		)
+		const result = await createRecipe(formData)
 
-	// 	if (!error) {
-	// 		notifications.update({
-	// 			id,
-	// 			title: 'Log in successful!',
-	// 			message:
-	// 				'Enjoy your browsing through The Flavour Exchange. Redirecting to main page...',
-	// 			autoClose: 5000,
-	// 			color: 'grape',
-	// 			onClose: () => router.push('/timeline'),
-	// 			loading: false
-	// 		})
-	// 	} else {
-	// 		notifications.update({
-	// 			id,
-	// 			title: 'Oops, something went wrong during log in!',
-	// 			message: 'Please check your credentials or try again later',
-	// 			autoClose: 5000,
-	// 			color: 'red',
-	// 			loading: false
-	// 		})
-	// 		setLoading(false)
-	// 	}
-	// })
-
-	const onSubmit = () => {}
+		if (result.success && result.code === 200) {
+			notifications.update({
+				id,
+				title: 'Recipe created successfully!',
+				message: "Wow! That looks tasty! Redirecting to the recipe's page",
+				autoClose: 5000,
+				color: 'grape',
+				onClose: () => router.push(`/recipe/${result.data}`),
+				loading: false
+			})
+		} else {
+			notifications.update({
+				id,
+				title: 'Oops, something went wrong trying to create the recipe!',
+				message: 'Please check the fields or try again later',
+				autoClose: 5000,
+				color: 'red',
+				loading: false
+			})
+			setLoading(false)
+		}
+	})
 
 	return (
 		<Stack gap='md'>
-			<form onSubmit={onSubmit} className='w-full'>
+			<form
+				onSubmit={onSubmit}
+				className='w-full flex items-center justify-center flex-col pb-40'
+			>
 				<section className='grid grid-cols-1 md:grid-cols-2 w-full gap-10'>
 					<div className='flex items-center justify-center'>
+						{/* TODO: handle the image submission */}
 						<DropzoneButton />
 					</div>
 					<div>
@@ -136,21 +127,111 @@ export function RecipeForm() {
 				<Container
 					w='100%'
 					mt={'md'}
-					className='flex items-center justify-center w-full gap-20'
+					className='flex justify-center items-center w-full gap-20'
 				>
-					<SelectInput
-						options={TYPES_OF_FOOD}
-						label='Select the main tag of the recipe'
-					/>
-					{/* <SelectInput
-						options={CATEGORIES}
-						label='Select the categories of the recipe (Up to 5)'
-					/> */}
-					<MultipleSelectionInput
-						label='Select the categories of the recipe (5 maximum)'
-						options={CATEGORIES}
+					<div className='w-1/2 flex justify-center items-center'>
+						<Controller
+							name='tag'
+							control={control}
+							rules={{
+								required: {
+									message: 'The tag is required',
+									value: true
+								}
+							}}
+							render={({ field }) => (
+								<SelectInput
+									options={TYPES_OF_FOOD_ICONS}
+									label='Select the main tag of the recipe'
+									field={field}
+									error={errors.tag ? errors.tag.message : ''}
+								/>
+							)}
+						/>
+					</div>
+					<div className='w-1/2 flex justify-center items-center'>
+						<Controller
+							name='categories'
+							control={control}
+							rules={{
+								required: {
+									message: 'The categories are required',
+									value: true
+								}
+							}}
+							render={({ field }) => (
+								<MultipleSelectionInput
+									options={CATEGORIES_ICONS}
+									label='Select the categories of the recipe (5 max)'
+									field={field}
+									error={errors.categories ? errors.categories.message : ''}
+								/>
+							)}
+						/>
+					</div>
+				</Container>
+
+				<Container
+					w='100%'
+					mt={'md'}
+					className='flex items-center justify-center w-full gap-20 pt-20'
+				>
+					<Controller
+						name='ingredients'
+						control={control}
+						rules={{
+							required: {
+								message: 'The ingredients are required',
+								value: true
+							}
+						}}
+						render={({ field }) => (
+							<MultipleInputsTextareas
+								mode='inputs'
+								maxN={15}
+								title='Ingredient list'
+								field={field}
+								error={errors.ingredients ? errors.ingredients.message : ''}
+							/>
+						)}
 					/>
 				</Container>
+
+				<Container
+					w='100%'
+					mt={'md'}
+					className='flex items-center justify-center w-full gap-20'
+				>
+					<Controller
+						name='steps'
+						control={control}
+						rules={{
+							required: {
+								message: 'The steps are required',
+								value: true
+							}
+						}}
+						render={({ field }) => (
+							<MultipleInputsTextareas
+								mode='textarea'
+								maxN={10}
+								title='Steps'
+								field={field}
+								error={errors.steps ? errors.steps.message : ''}
+							/>
+						)}
+					/>
+				</Container>
+
+				<Button
+					w='100%'
+					variant='gradient'
+					gradient={{ from: 'green', to: 'yellow' }}
+					disabled={loading}
+					type='submit'
+				>
+					Submit recipe
+				</Button>
 			</form>
 		</Stack>
 	)

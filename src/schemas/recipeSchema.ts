@@ -12,9 +12,14 @@ export const recipeFormDataSchema = z.object({
 		error: 'You must specify the ingredients'
 	}),
 	etc: z.number({ error: 'You must specify the estimated time of the recipe' }),
-	categories: z.enum(CATEGORIES, {
-		error: 'The categories must be from the defined set'
-	})
+	categories: z
+		.array(
+			z.enum(CATEGORIES, {
+				error: 'The categories must be from the defined set'
+			})
+		)
+		.min(1, { error: 'You must select at least one category' })
+		.max(5, { error: 'You must only select 5 categories max' })
 })
 
 export type RecipeFormZod = z.infer<typeof recipeFormDataSchema>

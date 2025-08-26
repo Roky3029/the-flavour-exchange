@@ -75,7 +75,6 @@ const mockRecipes: RecipeCardProps[] = [
 
 export default function User() {
 	const session = useSession()
-	console.log(session)
 
 	return (
 		<div>

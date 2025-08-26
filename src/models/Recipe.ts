@@ -15,7 +15,7 @@ export interface IRecipe extends Document {
 	ingredients: string[]
 	etc: number // Estimated Time of Cooking (in min)
 	user: Types.ObjectId
-	labels: CategoryType
+	labels: CategoryType[]
 }
 
 const RecipeSchema = new Schema<IRecipe>(
@@ -37,9 +37,9 @@ const RecipeSchema = new Schema<IRecipe>(
 			required: true
 		},
 		labels: {
-			type: String,
-			required: true,
-			enum: CATEGORIES
+			type: [String],
+			enum: CATEGORIES,
+			required: true
 		}
 	},
 	{ timestamps: true }

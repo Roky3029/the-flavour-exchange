@@ -39,7 +39,6 @@ export function LogInForm(props: PaperProps) {
 
 	const onSubmit = handleSubmit(async (formData: FormDataZod) => {
 		setLoading(true)
-		// TODO: handle better
 		const id = showNotification(
 			'We are processing your request!',
 			'Please wait while we resolve it',

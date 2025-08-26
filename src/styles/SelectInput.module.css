@@ -2,11 +2,6 @@
 	position: relative;
 }
 
-.input {
-	height: 54px;
-	padding-top: 18px;
-}
-
 .label {
 	position: absolute;
 	pointer-events: none;
