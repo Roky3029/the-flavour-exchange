@@ -2,8 +2,11 @@
 
 import { BoringAvatar } from '@/components/BoringAvatar'
 import { Navbar } from '@/components/Navbar'
-import { RecipeCard, RecipeCardProps } from '@/components/RecipeCard'
-import { useSession } from '@/utils/useSession'
+import { RecipeCard, Tag } from '@/components/RecipeCard'
+import { CATEGORIES_ICONS } from '@/data/FoodIcons'
+import useGetRecipes from '@/hooks/useGetRecipes'
+import { useSession } from '@/hooks/useSession'
+import { Data } from '@/types/recipe'
 import {
 	Button,
 	Container,
@@ -15,66 +18,10 @@ import {
 } from '@mantine/core'
 import Link from 'next/link'
 
-const mockRecipes: RecipeCardProps[] = [
-	{
-		image: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg',
-		title: 'Pancakes with caramel sauce and strawberries',
-		type: 'Dessert',
-		tags: [
-			{ emoji: '🍰', label: 'Dessert' },
-			{ emoji: '🥛', label: 'Lactose free' },
-			{ emoji: '📉', label: 'LEHR' },
-			{ emoji: '👶🏻', label: '10-99 age' }
-		]
-	},
-	{
-		image: 'https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg',
-		title: 'Açai bowl with forest fruits, almonds and tropical fruits',
-		type: 'Snack',
-		tags: [
-			{ emoji: '🍟', label: 'Snack' },
-			{ emoji: '🥛', label: 'Lactose free' },
-			{ emoji: '📉', label: 'LEHR' },
-			{ emoji: '👶🏻', label: '10-99 age' }
-		]
-	},
-	{
-		image: 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg',
-		title: 'Spaguetti alla matricciana NEO',
-		type: 'Dish',
-		tags: [
-			{ emoji: '🍰', label: 'Dessert' },
-			{ emoji: '🥛', label: 'Lactose free' },
-			{ emoji: '📉', label: 'LEHR' },
-			{ emoji: '👶🏻', label: '10-99 age' }
-		]
-	},
-	{
-		image: 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg',
-		title: 'Spaguetti alla matricciana 2',
-		type: 'Dish',
-		tags: [
-			{ emoji: '🍰', label: 'Dessert' },
-			{ emoji: '🥛', label: 'Lactose free' },
-			{ emoji: '📉', label: 'LEHR' },
-			{ emoji: '👶🏻', label: '10-99 age' }
-		]
-	},
-	{
-		image: 'https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg',
-		title: 'Spaguetti alla matricciana 3',
-		type: 'Dish',
-		tags: [
-			{ emoji: '🍰', label: 'Dessert' },
-			{ emoji: '🥛', label: 'Lactose free' },
-			{ emoji: '📉', label: 'LEHR' },
-			{ emoji: '👶🏻', label: '10-99 age' }
-		]
-	}
-]
-
 export default function User() {
 	const session = useSession()
+
+	const recipes = useGetRecipes(session?.user.id)
 
 	return (
 		<div>
@@ -133,19 +80,24 @@ export default function User() {
 
 			<div
 				className={`grid ${
-					mockRecipes.length >= 1
+					recipes.length >= 1
 						? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
 						: 'grid-cols-1'
 				} px-40 gap-16`}
 			>
-				{mockRecipes.length >= 1 ? (
-					mockRecipes.map(recipe => (
+				{recipes && recipes.length >= 1 ? (
+					recipes.map((recipe: Data) => (
 						<RecipeCard
-							image={recipe.image}
-							tags={recipe.tags}
+							image={recipe.imageUrl}
+							tags={recipe.labels.map(label => {
+								const data = CATEGORIES_ICONS.find(cat => cat.id === label)
+								return data as Tag
+							})}
 							title={recipe.title}
-							type={recipe.type}
-							key={recipe.title}
+							type={recipe.tag}
+							key={recipe._id}
+							id={recipe._id}
+							likes={recipe.likeCount}
 						/>
 					))
 				) : (

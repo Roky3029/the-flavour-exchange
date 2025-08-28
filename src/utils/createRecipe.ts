@@ -20,7 +20,8 @@ export async function createRecipe(formData: RecipeFormZod) {
 			ingredients,
 			etc,
 			user: session?.user.id,
-			labels: categories
+			labels: categories,
+			likeCount: 0
 		})
 
 		const result = await recipe.save()

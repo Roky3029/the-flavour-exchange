@@ -16,6 +16,7 @@ export interface IRecipe extends Document {
 	etc: number // Estimated Time of Cooking (in min)
 	user: Types.ObjectId
 	labels: CategoryType[]
+	likeCount: number
 }
 
 const RecipeSchema = new Schema<IRecipe>(
@@ -40,6 +41,11 @@ const RecipeSchema = new Schema<IRecipe>(
 			type: [String],
 			enum: CATEGORIES,
 			required: true
+		},
+		likeCount: {
+			type: Number,
+			required: true,
+			default: 0
 		}
 	},
 	{ timestamps: true }

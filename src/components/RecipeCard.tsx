@@ -4,6 +4,7 @@ import {
 	Badge,
 	Button,
 	Card,
+	CardSection,
 	Group,
 	Image,
 	Text
@@ -12,9 +13,10 @@ import classes from './../styles/BadgeCard.module.css'
 import Link from 'next/link'
 import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
 
-interface Tag {
-	emoji: string
-	label: string
+export interface Tag {
+	icon: string
+	name: string
+	id: string
 }
 
 export interface RecipeCardProps {
@@ -23,24 +25,33 @@ export interface RecipeCardProps {
 	// TODO: add that the only possible options are Entree, dessert, sauce, etc
 	type: string
 	tags: Tag[]
+	id: string
+	likes: number
 }
 
-export function RecipeCard({ image, title, type, tags }: RecipeCardProps) {
+export function RecipeCard({
+	image,
+	title,
+	type,
+	tags,
+	id,
+	likes
+}: RecipeCardProps) {
 	const features = tags.map(tag => (
-		<Badge variant='light' key={tag.label} leftSection={tag.emoji}>
-			{tag.label}
+		<Badge variant='light' key={tag.id} leftSection={tag.icon}>
+			{tag.name}
 		</Badge>
 	))
 
 	return (
 		<Card withBorder radius='md' p='md' className={classes.card}>
-			<Card.Section>
+			<CardSection>
 				<div className='h-[100px] md:h-[200px] xl:h-[300px] overflow-hidden'>
 					<Image src={image} alt={title} height={180} fit='cover' />
 				</div>
-			</Card.Section>
+			</CardSection>
 
-			<Card.Section className={classes.section} mt='md'>
+			<CardSection className={classes.section} mt='md'>
 				<div className='flex justify-center gap-4 flex-col'>
 					<Text fz='lg' fw={500} className='text-start'>
 						{title}
@@ -61,25 +72,19 @@ export function RecipeCard({ image, title, type, tags }: RecipeCardProps) {
 						/>
 					</div>
 				</div>
-				{/* <Text fz='sm' mt='xs'>
-					{description}
-				</Text> */}
-			</Card.Section>
+			</CardSection>
 
-			<Card.Section className={classes.section}>
+			<CardSection className={`${classes.section} mb-auto`}>
 				<Text mt='md' className={classes.label} c='dimmed'>
 					Perfect for you, if you enjoy
 				</Text>
 				<Group gap={7} mt={5}>
 					{features}
 				</Group>
-			</Card.Section>
+			</CardSection>
 
-			<Group mt='xs'>
-				<Link
-					href={`/recipes/${title.toLowerCase().split(' ').join('_')}`}
-					className='flex-4 w-full'
-				>
+			<Group mt={'xs'}>
+				<Link href={`/recipes/${id}`} className='flex-4 w-full'>
 					<Button radius='md' style={{ flex: 1, width: '100%' }}>
 						Show details
 					</Button>
@@ -100,7 +105,7 @@ export function RecipeCard({ image, title, type, tags }: RecipeCardProps) {
 						gradient={{ from: 'green', to: 'yellow' }}
 						size='lg'
 					>
-						345
+						{likes}
 					</Text>
 				</ActionIcon>
 			</Group>

@@ -7,7 +7,7 @@ import { ActionToggle } from './ThemeButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import { UserButton } from './UserProfileNavbar'
-import { useSession } from '@/utils/useSession'
+import { useSession } from '@/hooks/useSession'
 
 const links = [
 	{ link: '/auth/signup', label: 'Sign Up' },
