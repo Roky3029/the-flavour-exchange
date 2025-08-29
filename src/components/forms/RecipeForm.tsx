@@ -54,7 +54,7 @@ export function RecipeForm() {
 				message: "Wow! That looks tasty! Redirecting to the recipe's page",
 				autoClose: 5000,
 				color: 'grape',
-				onClose: () => router.push(`/recipe/${result.data}`),
+				onClose: () => router.push(`/recipes/${result.data}`),
 				loading: false
 			})
 		} else {

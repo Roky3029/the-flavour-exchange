@@ -12,6 +12,7 @@ import {
 import classes from './../styles/BadgeCard.module.css'
 import Link from 'next/link'
 import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
+import { SplitButton } from './forms/buttons/SplitButton'
 
 export interface Tag {
 	icon: string
@@ -84,11 +85,7 @@ export function RecipeCard({
 			</CardSection>
 
 			<Group mt={'xs'}>
-				<Link href={`/recipes/${id}`} className='flex-4 w-full'>
-					<Button radius='md' style={{ flex: 1, width: '100%' }}>
-						Show details
-					</Button>
-				</Link>
+				<SplitButton id={id} />
 				<ActionIcon
 					component='div'
 					variant='default'
