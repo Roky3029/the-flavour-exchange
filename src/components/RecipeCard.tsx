@@ -2,7 +2,6 @@ import { IconHeart } from '@tabler/icons-react'
 import {
 	ActionIcon,
 	Badge,
-	Button,
 	Card,
 	CardSection,
 	Group,
@@ -10,10 +9,8 @@ import {
 	Text
 } from '@mantine/core'
 import classes from './../styles/BadgeCard.module.css'
-import Link from 'next/link'
 import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
 import { SplitButton } from './forms/buttons/SplitButton'
-import { TYPES_OF_FOOD_ICONS } from '@/data/FoodIcons'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 
 export interface Tag {

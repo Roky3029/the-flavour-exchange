@@ -54,7 +54,7 @@ export function MultipleInputsTextareas({
 			? mode === 'inputs'
 				? recipe.ingredients.length
 				: recipe.steps.length
-			: 2
+			: 1
 	)
 
 	const [rows, setRows] = useState<(IngredientsFormat | string)[]>(
@@ -67,14 +67,14 @@ export function MultipleInputsTextareas({
 		// 	: Array.from({ length: 2 }, () => '')
 		mode === 'inputs'
 			? Array.from(
-					{ length: recipe ? recipe.ingredients.length : 2 },
+					{ length: recipe ? recipe.ingredients.length : 1 },
 					(n, i) => ({
 						quant: recipe ? recipe.ingredients[i].split(' ')[0] : '',
 						unit: recipe ? recipe.ingredients[i].split(' ')[1] : data[0].value,
 						ingredient: recipe ? recipe.ingredients[i].split(' ')[2] : ''
 					})
 			  )
-			: Array.from({ length: recipe ? recipe.steps.length : 2 }, (n, i) =>
+			: Array.from({ length: recipe ? recipe.steps.length : 1 }, (n, i) =>
 					recipe ? recipe.steps[i] : ''
 			  )
 	)
@@ -91,25 +91,12 @@ export function MultipleInputsTextareas({
 				setRows([...rows, ''])
 			}
 		} else {
-			if (number === 2) return
+			if (number === 1) return
 
 			setNumber(number - 1)
 			setRows(rows.slice(0, -1))
 		}
 	}
-
-	// const dataArray =
-	// 	mode === 'inputs'
-	// 		? rows.map(i =>
-	// 				[
-	// 					(i as IngredientsFormat).quant,
-	// 					(i as IngredientsFormat).unit,
-	// 					(i as IngredientsFormat).ingredient
-	// 				]
-	// 					.filter(Boolean)
-	// 					.join(' ')
-	// 		  )
-	// 		: (rows as string[])
 
 	const updateRow = (
 		i: number,
@@ -192,7 +179,7 @@ export function MultipleInputsTextareas({
 								}}
 								rightSection={
 									i === number - 1 &&
-									number > 2 && (
+									number > 1 && (
 										<IconTrash
 											stroke={1}
 											onClick={() => handleResize('-')}
@@ -217,7 +204,7 @@ export function MultipleInputsTextareas({
 							}}
 							rightSection={
 								i === number - 1 &&
-								number > 2 && (
+								number > 1 && (
 									<IconTrash
 										stroke={1}
 										onClick={() => handleResize('-')}

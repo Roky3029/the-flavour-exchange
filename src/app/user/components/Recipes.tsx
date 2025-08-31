@@ -1,7 +1,6 @@
 'use client'
 
 import { RecipeCard, Tag } from '@/components/RecipeCard'
-import { CATEGORIES_ICONS } from '@/data/FoodIcons'
 import { Data } from '@/types/recipe'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { Title } from '@mantine/core'
