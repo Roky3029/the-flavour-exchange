@@ -13,7 +13,7 @@ import {
 import classes from '@/styles/SplitButton.module.css'
 import { IconChevronDown, IconEdit, IconTrash } from '@tabler/icons-react'
 import Link from 'next/link'
-import { deleteRecipe } from '@/utils/deleteRecipe'
+import { deleteRecipe } from '@/methods/recipes/deleteRecipe'
 import { showNotification } from '@/utils/showNotification'
 import { notifications } from '@mantine/notifications'
 import { useRouter } from 'next/navigation'

@@ -2,7 +2,7 @@
 
 import Recipe from '@/models/Recipe'
 import { RecipeFormZod } from '@/schemas/recipeSchema'
-import { getSession } from './getSession'
+import { getSession } from '@/methods/user/getSession'
 
 export async function createRecipe(formData: RecipeFormZod) {
 	try {

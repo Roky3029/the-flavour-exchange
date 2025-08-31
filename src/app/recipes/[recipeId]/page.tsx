@@ -1,10 +1,10 @@
-import { fetchRecipe } from '@/utils/fetchRecipe'
+import { fetchRecipe } from '@/methods/recipes/fetchRecipe'
 import Banner from './components/Banner'
 import Ingredients from './components/Ingredients'
 import Steps from './components/Steps'
 import { Navbar } from '@/components/Navbar'
 import { Data } from '@/types/recipe'
-import { getSession } from '@/utils/getSession'
+import { getSession } from '@/methods/user/getSession'
 
 interface RecipeInterface {
 	params: Promise<{ recipeId: string }>

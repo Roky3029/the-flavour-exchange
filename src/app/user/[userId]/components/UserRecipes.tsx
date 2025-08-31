@@ -1,7 +1,6 @@
 'use client'
 
-import { RecipeCard, Tag } from '@/components/RecipeCard'
-import { CATEGORIES_ICONS } from '@/data/FoodIcons'
+import { Tag } from '@/components/RecipeCard'
 import { Data } from '@/types/recipe'
 import { Title } from '@mantine/core'
 import { AnotherUserRecipeCard } from './AnotherUserRecipeCard'

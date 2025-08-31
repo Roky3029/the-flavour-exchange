@@ -14,10 +14,10 @@ import { SelectInput } from './SelectInput'
 import { MultipleSelectionInput } from './MultipleSelectionInput'
 import { CATEGORIES_ICONS, TYPES_OF_FOOD_ICONS } from '../../data/FoodIcons'
 import { MultipleInputsTextareas } from './MultipleInputsTextareas'
-import { createRecipe } from '@/utils/createRecipe'
 import { Data } from '@/types/recipe'
 import { CategoryType, FoodType } from '@/data/typesOfFood'
-import { updateRecipe } from '@/utils/updateRecipe'
+import { createRecipe } from '@/methods/recipes/createRecipe'
+import { updateRecipe } from '@/methods/recipes/updateRecipe'
 
 interface RecipeFormProps {
 	recipeString?: string

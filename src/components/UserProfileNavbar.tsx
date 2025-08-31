@@ -9,11 +9,10 @@ import {
 import classes from './../styles/UserButton.module.css'
 import { Response } from '@/types/session'
 import { IconLogout } from '@tabler/icons-react'
-import { signOut } from '@/utils/signOut'
+import { signOut } from '@/methods/user/signOut'
 import { useRouter } from 'next/navigation'
 import { showNotification } from '@/utils/showNotification'
 import { notifications } from '@mantine/notifications'
-import Avatar from 'boring-avatars'
 import Link from 'next/link'
 import { BoringAvatar } from './BoringAvatar'
 

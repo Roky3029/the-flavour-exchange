@@ -1,9 +1,9 @@
 import { Navbar } from '@/components/Navbar'
-import { fetchUser } from '@/utils/fetchUser'
-import { getSession } from '@/utils/getSession'
+import { fetchUser } from '@/methods/user/fetchUser'
+import { getSession } from '@/methods/user/getSession'
 import UserBanner from './components/UserBanner'
 import { User } from '@/types/user'
-import { getRecipesByUserId } from '@/utils/getRecipesByUserId'
+import { getRecipesByUserId } from '@/methods/recipes/getRecipesByUserId'
 import { Data } from '@/types/recipe'
 import UserRecipes from './components/UserRecipes'
 

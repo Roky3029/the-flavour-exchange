@@ -1,7 +1,6 @@
 'use client'
 
 import { BoringAvatar } from '@/components/BoringAvatar'
-import { CATEGORIES_ICONS, TYPES_OF_FOOD_ICONS } from '@/data/FoodIcons'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { formatMinutes } from '@/utils/formatMinutes'
 import { ActionIcon, Badge, Image, Text, Title } from '@mantine/core'

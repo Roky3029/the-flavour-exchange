@@ -1,4 +1,4 @@
-import HeroImageRight from '@/components/Hero'
+import HeroImageRight from '@/components/landing/Hero'
 import { Navbar } from '@/components/Navbar'
 
 export default function Home() {

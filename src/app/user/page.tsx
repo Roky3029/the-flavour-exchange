@@ -1,8 +1,8 @@
 import { Navbar } from '@/components/Navbar'
 import MainBanner from './components/MainBanner'
 import Recipes from './components/Recipes'
-import { getSession } from '@/utils/getSession'
-import { getRecipes } from '@/utils/getRecipes'
+import { getSession } from '@/methods/user/getSession'
+import { getRecipes } from '@/methods/recipes/getRecipes'
 
 export default async function User() {
 	const session = await getSession()

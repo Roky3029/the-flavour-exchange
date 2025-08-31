@@ -11,7 +11,6 @@ import {
 } from '@mantine/core'
 import classes from '@/styles/BadgeCard.module.css'
 import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
-import { SplitButton } from '@/components/forms/buttons/SplitButton'
 import Link from 'next/link'
 
 export interface Tag {

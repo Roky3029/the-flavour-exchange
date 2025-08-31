@@ -1,8 +1,8 @@
 import { RecipeForm } from '@/components/forms/RecipeForm'
 import { Navbar } from '@/components/Navbar'
 import { Data } from '@/types/recipe'
-import { fetchRecipe } from '@/utils/fetchRecipe'
-import { getSession } from '@/utils/getSession'
+import { fetchRecipe } from '@/methods/recipes/fetchRecipe'
+import { getSession } from '@/methods/user/getSession'
 
 interface EditRecipeInterface {
 	params: Promise<{ recipeId: string }>
