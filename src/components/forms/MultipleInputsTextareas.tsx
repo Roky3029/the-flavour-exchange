@@ -98,18 +98,18 @@ export function MultipleInputsTextareas({
 		}
 	}
 
-	const dataArray =
-		mode === 'inputs'
-			? rows.map(i =>
-					[
-						(i as IngredientsFormat).quant,
-						(i as IngredientsFormat).unit,
-						(i as IngredientsFormat).ingredient
-					]
-						.filter(Boolean)
-						.join(' ')
-			  )
-			: (rows as string[])
+	// const dataArray =
+	// 	mode === 'inputs'
+	// 		? rows.map(i =>
+	// 				[
+	// 					(i as IngredientsFormat).quant,
+	// 					(i as IngredientsFormat).unit,
+	// 					(i as IngredientsFormat).ingredient
+	// 				]
+	// 					.filter(Boolean)
+	// 					.join(' ')
+	// 		  )
+	// 		: (rows as string[])
 
 	const updateRow = (
 		i: number,
@@ -123,6 +123,21 @@ export function MultipleInputsTextareas({
 			updated[i] = value // for textarea, it's just the step text
 		}
 		setRows(updated)
+
+		const dataArray =
+			mode === 'inputs'
+				? updated.map(i =>
+						[
+							(i as IngredientsFormat).quant,
+							(i as IngredientsFormat).unit,
+							(i as IngredientsFormat).ingredient
+						]
+							.filter(Boolean)
+							.join(' ')
+				  )
+				: (updated as string[])
+
+		field.onChange(dataArray)
 	}
 
 	return (
@@ -141,7 +156,7 @@ export function MultipleInputsTextareas({
 								value={(rows[i] as IngredientsFormat).quant}
 								onChange={e => {
 									updateRow(i, 'quant', e.target.value)
-									field.onChange(dataArray)
+									// field.onChange(dataArray)
 								}}
 								rightSection={
 									<NativeSelect
@@ -149,7 +164,7 @@ export function MultipleInputsTextareas({
 										value={(rows[i] as IngredientsFormat).unit}
 										onChange={e => {
 											updateRow(i, 'unit', e.target.value)
-											field.onChange(dataArray)
+											// field.onChange(dataArray)
 										}}
 										rightSectionWidth={28}
 										styles={{
@@ -173,7 +188,7 @@ export function MultipleInputsTextareas({
 								value={(rows[i] as IngredientsFormat).ingredient}
 								onChange={e => {
 									updateRow(i, 'ingredient', e.target.value)
-									field.onChange(dataArray)
+									// field.onChange(dataArray)
 								}}
 								rightSection={
 									i === number - 1 &&
@@ -198,7 +213,7 @@ export function MultipleInputsTextareas({
 							value={rows[i] as string}
 							onChange={e => {
 								updateRow(i, 'text', e.target.value)
-								field.onChange(dataArray)
+								// field.onChange(dataArray)
 							}}
 							rightSection={
 								i === number - 1 &&
