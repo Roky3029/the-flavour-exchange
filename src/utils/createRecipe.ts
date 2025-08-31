@@ -27,7 +27,8 @@ export async function createRecipe(formData: RecipeFormZod) {
 		const result = await recipe.save()
 
 		return { success: true, code: 200, data: result._id.toString() }
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (e) {
-		return { success: false, code: 500, msg: e }
+		return { success: false, code: 500, data: null }
 	}
 }

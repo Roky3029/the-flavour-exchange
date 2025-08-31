@@ -1,4 +1,5 @@
 import { CategoryType, FoodType } from '@/data/typesOfFood'
+import { Data } from '@/types/recipe'
 import { Button, NativeSelect, Textarea, TextInput, Title } from '@mantine/core'
 import { IconTrash } from '@tabler/icons-react'
 import { useState } from 'react'
@@ -37,6 +38,7 @@ interface MultipleInputsTextareasProps {
 		'ingredients' | 'steps'
 	>
 	error?: string | FieldError
+	recipe?: Data
 }
 
 export function MultipleInputsTextareas({
@@ -44,18 +46,37 @@ export function MultipleInputsTextareas({
 	maxN,
 	title,
 	field,
-	error
+	error,
+	recipe
 }: MultipleInputsTextareasProps) {
-	const [number, setNumber] = useState(2)
+	const [number, setNumber] = useState(
+		recipe
+			? mode === 'inputs'
+				? recipe.ingredients.length
+				: recipe.steps.length
+			: 2
+	)
 
 	const [rows, setRows] = useState<(IngredientsFormat | string)[]>(
+		// mode === 'inputs'
+		// 	? Array.from({ length: 2 }, () => ({
+		// 			quant: '',
+		// 			unit: data[0].value,
+		// 			ingredient: ''
+		// 	  }))
+		// 	: Array.from({ length: 2 }, () => '')
 		mode === 'inputs'
-			? Array.from({ length: 2 }, () => ({
-					quant: '',
-					unit: data[0].value,
-					ingredient: ''
-			  }))
-			: Array.from({ length: 2 }, () => '')
+			? Array.from(
+					{ length: recipe ? recipe.ingredients.length : 2 },
+					(n, i) => ({
+						quant: recipe ? recipe.ingredients[i].split(' ')[0] : '',
+						unit: recipe ? recipe.ingredients[i].split(' ')[1] : data[0].value,
+						ingredient: recipe ? recipe.ingredients[i].split(' ')[2] : ''
+					})
+			  )
+			: Array.from({ length: recipe ? recipe.steps.length : 2 }, (n, i) =>
+					recipe ? recipe.steps[i] : ''
+			  )
 	)
 
 	const handleResize = (modeResize: '+' | '-') => {

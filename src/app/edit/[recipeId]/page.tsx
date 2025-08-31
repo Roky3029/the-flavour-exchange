@@ -21,7 +21,7 @@ export default async function EditRecipe({ params }: EditRecipeInterface) {
 	return (
 		<div className='flex items-center justify-center flex-col gap-10'>
 			<Navbar />
-			<RecipeForm />
+			<RecipeForm recipeString={JSON.stringify(r)} />
 		</div>
 	)
 }

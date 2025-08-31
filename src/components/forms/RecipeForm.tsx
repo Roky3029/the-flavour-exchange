@@ -15,8 +15,18 @@ import { MultipleSelectionInput } from './MultipleSelectionInput'
 import { CATEGORIES_ICONS, TYPES_OF_FOOD_ICONS } from '../../data/FoodIcons'
 import { MultipleInputsTextareas } from './MultipleInputsTextareas'
 import { createRecipe } from '@/utils/createRecipe'
+import { Data } from '@/types/recipe'
+import { CategoryType, FoodType } from '@/data/typesOfFood'
+import { updateRecipe } from '@/utils/updateRecipe'
 
-export function RecipeForm() {
+interface RecipeFormProps {
+	recipeString?: string
+}
+
+export function RecipeForm({ recipeString }: RecipeFormProps) {
+	let r
+	if (recipeString) r = JSON.parse(recipeString) as Data
+	const recipe = r as Data
 	const router = useRouter()
 	const [loading, setLoading] = useState(false)
 	const {
@@ -26,12 +36,15 @@ export function RecipeForm() {
 	} = useForm<RecipeFormZod>({
 		resolver: zodResolver(recipeFormDataSchema),
 		defaultValues: {
-			title: '',
-			etc: 0,
-			imageUrl:
-				'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg',
-			steps: [],
-			ingredients: []
+			title: recipe ? recipe.title : '',
+			etc: recipe ? recipe.etc : 0,
+			imageUrl: recipe
+				? recipe.imageUrl
+				: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg',
+			steps: recipe ? recipe.steps : [],
+			ingredients: recipe ? recipe.ingredients : [],
+			tag: recipe ? (recipe.tag as FoodType) : undefined,
+			categories: recipe ? (recipe.labels as CategoryType[]) : undefined
 		}
 	})
 
@@ -45,22 +58,33 @@ export function RecipeForm() {
 			() => {},
 			true
 		)
-		const result = await createRecipe(formData)
+		// const result = await createRecipe(formData)
+		const result = recipe
+			? await updateRecipe(formData, recipe._id)
+			: await createRecipe(formData)
 
 		if (result.success && result.code === 200) {
 			notifications.update({
 				id,
-				title: 'Recipe created successfully!',
-				message: "Wow! That looks tasty! Redirecting to the recipe's page",
+				title: recipe
+					? 'Recipe updated successfully!'
+					: 'Recipe created successfully!',
+				message: recipe
+					? "Wow! That change makes it even better! Redirecting to the recipe's page"
+					: "Wow! That looks delicious! Redirecting to the recipe's page",
 				autoClose: 5000,
 				color: 'grape',
-				onClose: () => router.push(`/recipes/${result.data}`),
+				onClose: recipe
+					? () => router.push(`/recipes/${recipe._id}`)
+					: () => router.push(`/recipes/${result.data}`),
 				loading: false
 			})
 		} else {
 			notifications.update({
 				id,
-				title: 'Oops, something went wrong trying to create the recipe!',
+				title: recipe
+					? 'Oops, something went wrong trying to update the recipe!'
+					: 'Oops, something went wrong trying to create the recipe!',
 				message: 'Please check the fields or try again later',
 				autoClose: 5000,
 				color: 'red',
@@ -79,7 +103,7 @@ export function RecipeForm() {
 				<section className='grid grid-cols-1 md:grid-cols-2 w-full gap-10'>
 					<div className='flex items-center justify-center'>
 						{/* TODO: handle the image submission */}
-						{/* TODO: create the privary opcion (private, public, etc) */}
+						{/* TODO: create the privacy opcion (private, public, etc) */}
 						<DropzoneButton />
 					</div>
 					<div>
@@ -168,6 +192,7 @@ export function RecipeForm() {
 								/>
 							)}
 						/>
+						{/* TODO: seems like if something was wrong in this component because in both steps and ingredients there are sometimes that the last letter is not captured */}
 					</div>
 				</Container>
 
@@ -192,6 +217,7 @@ export function RecipeForm() {
 								title='Ingredient list'
 								field={field}
 								error={errors.ingredients ? errors.ingredients.message : ''}
+								recipe={recipe}
 							/>
 						)}
 					/>
@@ -218,6 +244,7 @@ export function RecipeForm() {
 								title='Steps'
 								field={field}
 								error={errors.steps ? errors.steps.message : ''}
+								recipe={recipe}
 							/>
 						)}
 					/>
@@ -230,7 +257,7 @@ export function RecipeForm() {
 					disabled={loading}
 					type='submit'
 				>
-					Submit recipe
+					{recipe ? 'Update recipe' : 'Submit recipe'}
 				</Button>
 			</form>
 		</Stack>
