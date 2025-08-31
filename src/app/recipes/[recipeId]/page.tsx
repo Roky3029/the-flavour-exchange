@@ -15,13 +15,12 @@ export default async function Recipe({ params }: RecipeInterface) {
 	const recipe = await fetchRecipe(recipeId)
 	const session = await getSession()
 
-	if (!recipe || !session) return <p>Nope.</p>
+	if (!recipe || !session) return <p>Nope.</p> // TODO: create the 404 page
 
 	const r = recipe as Data
 
 	return (
-		<div className='grid place-content-center gap-10 grid-cols-1 pb-32'>
-			{/* <h1>{recipeId}</h1> */}
+		<div className='grid place-content-center gap-10 grid-cols-1 pb-32 overflow-x-hidden'>
 			<Navbar />
 
 			<Banner

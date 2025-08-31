@@ -38,7 +38,6 @@ export const SelectInput = ({
 		label: o.name
 	}))
 
-	// const selectedOption = options.find(o => o.id === field.value)
 	return (
 		<div className='flex items-center justify-center w-full flex-col'>
 			<InputWrapper label={label} withAsterisk flex={1} className='w-full'>

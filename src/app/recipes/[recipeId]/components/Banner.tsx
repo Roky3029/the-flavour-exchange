@@ -2,6 +2,7 @@
 
 import { BoringAvatar } from '@/components/BoringAvatar'
 import { CATEGORIES_ICONS, TYPES_OF_FOOD_ICONS } from '@/data/FoodIcons'
+import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { formatMinutes } from '@/utils/formatMinutes'
 import { ActionIcon, Badge, Image, Text, Title } from '@mantine/core'
 import { ThinRoundedStar, Rating } from '@smastrom/react-rating'
@@ -35,10 +36,8 @@ export default function Banner({
 	date,
 	sessionId
 }: BannerProps) {
-	const mainTagWithIcon = TYPES_OF_FOOD_ICONS.find(el => el.id === tag)
-	const labelsWithIcon = labels.map(l =>
-		CATEGORIES_ICONS.find(el => el.id === l)
-	)
+	const mainTagWithIcon = filterIconCoincidence('types', tag)
+	const labelsWithIcon = labels.map(l => filterIconCoincidence('categories', l))
 
 	const options: Intl.DateTimeFormatOptions = {
 		year: 'numeric',

@@ -9,12 +9,10 @@ import {
 	Image,
 	Text
 } from '@mantine/core'
-import classes from './../styles/BadgeCard.module.css'
-import Link from 'next/link'
+import classes from '@/styles/BadgeCard.module.css'
 import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
-import { SplitButton } from './forms/buttons/SplitButton'
-import { TYPES_OF_FOOD_ICONS } from '@/data/FoodIcons'
-import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
+import { SplitButton } from '@/components/forms/buttons/SplitButton'
+import Link from 'next/link'
 
 export interface Tag {
 	icon: string
@@ -32,7 +30,7 @@ export interface RecipeCardProps {
 	likes: number
 }
 
-export function RecipeCard({
+export function AnotherUserRecipeCard({
 	image,
 	title,
 	type,
@@ -45,8 +43,6 @@ export function RecipeCard({
 			{tag.name}
 		</Badge>
 	))
-
-	const tag = filterIconCoincidence('types', type)
 
 	return (
 		<Card withBorder radius='md' p='md' className={classes.card}>
@@ -62,8 +58,8 @@ export function RecipeCard({
 						{title}
 					</Text>
 					<div className='flex items-center justify-between w-full'>
-						<Badge size='sm' variant='light' leftSection={tag?.icon}>
-							{tag?.name}
+						<Badge size='sm' variant='light'>
+							{type}
 						</Badge>
 						<Rating
 							style={{ maxWidth: 100 }}
@@ -89,16 +85,17 @@ export function RecipeCard({
 			</CardSection>
 
 			<Group mt={'xs'}>
-				<SplitButton id={id} />
+				<Button component={Link} href={`/recipes/${id}`} flex={4}>
+					Show details
+				</Button>
 				<ActionIcon
 					component='div'
 					variant='default'
 					radius='md'
 					size={36}
 					flex={1}
-					// disabled
-					className={classes.disabled}
 				>
+					{/* TODO: handle the like button */}
 					<IconHeart className={classes.like} stroke={1.5} />
 					<Text
 						inherit

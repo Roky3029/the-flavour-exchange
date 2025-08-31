@@ -21,7 +21,7 @@ export const DropzoneButton = () => {
 				onDrop={() => {}}
 				className={classes.dropzone}
 				radius='md'
-				accept={[MIME_TYPES.pdf]}
+				accept={[MIME_TYPES.jpeg, MIME_TYPES.png]}
 				maxSize={30 * 1024 ** 2}
 			>
 				<div style={{ pointerEvents: 'none' }}>

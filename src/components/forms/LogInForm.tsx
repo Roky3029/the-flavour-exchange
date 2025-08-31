@@ -57,7 +57,7 @@ export function LogInForm(props: PaperProps) {
 					'Enjoy your browsing through The Flavour Exchange. Redirecting to main page...',
 				autoClose: 5000,
 				color: 'grape',
-				onClose: () => router.push('/timeline'),
+				onClose: () => router.push('/user'),
 				loading: false
 			})
 		} else {

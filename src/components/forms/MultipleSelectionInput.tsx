@@ -58,24 +58,6 @@ export const MultipleSelectionInput = ({
 					}}
 				/>
 			</InputWrapper>
-
-			{/* <div className='flex flex-wrap items-center justify-start w-full gap-2'>
-				{(field.value || []).map((tag: CategoryType, i: number) => (
-					<Badge
-						variant='light'
-						key={i}
-						leftSection={CATEGORIES_ICONS.find(type => type.name === tag)?.icon}
-						onClick={() => {
-							const newTags = field.value.filter((t: CategoryType) => t !== tag)
-							field.onChange(newTags)
-						}}
-					>
-						{tag}
-					</Badge>
-				))}
-			</div>
-			<Badge variant='transparent'></Badge> */}
-			{/* <pre>{field.value}</pre> */}
 		</div>
 	)
 }

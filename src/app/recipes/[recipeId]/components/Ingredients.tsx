@@ -14,9 +14,11 @@ export default function Ingredients({ ingredients }: IngredientsProps) {
 
 			<section className='flex flex-col justify-center bg-[#383838] gap-10 w-[50%] px-10 py-5 rounded-lg'>
 				{ingredients.map((i, idx) => (
-					<div key={idx} className='flex items-center gap-4'>
+					<div key={idx} className='flex items-center gap-4 w-full max-w-full'>
 						<IconCircleDot />
-						<Text fz={20}>{i}</Text>
+						<Text truncate='end' fz={20}>
+							{i}
+						</Text>
 					</div>
 				))}
 			</section>
