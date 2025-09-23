@@ -35,6 +35,7 @@ export default async function Recipe({ params }: RecipeInterface) {
 				userId={r.user._id.toString()}
 				date={r.createdAt.toString()}
 				sessionId={session?.user.id as string}
+				recipeId={r._id.toString()}
 			/>
 
 			<div className='grid place-content-center grid-cols-1 lg:grid-cols-2 w-full gap-16 px-16'>

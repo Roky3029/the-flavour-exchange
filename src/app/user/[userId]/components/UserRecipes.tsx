@@ -12,7 +12,6 @@ interface UserRecipesProps {
 }
 
 export default function UserRecipes({ username, recipes }: UserRecipesProps) {
-	console.log(recipes)
 	return (
 		<>
 			<Title className='text-center pt-40 pb-20'>
@@ -37,6 +36,7 @@ export default function UserRecipes({ username, recipes }: UserRecipesProps) {
 							key={recipe._id}
 							id={recipe._id}
 							likes={recipe.likeCount}
+							creator={recipe.user._id.toString()}
 						/>
 					))
 				) : (

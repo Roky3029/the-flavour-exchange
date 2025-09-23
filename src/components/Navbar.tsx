@@ -1,9 +1,14 @@
 'use client'
 
-import { Burger, Container, Group } from '@mantine/core'
+import {
+	Burger,
+	Button,
+	Container,
+	Group,
+	useMantineTheme
+} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import classes from './../styles/HeaderMenu.module.css'
-import { ActionToggle } from './ThemeButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import { UserButton } from './UserProfileNavbar'
@@ -31,6 +36,7 @@ interface NavbarProps {
 export function Navbar({ wantMarginBottom }: NavbarProps) {
 	const [opened, { toggle }] = useDisclosure(false)
 	const session = useSession()
+	const theme = useMantineTheme()
 
 	const items = links.map(link => {
 		return (
@@ -56,7 +62,14 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 					)}
 
 					{session && <UserButton session={session} />}
-					<ActionToggle />
+					<Button
+						variant='outline'
+						component={Link}
+						href={'/recipes'}
+						color={theme.colors.green[3]}
+					>
+						Search recipes
+					</Button>
 					<Burger opened={opened} onClick={toggle} size='sm' hiddenFrom='sm' />
 				</div>
 			</Container>

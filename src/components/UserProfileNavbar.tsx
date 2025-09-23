@@ -1,4 +1,8 @@
-import { IconChevronRight, IconUserHexagon } from '@tabler/icons-react'
+import {
+	IconChevronRight,
+	IconStarFilled,
+	IconUserHexagon
+} from '@tabler/icons-react'
 import {
 	Group,
 	Text,
@@ -93,6 +97,19 @@ export function UserButton({ session }: UserProfileNavbarInterface) {
 						}
 					>
 						Profile
+					</Menu.Item>
+				</Link>
+				<Link href={'/liked'}>
+					<Menu.Item
+						leftSection={
+							<IconStarFilled
+								size={16}
+								color={theme.colors.yellow[6]}
+								stroke={1.5}
+							/>
+						}
+					>
+						Liked recipes
 					</Menu.Item>
 				</Link>
 				<Menu.Item

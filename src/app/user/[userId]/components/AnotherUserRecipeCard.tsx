@@ -1,6 +1,6 @@
-import { IconHeart } from '@tabler/icons-react'
+'use client'
+
 import {
-	ActionIcon,
 	Badge,
 	Button,
 	Card,
@@ -12,6 +12,7 @@ import {
 import classes from '@/styles/BadgeCard.module.css'
 import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
 import Link from 'next/link'
+import LikeButton from '@/components/LikeButton'
 
 export interface Tag {
 	icon: string
@@ -22,11 +23,11 @@ export interface Tag {
 export interface RecipeCardProps {
 	image: string
 	title: string
-	// TODO: add that the only possible options are Entree, dessert, sauce, etc
 	type: string
 	tags: Tag[]
 	id: string
 	likes: number
+	creator: string
 }
 
 export function AnotherUserRecipeCard({
@@ -35,7 +36,8 @@ export function AnotherUserRecipeCard({
 	type,
 	tags,
 	id,
-	likes
+	likes,
+	creator
 }: RecipeCardProps) {
 	const features = tags.map(tag => (
 		<Badge variant='light' key={tag.id} leftSection={tag.icon}>
@@ -87,24 +89,11 @@ export function AnotherUserRecipeCard({
 				<Button component={Link} href={`/recipes/${id}`} flex={4}>
 					Show details
 				</Button>
-				<ActionIcon
-					component='div'
-					variant='default'
-					radius='md'
-					size={36}
-					flex={1}
-				>
-					{/* TODO: handle the like button */}
-					<IconHeart className={classes.like} stroke={1.5} />
-					<Text
-						inherit
-						variant='gradient'
-						gradient={{ from: 'green', to: 'yellow' }}
-						size='lg'
-					>
-						{likes}
-					</Text>
-				</ActionIcon>
+				<LikeButton
+					likeCount={likes}
+					recipeId={id}
+					userWhoCreatedTheRecipe={creator}
+				/>
 			</Group>
 		</Card>
 	)

@@ -23,6 +23,14 @@ interface RecipeFormProps {
 	recipeString?: string
 }
 
+const randomImages = [
+	'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg',
+	'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg',
+	'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg',
+	'https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg',
+	'https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg'
+]
+
 export function RecipeForm({ recipeString }: RecipeFormProps) {
 	let r
 	if (recipeString) r = JSON.parse(recipeString) as Data
@@ -40,7 +48,7 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 			etc: recipe ? recipe.etc : 0,
 			imageUrl: recipe
 				? recipe.imageUrl
-				: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg',
+				: randomImages[Math.floor(Math.random() * randomImages.length)],
 			steps: recipe ? recipe.steps : [],
 			ingredients: recipe ? recipe.ingredients : [],
 			tag: recipe ? (recipe.tag as FoodType) : undefined,
@@ -192,7 +200,6 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 								/>
 							)}
 						/>
-						{/* TODO: seems like if something was wrong in this component because in both steps and ingredients there are sometimes that the last letter is not captured */}
 					</div>
 				</Container>
 

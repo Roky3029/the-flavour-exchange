@@ -1,11 +1,11 @@
 'use client'
 
 import { BoringAvatar } from '@/components/BoringAvatar'
+import LikeButton from '@/components/LikeButton'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { formatMinutes } from '@/utils/formatMinutes'
-import { ActionIcon, Badge, Image, Text, Title } from '@mantine/core'
+import { Badge, Image, Text, Title } from '@mantine/core'
 import { ThinRoundedStar, Rating } from '@smastrom/react-rating'
-import { IconHeart } from '@tabler/icons-react'
 import Link from 'next/link'
 
 interface BannerProps {
@@ -20,6 +20,7 @@ interface BannerProps {
 	userId: string
 	date: string
 	sessionId: string
+	recipeId: string
 }
 
 export default function Banner({
@@ -33,7 +34,8 @@ export default function Banner({
 	userName,
 	userId,
 	date,
-	sessionId
+	sessionId,
+	recipeId
 }: BannerProps) {
 	const mainTagWithIcon = filterIconCoincidence('types', tag)
 	const labelsWithIcon = labels.map(l => filterIconCoincidence('categories', l))
@@ -53,24 +55,11 @@ export default function Banner({
 			<section className='flex items-center justify-center flex-col gap-20'>
 				<div className='flex items-center justify-between w-[60%]'>
 					<Title>{title}</Title>
-					<ActionIcon
-						component='div'
-						variant='default'
-						radius='md'
-						size={36}
-						className='pointer-events-none'
-						w='10%'
-					>
-						<IconHeart className='text-red-500 w-5 h-5 mr-2.5' stroke={1.5} />
-						<Text
-							inherit
-							variant='gradient'
-							gradient={{ from: 'green', to: 'yellow' }}
-							size='lg'
-						>
-							{likeCount}
-						</Text>
-					</ActionIcon>
+					<LikeButton
+						likeCount={likeCount}
+						userWhoCreatedTheRecipe={userId}
+						recipeId={recipeId}
+					/>
 				</div>
 				<div className='flex items-center justify-between gap-10'>
 					<Text>ETC: {formatMinutes(etc)}</Text>

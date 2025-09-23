@@ -1,6 +1,7 @@
 'use client'
 
 import { RecipeCard, Tag } from '@/components/RecipeCard'
+import { useSession } from '@/hooks/useSession'
 import { Data } from '@/types/recipe'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { Title } from '@mantine/core'
@@ -8,12 +9,22 @@ import Link from 'next/link'
 
 interface RecipesProps {
 	recipes: Data[]
+	variant?: boolean
 }
 
-export default function Recipes({ recipes }: RecipesProps) {
+export default function Recipes({ recipes, variant }: RecipesProps) {
+	const session = useSession()
 	return (
 		<>
-			<Title className='text-center pt-40 pb-20'>Your published recipes</Title>
+			<Title className={`text-center ${variant ? '' : 'pt-40'} pb-20`}>
+				{variant
+					? recipes.length > 0
+						? `Showing ${recipes.length} recipe${
+								recipes.length > 1 ? 's' : ''
+						  } that fit${recipes.length > 1 ? '' : 's'} the parameters`
+						: ''
+					: 'Your published recipes'}
+			</Title>
 
 			<div
 				className={`grid ${
@@ -35,18 +46,27 @@ export default function Recipes({ recipes }: RecipesProps) {
 							key={recipe._id}
 							id={recipe._id}
 							likes={recipe.likeCount}
+							variant={variant}
+							userId={session?.user.id}
+							userIdDB={recipe.user._id}
 						/>
 					))
 				) : (
 					<Title order={2} className='text-center w-full' c='dark'>
-						Oops! Seems like you haven&apos;t yet published anything. Why not
-						start by{' '}
-						<Link
-							href={'/create'}
-							className='underline hover:text-gray-700 transition-all'
-						>
-							publishing your first recipe?
-						</Link>
+						{variant ? (
+							<span>Oops! There is no recipe that fits the criteria</span>
+						) : (
+							<span>
+								Oops! Seems like you haven&apos;t yet published anything. Why
+								not start by{' '}
+								<Link
+									href={'/create'}
+									className='underline hover:text-gray-700 transition-all'
+								>
+									publishing your first recipe?
+								</Link>
+							</span>
+						)}
 					</Title>
 				)}
 			</div>

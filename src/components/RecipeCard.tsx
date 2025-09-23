@@ -1,7 +1,6 @@
-import { IconHeart } from '@tabler/icons-react'
 import {
-	ActionIcon,
 	Badge,
+	Button,
 	Card,
 	CardSection,
 	Group,
@@ -12,6 +11,8 @@ import classes from './../styles/BadgeCard.module.css'
 import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
 import { SplitButton } from './forms/buttons/SplitButton'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
+import Link from 'next/link'
+import LikeButton from './LikeButton'
 
 export interface Tag {
 	icon: string
@@ -22,11 +23,12 @@ export interface Tag {
 export interface RecipeCardProps {
 	image: string
 	title: string
-	// TODO: add that the only possible options are Entree, dessert, sauce, etc
 	type: string
 	tags: Tag[]
 	id: string
 	likes: number
+	userIdDB: string
+	variant?: boolean
 }
 
 export function RecipeCard({
@@ -35,7 +37,9 @@ export function RecipeCard({
 	type,
 	tags,
 	id,
-	likes
+	likes,
+	variant,
+	userIdDB
 }: RecipeCardProps) {
 	const features = tags.map(tag => (
 		<Badge variant='light' key={tag.id} leftSection={tag.icon}>
@@ -86,26 +90,18 @@ export function RecipeCard({
 			</CardSection>
 
 			<Group mt={'xs'}>
-				<SplitButton id={id} />
-				<ActionIcon
-					component='div'
-					variant='default'
-					radius='md'
-					size={36}
-					flex={1}
-					// disabled
-					className={classes.disabled}
-				>
-					<IconHeart className={classes.like} stroke={1.5} />
-					<Text
-						inherit
-						variant='gradient'
-						gradient={{ from: 'green', to: 'yellow' }}
-						size='lg'
-					>
-						{likes}
-					</Text>
-				</ActionIcon>
+				{variant ? (
+					<Button component={Link} href={`/recipes/${id}`} flex={4}>
+						Show details
+					</Button>
+				) : (
+					<SplitButton id={id} />
+				)}
+				<LikeButton
+					likeCount={likes}
+					userWhoCreatedTheRecipe={userIdDB}
+					recipeId={id}
+				/>
 			</Group>
 		</Card>
 	)
