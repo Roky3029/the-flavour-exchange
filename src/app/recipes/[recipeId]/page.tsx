@@ -5,6 +5,7 @@ import Steps from './components/Steps'
 import { Navbar } from '@/components/Navbar'
 import { Data } from '@/types/recipe'
 import { getSession } from '@/methods/user/getSession'
+import { notFound } from 'next/navigation'
 
 interface RecipeInterface {
 	params: Promise<{ recipeId: string }>
@@ -15,7 +16,7 @@ export default async function Recipe({ params }: RecipeInterface) {
 	const recipe = await fetchRecipe(recipeId)
 	const session = await getSession()
 
-	if (!recipe || !session) return <p>Nope.</p> // TODO: create the 404 page
+	if (!recipe || !session) return notFound()
 
 	const r = recipe as Data
 

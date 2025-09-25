@@ -1,8 +1,8 @@
 'use client'
 
 import { BoringAvatar } from '@/components/BoringAvatar'
+import FollowButton from '@/components/FollowButton'
 import {
-	Button,
 	Container,
 	Grid,
 	GridCol,
@@ -13,9 +13,17 @@ import {
 
 interface MainBannerProps {
 	name: string
+	id: string
+	following: number
+	followers: number
 }
 
-export default function UserBanner({ name }: MainBannerProps) {
+export default function UserBanner({
+	name,
+	id,
+	following,
+	followers
+}: MainBannerProps) {
 	return (
 		<Container my='md'>
 			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing='md'>
@@ -25,9 +33,7 @@ export default function UserBanner({ name }: MainBannerProps) {
 						<Title>{name}</Title>
 					</GridCol>
 					<GridCol span={12}>
-						<Button radius='xl' color='#15803d'>
-							Follow {/* TODO: do the follow functionality */}
-						</Button>
+						<FollowButton userId={id} />
 					</GridCol>
 
 					<GridCol span={6} className='text-center text-2xl'>
@@ -37,7 +43,7 @@ export default function UserBanner({ name }: MainBannerProps) {
 							variant='gradient'
 							gradient={{ from: 'green', to: 'yellow' }}
 						>
-							345
+							{followers}
 						</Text>{' '}
 						followers
 					</GridCol>
@@ -48,7 +54,7 @@ export default function UserBanner({ name }: MainBannerProps) {
 							variant='gradient'
 							gradient={{ from: 'green', to: 'yellow' }}
 						>
-							3
+							{following}
 						</Text>{' '}
 						following
 					</GridCol>

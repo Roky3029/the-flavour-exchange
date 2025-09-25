@@ -53,11 +53,11 @@ export default function LikeButton({
 					variant='default'
 					radius='md'
 					size={36}
-					className={
+					className={`${
 						session.user.id === userWhoCreatedTheRecipe
 							? 'pointer-events-none'
 							: ''
-					}
+					}`}
 					w='10%'
 					onClick={handleLikeButton}
 					bg={hasBeenLiked ? 'gray' : 'dark'}

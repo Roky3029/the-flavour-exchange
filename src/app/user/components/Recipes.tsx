@@ -1,7 +1,7 @@
 'use client'
 
 import { RecipeCard, Tag } from '@/components/RecipeCard'
-import { useSession } from '@/hooks/useSession'
+// import { useSession } from '@/hooks/useSession'
 import { Data } from '@/types/recipe'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { Title } from '@mantine/core'
@@ -13,7 +13,7 @@ interface RecipesProps {
 }
 
 export default function Recipes({ recipes, variant }: RecipesProps) {
-	const session = useSession()
+	// const session = useSession()
 	return (
 		<>
 			<Title className={`text-center ${variant ? '' : 'pt-40'} pb-20`}>
@@ -47,7 +47,7 @@ export default function Recipes({ recipes, variant }: RecipesProps) {
 							id={recipe._id}
 							likes={recipe.likeCount}
 							variant={variant}
-							userId={session?.user.id}
+							// userId={session?.user.id}
 							userIdDB={recipe.user._id}
 						/>
 					))

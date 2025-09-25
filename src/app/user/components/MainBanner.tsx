@@ -14,9 +14,15 @@ import Link from 'next/link'
 
 interface MainBannerProps {
 	name: string
+	following: number
+	followers: number
 }
 
-export default function MainBanner({ name }: MainBannerProps) {
+export default function MainBanner({
+	name,
+	following,
+	followers
+}: MainBannerProps) {
 	return (
 		<Container my='md'>
 			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing='md'>
@@ -33,7 +39,7 @@ export default function MainBanner({ name }: MainBannerProps) {
 						</Link>
 					</GridCol>
 					<GridCol span={6}>
-						<Link href={'/create'}>
+						<Link href={'/timeline'}>
 							<Button radius='xl' color='#05a8b7'>
 								Explore your timeline
 							</Button>
@@ -47,7 +53,7 @@ export default function MainBanner({ name }: MainBannerProps) {
 						variant='gradient'
 						gradient={{ from: 'green', to: 'yellow' }}
 					>
-						345
+						{followers}
 					</Text>{' '}
 					followers
 				</div>
@@ -58,7 +64,7 @@ export default function MainBanner({ name }: MainBannerProps) {
 						variant='gradient'
 						gradient={{ from: 'green', to: 'yellow' }}
 					>
-						3
+						{following}
 					</Text>{' '}
 					following
 				</div>

@@ -20,7 +20,9 @@ export default function UserRecipes({ username, recipes }: UserRecipesProps) {
 
 			<div
 				className={`grid ${
-					recipes ? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1' : 'grid-cols-1'
+					recipes && recipes.length > 0
+						? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
+						: 'grid-cols-1'
 				} px-40 gap-16`}
 			>
 				{recipes && recipes.length >= 1 ? (
@@ -36,7 +38,7 @@ export default function UserRecipes({ username, recipes }: UserRecipesProps) {
 							key={recipe._id}
 							id={recipe._id}
 							likes={recipe.likeCount}
-							creator={recipe.user._id.toString()}
+							creator={recipe.user._id}
 						/>
 					))
 				) : (

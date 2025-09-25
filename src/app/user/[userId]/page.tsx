@@ -6,6 +6,8 @@ import { User } from '@/types/user'
 import { getRecipesByUserId } from '@/methods/recipes/getRecipesByUserId'
 import { Data } from '@/types/recipe'
 import UserRecipes from './components/UserRecipes'
+import { notFound } from 'next/navigation'
+import { getFollowingCount } from '@/methods/user/getFollowingCount'
 
 interface UserPageInterface {
 	params: Promise<{ userId: string }>
@@ -19,15 +21,21 @@ export default async function UserPage({ params }: UserPageInterface) {
 	if (!session) return
 
 	const user: User = await fetchUser(userId, session.user.id)
-	if (!user) return <p>Nope.</p> // TODO: create the 404 page
+	if (!user) return notFound()
 
 	const userRecipes = await getRecipesByUserId(user._id)
+	const following = await getFollowingCount(user._id)
 
 	return (
 		<div className='flex flex-col items-center justify-center gap-10 pb-32'>
 			<Navbar />
 
-			<UserBanner name={user.name} />
+			<UserBanner
+				name={user.name}
+				id={user._id.toString()}
+				following={following as number}
+				followers={user.followerCount}
+			/>
 
 			<UserRecipes
 				username={user.name}
