@@ -71,6 +71,8 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 			? await updateRecipe(formData, recipe._id)
 			: await createRecipe(formData)
 
+		console.log(result)
+
 		if (result.success && result.code === 200) {
 			notifications.update({
 				id,

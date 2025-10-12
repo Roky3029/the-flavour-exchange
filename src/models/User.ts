@@ -7,6 +7,7 @@ export interface IUser extends Document {
 	likedPosts: Types.ObjectId[]
 	following: Types.ObjectId[]
 	followerCount: number
+	ratedRecipes: Types.ObjectId[]
 	// password: string
 }
 
@@ -17,6 +18,11 @@ const UserSchema = new Schema<IUser>(
 		email: { type: String, required: true, unique: true },
 		likedPosts: { type: [Schema.Types.ObjectId], required: true, default: [] },
 		following: { type: [Schema.Types.ObjectId], required: true, default: [] },
+		ratedRecipes: {
+			type: [Schema.Types.ObjectId],
+			required: true,
+			default: []
+		},
 		followerCount: { type: Number, required: true, default: 0 }
 	},
 	{ timestamps: true }

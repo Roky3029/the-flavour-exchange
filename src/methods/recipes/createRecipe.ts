@@ -15,7 +15,7 @@ export async function createRecipe(formData: RecipeFormZod) {
 			title,
 			tag,
 			imageUrl,
-			rating: 0,
+			rating: [],
 			steps,
 			ingredients,
 			etc,
@@ -25,6 +25,7 @@ export async function createRecipe(formData: RecipeFormZod) {
 		})
 
 		const result = await recipe.save()
+		console.log(result)
 
 		return { success: true, code: 200, data: result._id.toString() }
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars

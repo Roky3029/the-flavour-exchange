@@ -53,6 +53,7 @@ export default function RecipesSearch() {
 								type={lr.tag}
 								key={lr._id.toString()}
 								creator={lr.user._id}
+								rating={lr.rating}
 							/>
 						))
 					) : (

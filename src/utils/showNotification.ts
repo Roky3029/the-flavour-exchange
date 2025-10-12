@@ -13,7 +13,7 @@ export const showNotification = (
 		title,
 		message,
 		onClose,
-		autoClose,
+		autoClose: autoClose > 0 ? autoClose : false,
 		color,
 		loading,
 		withCloseButton: false

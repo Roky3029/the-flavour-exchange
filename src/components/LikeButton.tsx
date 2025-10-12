@@ -47,7 +47,7 @@ export default function LikeButton({
 
 	return (
 		<>
-			{!isPendingLiked && (
+			{!isPendingLiked ? (
 				<ActionIcon
 					component='div'
 					variant='default'
@@ -75,6 +75,31 @@ export default function LikeButton({
 						size='lg'
 					>
 						{isPending ? (hasBeenLiked ? res - 1 : res + 1) : res}
+					</Text>
+				</ActionIcon>
+			) : (
+				<ActionIcon
+					component='div'
+					variant='default'
+					radius='md'
+					size={36}
+					className={`${
+						session.user.id === userWhoCreatedTheRecipe
+							? 'pointer-events-none'
+							: ''
+					}`}
+					w='10%'
+					disabled
+					bg='dark'
+				>
+					<IconHeart className='text-red-500 w-5 h-5 mr-2.5' stroke={1.5} />
+					<Text
+						inherit
+						variant='gradient'
+						gradient={{ from: 'green', to: 'yellow' }}
+						size='lg'
+					>
+						-
 					</Text>
 				</ActionIcon>
 			)}

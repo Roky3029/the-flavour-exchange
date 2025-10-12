@@ -42,7 +42,7 @@ export function LogInForm(props: PaperProps) {
 		const id = showNotification(
 			'We are processing your request!',
 			'Please wait while we resolve it',
-			4000,
+			-1,
 			'green',
 			() => {},
 			true

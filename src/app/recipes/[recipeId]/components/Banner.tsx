@@ -2,10 +2,11 @@
 
 import { BoringAvatar } from '@/components/BoringAvatar'
 import LikeButton from '@/components/LikeButton'
+import RatingStars from '@/components/RatingStars'
+import { Rating } from '@/models/Recipe'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { formatMinutes } from '@/utils/formatMinutes'
 import { Badge, Image, Text, Title } from '@mantine/core'
-import { ThinRoundedStar, Rating } from '@smastrom/react-rating'
 import Link from 'next/link'
 
 interface BannerProps {
@@ -14,7 +15,7 @@ interface BannerProps {
 	likeCount: number
 	etc: number
 	tag: string
-	rating: number
+	rating: Rating[]
 	labels: string[]
 	userName: string
 	userId: string
@@ -67,15 +68,11 @@ export default function Banner({
 						{mainTagWithIcon?.name}
 					</Badge>
 
-					<Rating
-						style={{ maxWidth: 200 }}
-						value={rating}
-						readOnly={sessionId === userId}
-						itemStyles={{
-							itemShapes: ThinRoundedStar,
-							activeFillColor: '#f59e0b',
-							inactiveFillColor: '#7a4e06'
-						}}
+					<RatingStars
+						rating={rating}
+						sessionId={sessionId}
+						userId={userId}
+						recipeId={recipeId}
 					/>
 				</div>
 				<div className='flex items-center justify-center gap-10'>

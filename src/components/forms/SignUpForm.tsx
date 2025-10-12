@@ -46,7 +46,7 @@ export function SignUpForm(props: PaperProps) {
 		const id = showNotification(
 			'We are trying to sign you up',
 			'Please wait while we do so',
-			5000,
+			-1,
 			'teal',
 			() => {},
 			true

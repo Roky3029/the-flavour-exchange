@@ -53,7 +53,13 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 			<Container size='md'>
 				<div className={classes.inner}>
 					<Link href='/'>
-						<Image src='/logo.png' alt='Logo' width={40} height={40} />
+						<Image
+							src='/logo.png'
+							alt='Logo'
+							width={40}
+							height={40}
+							className='w-auto h-auto'
+						/>
 					</Link>
 					{!session && (
 						<Group gap={5} visibleFrom='sm'>

@@ -1,9 +1,11 @@
+import { Rating } from '@/models/Recipe'
+
 export interface Data {
 	_id: string
 	title: string
 	tag: string
 	imageUrl: string
-	rating: number
+	rating: Rating[]
 	steps: string[]
 	ingredients: string[]
 	etc: number

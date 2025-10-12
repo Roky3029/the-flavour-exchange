@@ -10,9 +10,11 @@ import {
 	Text
 } from '@mantine/core'
 import classes from '@/styles/BadgeCard.module.css'
-import { Rating, ThinRoundedStar } from '@smastrom/react-rating'
+import { Rating } from '@mantine/core'
 import Link from 'next/link'
 import LikeButton from '@/components/LikeButton'
+import { Rating as RatingType } from '@/models/Recipe'
+import { calculateRating } from '@/utils/calculateRating'
 
 export interface Tag {
 	icon: string
@@ -28,6 +30,7 @@ export interface RecipeCardProps {
 	id: string
 	likes: number
 	creator: string
+	rating: RatingType[]
 }
 
 export function AnotherUserRecipeCard({
@@ -37,7 +40,8 @@ export function AnotherUserRecipeCard({
 	tags,
 	id,
 	likes,
-	creator
+	creator,
+	rating
 }: RecipeCardProps) {
 	const features = tags.map(tag => (
 		<Badge variant='light' key={tag.id} leftSection={tag.icon}>
@@ -64,13 +68,9 @@ export function AnotherUserRecipeCard({
 						</Badge>
 						<Rating
 							style={{ maxWidth: 100 }}
-							value={3}
+							value={calculateRating(rating)}
 							readOnly
-							itemStyles={{
-								itemShapes: ThinRoundedStar,
-								activeFillColor: '#f59e0b',
-								inactiveFillColor: '#7a4e06'
-							}}
+							fractions={2}
 						/>
 					</div>
 				</div>

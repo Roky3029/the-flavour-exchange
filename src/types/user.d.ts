@@ -5,6 +5,7 @@ export interface User {
 	likedPosts: string[]
 	following: string[]
 	followerCount: number
+	ratedRecipes: string[]
 	createdAt: Date
 	updatedAt: Date
 	__v: number

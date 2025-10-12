@@ -6,11 +6,15 @@ import {
 } from '@/data/typesOfFood'
 import mongoose, { Schema, Document, Types } from 'mongoose'
 
+export interface Rating {
+	userId: Types.ObjectId
+	rating: number
+}
 export interface IRecipe extends Document {
 	title: string
 	tag: FoodType
 	imageUrl: string
-	rating: number
+	rating: Rating[]
 	steps: string[]
 	ingredients: string[]
 	etc: number // Estimated Time of Cooking (in min)
@@ -18,6 +22,11 @@ export interface IRecipe extends Document {
 	labels: CategoryType[]
 	likeCount: number
 }
+
+const RatingSchema = new Schema<Rating>({
+	rating: { type: Number },
+	userId: { type: Schema.Types.ObjectId }
+})
 
 const RecipeSchema = new Schema<IRecipe>(
 	{
@@ -28,7 +37,7 @@ const RecipeSchema = new Schema<IRecipe>(
 			enum: TYPES_OF_FOOD
 		},
 		imageUrl: { type: String, required: true },
-		rating: { type: Number, required: true },
+		rating: { type: [RatingSchema], required: true },
 		steps: { type: [String], required: true },
 		ingredients: { type: [String], required: true },
 		etc: { type: Number, required: true },

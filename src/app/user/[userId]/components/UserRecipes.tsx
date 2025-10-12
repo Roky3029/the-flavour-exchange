@@ -39,6 +39,7 @@ export default function UserRecipes({ username, recipes }: UserRecipesProps) {
 							id={recipe._id}
 							likes={recipe.likeCount}
 							creator={recipe.user._id}
+							rating={recipe.rating}
 						/>
 					))
 				) : (

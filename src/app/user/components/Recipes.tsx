@@ -49,6 +49,7 @@ export default function Recipes({ recipes, variant }: RecipesProps) {
 							variant={variant}
 							// userId={session?.user.id}
 							userIdDB={recipe.user._id}
+							rating={recipe.rating}
 						/>
 					))
 				) : (
