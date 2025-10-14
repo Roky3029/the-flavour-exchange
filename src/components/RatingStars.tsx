@@ -1,5 +1,5 @@
 import { hasRatedTheRecipe } from '@/methods/user/hasRatedTheRecipe'
-import { rateRecipe } from '@/methods/user/rateRecipe'
+import { rateRecipe, removeRate } from '@/methods/user/rateActions'
 import { Rating as RType } from '@/models/Recipe'
 import { calculateRating } from '@/utils/calculateRating'
 import { Divider, Rating, Text, Tooltip } from '@mantine/core'
@@ -20,7 +20,6 @@ export default function RatingStars({
 }: RatingStarsProps) {
 	// first, check that the user has not rated the recipe yet
 	const [res, setRes] = useState(rating)
-	const [localUserRating, setLocalUserRating] = useState(0)
 	const [hasBeenRated, setHasBeenRated] = useState(false)
 	const [isPendingCheckRated, startTransitionCheckRated] = useTransition()
 	const [isPendingToBeRated, startTransitionIsPendingToBeRated] =
@@ -33,46 +32,64 @@ export default function RatingStars({
 		})
 	}, [recipeId, sessionId, res])
 
-	const handleRating = (e: number) => {
-		setLocalUserRating(e)
-		startTransitionIsPendingToBeRated(async () => {
-			const res = await rateRecipe(sessionId, recipeId, e)
-			if (!res.success) return
+	const handleRating = (e?: number) => {
+		if (hasBeenRated) {
+			startTransitionIsPendingToBeRated(async () => {
+				const res = await removeRate(sessionId, recipeId)
+				if (!res.success) return
 
-			setRes(res.newRatingArray as RType[])
-		})
+				setRes(res.newRatingArray as RType[])
+			})
+		} else {
+			startTransitionIsPendingToBeRated(async () => {
+				const res = await rateRecipe(sessionId, recipeId, e as number)
+				if (!res.success) return
+
+				setRes(res.newRatingArray as RType[])
+			})
+		}
 	}
 
 	return (
 		<div className='flex items-center justify-center gap-5'>
-			{!isPendingCheckRated ? (
+			{!isPendingCheckRated && !isPendingToBeRated ? (
 				hasBeenRated ? (
-					<>
-						<Rating
-							style={{ maxWidth: 200 }}
-							value={
-								res.filter(r => r.userId.toString() === sessionId)[0].rating
-							}
-							readOnly
-							size={'lg'}
-							fractions={2}
-						/>
+					// Component to render if the user has rated the recipe
+					<div className='flex items-center justify-center flex-col'>
+						<Tooltip label='Click to delete your rating' color='red'>
+							<Rating
+								style={{ maxWidth: 200 }}
+								value={
+									res.filter(r => r.userId.toString() === sessionId)[0].rating
+								}
+								size={'lg'}
+								readOnly
+								fractions={2}
+								onClick={() => handleRating()}
+							/>
+						</Tooltip>
 						<Text>you</Text>
 
-						<Divider orientation='vertical' size='sm' />
+						<Divider size='lg' my={5} />
 
 						<Rating
 							style={{ maxWidth: 200 }}
 							value={calculateRating(res)}
 							readOnly
-							size={'sm'}
+							size={'xs'}
 							fractions={2}
 						/>
-						<Text>{calculateRating(res)}⭐ on AVG</Text>
-					</>
+						<Text size='sm'>
+							{calculateRating(res)}⭐ on avg (out of {res.length})
+						</Text>
+					</div>
 				) : (
+					// Component to render if the user has not rated the recipe
 					<>
-						<Tooltip label='Click to rate the recipe!'>
+						<Tooltip
+							label='Click to rate the recipe!'
+							disabled={sessionId === userId}
+						>
 							<Rating
 								style={{ maxWidth: 200 }}
 								value={calculateRating(res)}
@@ -88,6 +105,7 @@ export default function RatingStars({
 					</>
 				)
 			) : (
+				// Component to show if the main component is loading
 				<>
 					<Rating style={{ maxWidth: 200 }} value={0} readOnly size={'lg'} />
 					<Text>-⭐ from - reviews</Text>
