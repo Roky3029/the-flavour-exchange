@@ -1,5 +1,6 @@
 import { Button, Container, Text, Title } from '@mantine/core'
 import classes from '@/styles/HeroImageRight.module.css'
+import Link from 'next/link'
 
 export default function HeroImageRight() {
 	return (
@@ -32,6 +33,8 @@ export default function HeroImageRight() {
 							size='xl'
 							className={classes.control}
 							mt={40}
+							component={Link}
+							href={'/auth/login'}
 						>
 							Get started
 						</Button>
