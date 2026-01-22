@@ -48,7 +48,6 @@ export const SelectInput = ({
 					placeholder='Pick one'
 					classNames={classes}
 					className='w-full'
-					// disabled={Boolean(field.value)}
 					searchable
 					error={error?.toString()}
 					{...field}
@@ -56,24 +55,6 @@ export const SelectInput = ({
 					onChange={id => field.onChange(id as FoodType)}
 				/>
 			</InputWrapper>
-			{/* <div className='flex items-center justify-center w-full gap-10 mt-5'>
-				{selectedOption && (
-					<Badge
-						variant='light'
-						key={selectedOption.id}
-						leftSection={
-							TYPES_OF_FOOD_ICONS.filter(
-								type => type.name === selectedOption.name
-							)[0].icon
-						}
-						onClick={() => {
-							field.onChange(undefined)
-						}}
-					>
-						{selectedOption.name}
-					</Badge>
-				)}
-			</div> */}
 		</div>
 	)
 }

@@ -58,13 +58,6 @@ export function MultipleInputsTextareas({
 	)
 
 	const [rows, setRows] = useState<(IngredientsFormat | string)[]>(
-		// mode === 'inputs'
-		// 	? Array.from({ length: 2 }, () => ({
-		// 			quant: '',
-		// 			unit: data[0].value,
-		// 			ingredient: ''
-		// 	  }))
-		// 	: Array.from({ length: 2 }, () => '')
 		mode === 'inputs'
 			? Array.from(
 					{ length: recipe ? recipe.ingredients.length : 1 },
@@ -73,10 +66,10 @@ export function MultipleInputsTextareas({
 						unit: recipe ? recipe.ingredients[i].split(' ')[1] : data[0].value,
 						ingredient: recipe ? recipe.ingredients[i].split(' ')[2] : ''
 					})
-			  )
+				)
 			: Array.from({ length: recipe ? recipe.steps.length : 1 }, (n, i) =>
 					recipe ? recipe.steps[i] : ''
-			  )
+				)
 	)
 
 	const handleResize = (modeResize: '+' | '-') => {
@@ -121,7 +114,7 @@ export function MultipleInputsTextareas({
 						]
 							.filter(Boolean)
 							.join(' ')
-				  )
+					)
 				: (updated as string[])
 
 		field.onChange(dataArray)
@@ -143,7 +136,6 @@ export function MultipleInputsTextareas({
 								value={(rows[i] as IngredientsFormat).quant}
 								onChange={e => {
 									updateRow(i, 'quant', e.target.value)
-									// field.onChange(dataArray)
 								}}
 								rightSection={
 									<NativeSelect
@@ -151,7 +143,6 @@ export function MultipleInputsTextareas({
 										value={(rows[i] as IngredientsFormat).unit}
 										onChange={e => {
 											updateRow(i, 'unit', e.target.value)
-											// field.onChange(dataArray)
 										}}
 										rightSectionWidth={28}
 										styles={{
@@ -175,7 +166,6 @@ export function MultipleInputsTextareas({
 								value={(rows[i] as IngredientsFormat).ingredient}
 								onChange={e => {
 									updateRow(i, 'ingredient', e.target.value)
-									// field.onChange(dataArray)
 								}}
 								rightSection={
 									i === number - 1 &&
@@ -200,7 +190,6 @@ export function MultipleInputsTextareas({
 							value={rows[i] as string}
 							onChange={e => {
 								updateRow(i, 'text', e.target.value)
-								// field.onChange(dataArray)
 							}}
 							rightSection={
 								i === number - 1 &&

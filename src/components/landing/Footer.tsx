@@ -50,7 +50,7 @@ const Footer = () => {
 				/>
 			</div>
 
-			<p>Miguel R. &copy; 2025. &emsp; Built with 🩵 in NextJS</p>
+			<p>Miguel R. &copy; 2026. &emsp; Built with 🩵 in NextJS</p>
 		</footer>
 	)
 }

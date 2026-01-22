@@ -23,14 +23,6 @@ interface RecipeFormProps {
 	recipeString?: string
 }
 
-const randomImages = [
-	'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg',
-	'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg',
-	'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg',
-	'https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg',
-	'https://images.pexels.com/photos/699953/pexels-photo-699953.jpeg'
-]
-
 export function RecipeForm({ recipeString }: RecipeFormProps) {
 	let r
 	if (recipeString) r = JSON.parse(recipeString) as Data
@@ -46,9 +38,7 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 		defaultValues: {
 			title: recipe ? recipe.title : '',
 			etc: recipe ? recipe.etc : 0,
-			imageUrl: recipe
-				? recipe.imageUrl
-				: randomImages[Math.floor(Math.random() * randomImages.length)],
+			imageUrl: recipe ? recipe.imageUrl : '',
 			steps: recipe ? recipe.steps : [],
 			ingredients: recipe ? recipe.ingredients : [],
 			tag: recipe ? (recipe.tag as FoodType) : undefined,
@@ -57,6 +47,7 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 	})
 
 	const onSubmit = handleSubmit(async (formData: RecipeFormZod) => {
+		console.log('is this executing?')
 		setLoading(true)
 		const id = showNotification(
 			'We are processing your request!',
@@ -66,12 +57,9 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 			() => {},
 			true
 		)
-		// const result = await createRecipe(formData)
 		const result = recipe
 			? await updateRecipe(formData, recipe._id)
 			: await createRecipe(formData)
-
-		console.log(result)
 
 		if (result.success && result.code === 200) {
 			notifications.update({
@@ -111,10 +99,12 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 				className='w-full flex items-center justify-center flex-col pb-40'
 			>
 				<section className='grid grid-cols-1 md:grid-cols-2 w-full gap-10'>
-					<div className='flex items-center justify-center'>
-						{/* TODO: handle the image submission */}
-						{/* TODO: create the privacy opcion (private, public, etc) */}
-						<DropzoneButton />
+					<div className='flex items-center justify-center w-full'>
+						<Controller
+							name='imageUrl'
+							control={control}
+							render={({ field }) => <DropzoneButton field={field} />}
+						/>
 					</div>
 					<div>
 						<Controller
@@ -265,6 +255,7 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 					gradient={{ from: 'green', to: 'yellow' }}
 					disabled={loading}
 					type='submit'
+					// onClick={() => console.log('Is being clicked')}
 				>
 					{recipe ? 'Update recipe' : 'Submit recipe'}
 				</Button>

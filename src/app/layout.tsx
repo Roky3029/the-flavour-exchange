@@ -42,7 +42,7 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<MantineProvider>
+				<MantineProvider defaultColorScheme='dark'>
 					<Notifications />
 					{children}
 				</MantineProvider>

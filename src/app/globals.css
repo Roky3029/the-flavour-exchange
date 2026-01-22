@@ -7,3 +7,15 @@
 	--mantine-breakpoint-lg: '75em';
 	--mantine-breakpoint-xl: '88em';
 }
+
+@media (prefers-color-scheme: dark) {
+	html {
+		color-scheme: dark;
+	}
+}
+
+@media (prefers-color-scheme: light) {
+	html {
+		color-scheme: dark;
+	}
+}

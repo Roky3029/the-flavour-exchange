@@ -6,8 +6,9 @@ import RatingStars from '@/components/RatingStars'
 import { Rating } from '@/models/Recipe'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { formatMinutes } from '@/utils/formatMinutes'
-import { Badge, Image, Text, Title } from '@mantine/core'
+import { Badge, Text, Title } from '@mantine/core'
 import Link from 'next/link'
+import Image from 'next/image'
 
 interface BannerProps {
 	imageUrl: string
@@ -50,8 +51,10 @@ export default function Banner({
 	const formattedDate = new Date(date).toLocaleDateString('en-GB', options)
 
 	return (
-		<section className='grid grid-cols-1 lg:grid-cols-2 place-content-center px-16'>
-			<Image alt={title} src={imageUrl} radius='lg' />
+		<section className='grid grid-cols-1 lg:grid-cols-2 place-content-center px-16 mt-10 w-full'>
+			<section className='flex items-center justify-center w-full'>
+				<Image alt={title} src={imageUrl} width={300} height={300} />
+			</section>
 
 			<section className='flex items-center justify-center flex-col gap-20'>
 				<div className='flex items-center justify-between w-[60%]'>
