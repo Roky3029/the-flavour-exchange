@@ -3,14 +3,14 @@
 import {
 	Anchor,
 	Button,
-	Divider,
+	// Divider,
 	Group,
 	Paper,
 	PaperProps,
 	Text
 } from '@mantine/core'
-import { GoogleButton } from './buttons/GoogleButton'
-import { GithubButton } from './buttons/GithubButton'
+// import { GoogleButton } from './buttons/GoogleButton'
+// import { GithubButton } from './buttons/GithubButton'
 import { CustomInput } from './RegisterInput'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
@@ -85,12 +85,12 @@ export function LogInForm(props: PaperProps) {
 				Welcome back to The Flavour Exchange! Log in with
 			</Text>
 
-			<Group grow mb='md' mt='md'>
+			{/* <Group grow mb='md' mt='md'>
 				<GoogleButton radius='xl'>Google</GoogleButton>
 				<GithubButton radius='xl'>Github</GithubButton>
 			</Group>
 
-			<Divider label='Or continue with email' labelPosition='center' my='lg' />
+			<Divider label='Or continue with email' labelPosition='center' my='lg' /> */}
 
 			<form onSubmit={onSubmit}>
 				<Controller

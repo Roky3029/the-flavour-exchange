@@ -3,14 +3,14 @@
 import {
 	Anchor,
 	Button,
-	Divider,
+	// Divider,
 	Group,
 	Paper,
 	PaperProps,
 	Text
 } from '@mantine/core'
-import { GoogleButton } from './buttons/GoogleButton'
-import { GithubButton } from './buttons/GithubButton'
+// import { GoogleButton } from './buttons/GoogleButton'
+// import { GithubButton } from './buttons/GithubButton'
 import { CustomInput } from './RegisterInput'
 import Link from 'next/link'
 import { useForm, Controller } from 'react-hook-form'
@@ -40,7 +40,6 @@ export function SignUpForm(props: PaperProps) {
 	const router = useRouter()
 
 	const onSubmit = handleSubmit(async (formData: FormDataZod) => {
-		// TODO: create the google and github signup
 		setLoading(true)
 
 		const id = showNotification(
@@ -105,12 +104,14 @@ export function SignUpForm(props: PaperProps) {
 				Welcome to The Flavour Exchange, register with
 			</Text>
 
-			<Group grow mb='md' mt='md'>
-				<GoogleButton radius='xl'>Google</GoogleButton>
+			{/* <Group grow mb='md' mt='md'>
+				<GoogleButton radius='xl' onClick={handleGoogleSignup}>
+					Google
+				</GoogleButton>
 				<GithubButton radius='xl'>Github</GithubButton>
-			</Group>
+			</Group> */}
 
-			<Divider label='Or continue with email' labelPosition='center' my='lg' />
+			{/* <Divider label='Or continue with email' labelPosition='center' my='lg' /> */}
 
 			<form onSubmit={onSubmit}>
 				<Controller
