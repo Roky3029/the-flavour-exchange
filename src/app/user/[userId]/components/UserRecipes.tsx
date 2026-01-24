@@ -23,7 +23,7 @@ export default function UserRecipes({ username, recipes }: UserRecipesProps) {
 					recipes && recipes.length > 0
 						? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
 						: 'grid-cols-1'
-				} px-40 gap-16`}
+				} px-40 gap-16 w-full`}
 			>
 				{recipes && recipes.length >= 1 ? (
 					recipes.map((recipe: Data) => (

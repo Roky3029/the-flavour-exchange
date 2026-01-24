@@ -1,7 +1,6 @@
 'use client'
 
 import { RecipeCard, Tag } from '@/components/RecipeCard'
-// import { useSession } from '@/hooks/useSession'
 import { Data } from '@/types/recipe'
 import { filterIconCoincidence } from '@/utils/filterIconCoincidence'
 import { Title } from '@mantine/core'
@@ -13,7 +12,6 @@ interface RecipesProps {
 }
 
 export default function Recipes({ recipes, variant }: RecipesProps) {
-	// const session = useSession()
 	return (
 		<>
 			<Title className={`text-center ${variant ? '' : 'pt-40'} pb-20`}>
@@ -21,7 +19,7 @@ export default function Recipes({ recipes, variant }: RecipesProps) {
 					? recipes.length > 0
 						? `Showing ${recipes.length} recipe${
 								recipes.length > 1 ? 's' : ''
-						  } that fit${recipes.length > 1 ? '' : 's'} the parameters`
+							} that fit${recipes.length > 1 ? '' : 's'} the parameters`
 						: ''
 					: 'Your published recipes'}
 			</Title>
@@ -31,7 +29,7 @@ export default function Recipes({ recipes, variant }: RecipesProps) {
 					recipes.length >= 1
 						? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
 						: 'grid-cols-1'
-				} px-40 gap-16`}
+				} px-40 gap-16 w-full`}
 			>
 				{recipes && recipes.length >= 1 ? (
 					recipes.map((recipe: Data) => (

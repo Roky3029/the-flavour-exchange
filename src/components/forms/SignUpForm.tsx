@@ -75,7 +75,7 @@ export function SignUpForm(props: PaperProps) {
 				message: 'You will now be redirected to your dashboard',
 				autoClose: 5000,
 				color: 'green',
-				onClose: () => router.push('/timeline'),
+				onClose: () => router.push('/user'),
 				loading: false
 			})
 		} else {

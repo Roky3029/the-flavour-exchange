@@ -45,8 +45,8 @@ export function RecipeCard({
 	userIdDB,
 	rating
 }: RecipeCardProps) {
-	const features = tags.map(tag => (
-		<Badge variant='light' key={tag.id} leftSection={tag.icon}>
+	const features = tags.map((tag, i) => (
+		<Badge variant='light' key={i} leftSection={tag.icon}>
 			{tag.name}
 		</Badge>
 	))
@@ -56,7 +56,7 @@ export function RecipeCard({
 	return (
 		<Card withBorder radius='md' p='md' className={classes.card}>
 			<CardSection>
-				<div className='h-[100px] md:h-[200px] xl:h-[300px] overflow-hidden'>
+				<div className='h-25 md:h-50 xl:h-75 overflow-hidden'>
 					<Image src={image} alt={title} height={180} fit='cover' />
 				</div>
 			</CardSection>

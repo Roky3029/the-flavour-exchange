@@ -14,8 +14,13 @@ export async function POST(req: Request) {
 		await user.save()
 
 		return NextResponse.json({ success: true }, { status: 200 })
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} catch (e: any) {
-		NextResponse.json({ success: false, error: e.message }, { status: 500 })
+	} catch (e) {
+		let message = 'Unknown Error'
+		if (e instanceof Error) message = e.message
+
+		return NextResponse.json(
+			{ success: false, error: message },
+			{ status: 500 }
+		)
 	}
 }

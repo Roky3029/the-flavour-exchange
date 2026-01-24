@@ -1,5 +1,6 @@
 import {
 	IconChevronRight,
+	IconMap,
 	IconStarFilled,
 	IconUserHexagon
 } from '@tabler/icons-react'
@@ -97,6 +98,15 @@ export function UserButton({ session }: UserProfileNavbarInterface) {
 						}
 					>
 						Profile
+					</Menu.Item>
+				</Link>
+				<Link href={'/timeline'}>
+					<Menu.Item
+						leftSection={
+							<IconMap size={16} color={theme.colors.cyan[6]} stroke={1.5} />
+						}
+					>
+						Timeline
 					</Menu.Item>
 				</Link>
 				<Link href={'/liked'}>

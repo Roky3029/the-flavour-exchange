@@ -4,12 +4,15 @@ import { Data } from '@/types/recipe'
 import { fetchRecipe } from '@/methods/recipes/fetchRecipe'
 import { getSession } from '@/methods/user/getSession'
 import { notFound } from 'next/navigation'
+import { checkIfUserIsLogged } from '@/utils/checkIfUserIsLogged'
 
 interface EditRecipeInterface {
 	params: Promise<{ recipeId: string }>
 }
 
 export default async function EditRecipe({ params }: EditRecipeInterface) {
+	await checkIfUserIsLogged()
+
 	const { recipeId } = await params
 	const recipe = await fetchRecipe(recipeId)
 	const session = await getSession()

@@ -6,8 +6,10 @@ import { getRecipes } from '@/methods/recipes/getRecipes'
 import { User as UserType } from '@/types/user'
 import User from '@/models/User'
 import { getFollowingCount } from '@/methods/user/getFollowingCount'
+import { checkIfUserIsLogged } from '@/utils/checkIfUserIsLogged'
 
 export default async function UserPage() {
+	await checkIfUserIsLogged()
 	const session = await getSession()
 
 	const recipes = await getRecipes(session?.user.id as string)
