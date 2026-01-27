@@ -6,7 +6,7 @@ import { User } from '@/types/user'
 import { getRecipesByUserId } from '@/methods/recipes/getRecipesByUserId'
 import { Data } from '@/types/recipe'
 import UserRecipes from './components/UserRecipes'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import { getFollowingCount } from '@/methods/user/getFollowingCount'
 
 interface UserPageInterface {
@@ -19,6 +19,8 @@ export default async function UserPage({ params }: UserPageInterface) {
 	const { userId } = await params
 	const session = await getSession()
 	if (!session) return
+
+	if (userId === session.user.id) redirect('/user')
 
 	const user: User = await fetchUser(userId, session.user.id)
 	if (!user) return notFound()

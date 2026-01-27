@@ -13,20 +13,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { UserButton } from './UserProfileNavbar'
 import { useSession } from '@/hooks/useSession'
+import { useRouter } from 'next/navigation'
 
 const links = [
 	{ link: '/auth/signup', label: 'Sign Up' },
 	{ link: '/auth/login', label: 'Log In' }
-	// { link: '/auth/logout', label: 'Log Out' }
-	// {
-	// 	link: '#2',
-	// 	label: 'Support',
-	// 	links: [
-	// 		{ link: '/faq', label: 'FAQ' },
-	// 		{ link: '/demo', label: 'Book a demo' },
-	// 		{ link: '/forums', label: 'Forums' }
-	// 	]
-	// }
 ]
 
 interface NavbarProps {
@@ -37,6 +28,7 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 	const [opened, { toggle }] = useDisclosure(false)
 	const session = useSession()
 	const theme = useMantineTheme()
+	const router = useRouter()
 
 	const items = links.map(link => {
 		return (
@@ -70,8 +62,7 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 					{session && <UserButton session={session} />}
 					<Button
 						variant='outline'
-						component={Link}
-						href={'/recipes'}
+						onClick={() => router.push('/recipes')}
 						color={theme.colors.green[3]}
 					>
 						Search recipes

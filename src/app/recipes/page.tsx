@@ -2,12 +2,14 @@
 
 import { Navbar } from '@/components/Navbar'
 import SearchFilters from './components/SearchFilters'
-import { useState, useTransition } from 'react'
+import { useCallback, useEffect, useState, useTransition } from 'react'
 import { Filters } from '@/types/filters'
 import { PuffLoader } from 'react-spinners'
 import { getRecipesGivenFilters } from '@/methods/recipes/getRecipesGivenFilters'
 import { Data } from '@/types/recipe'
 import Recipes from '@/app/user/components/Recipes'
+import { LIMIT_PER_SEARCH } from '@/data/consts'
+import { useHandlePagination } from '@/hooks/useHandlePagination'
 
 export default function RecipesSearch() {
 	const [filters, setFilters] = useState<Filters>({
@@ -20,13 +22,33 @@ export default function RecipesSearch() {
 	})
 	const [isPending, startTransition] = useTransition()
 	const [data, setData] = useState<Data[]>()
+	const {
+		iteration,
+		handleIteration,
+		totalNumber,
+		setTotalNumber,
+		paginationDisabled,
+		setPaginationDisabled
+	} = useHandlePagination()
 
-	const handleSearch = () => {
+	const handleSearch = useCallback(() => {
+		setPaginationDisabled(false)
 		startTransition(async () => {
-			const res = await getRecipesGivenFilters(filters)
-			setData(res)
+			const { recipes, totalNumber } = await getRecipesGivenFilters(
+				filters,
+				LIMIT_PER_SEARCH,
+				iteration
+			)
+			setData(recipes)
+			setTotalNumber(totalNumber)
 		})
-	}
+	}, [filters, iteration, setPaginationDisabled, setTotalNumber])
+
+	useEffect(() => {
+		if (!paginationDisabled) {
+			handleSearch()
+		}
+	}, [iteration, handleSearch, paginationDisabled])
 
 	return (
 		<div className='flex flex-col items-center justify-center gap-10 pb-32 w-full'>
@@ -40,8 +62,14 @@ export default function RecipesSearch() {
 
 			{isPending && <PuffLoader color='green' />}
 
-			{/* {data && !isPending && <pre>{JSON.stringify(data)}</pre>} */}
-			{data && !isPending && <Recipes recipes={data} variant />}
+			{data && !isPending && (
+				<Recipes
+					recipes={data}
+					variant
+					handleIteration={handleIteration}
+					totalNumber={totalNumber}
+				/>
+			)}
 		</div>
 	)
 }

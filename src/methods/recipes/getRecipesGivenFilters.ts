@@ -2,9 +2,14 @@
 
 import { etcIntegers } from '@/data/searchFilters'
 import Recipe from '@/models/Recipe'
+import User from '@/models/User'
 import { Filters } from '@/types/filters'
 
-export const getRecipesGivenFilters = async (filters: Filters) => {
+export const getRecipesGivenFilters = async (
+	filters: Filters,
+	limit: number,
+	iteration: number
+) => {
 	let filteringOptions = {}
 
 	if (filters.text)
@@ -47,6 +52,11 @@ export const getRecipesGivenFilters = async (filters: Filters) => {
 
 	// TODO: implement the connection functionality
 	const recipes = await Recipe.find(filteringOptions)
+		.limit(limit * iteration)
+		.populate({ path: 'user', model: User })
+		.lean()
+		.exec()
+	const totalNumber = await Recipe.find(filteringOptions).countDocuments()
 
-	return JSON.parse(JSON.stringify(recipes))
+	return JSON.parse(JSON.stringify({ recipes, totalNumber }))
 }

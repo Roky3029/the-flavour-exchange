@@ -1,19 +1,23 @@
 import { Navbar } from '@/components/Navbar'
 import MainBanner from './components/MainBanner'
-import Recipes from './components/Recipes'
 import { getSession } from '@/methods/user/getSession'
-import { getRecipes } from '@/methods/recipes/getRecipes'
 import { User as UserType } from '@/types/user'
 import User from '@/models/User'
 import { getFollowingCount } from '@/methods/user/getFollowingCount'
 import { checkIfUserIsLogged } from '@/utils/checkIfUserIsLogged'
+import { Data } from '@/types/recipe'
+import RecipesWrapper from './components/RecipesWrapper'
+
+export type DataFetch = () => Promise<{
+	recipes: Data[]
+	userData: UserType | null
+}>
 
 export default async function UserPage() {
 	await checkIfUserIsLogged()
 	const session = await getSession()
 
-	const recipes = await getRecipes(session?.user.id as string)
-	const userData: UserType | null = await User.findById(session?.user.id)
+	const userData = await User.findById(session?.user.id)
 
 	if (!userData) return
 
@@ -27,7 +31,7 @@ export default async function UserPage() {
 				followers={userData.followerCount}
 			/>
 
-			<Recipes recipes={recipes} />
+			<RecipesWrapper sessionId={session?.user.id as string} />
 		</div>
 	)
 }

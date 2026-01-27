@@ -1,8 +1,12 @@
+'use client'
+
 import { Button, Container, Text, Title } from '@mantine/core'
 import classes from '@/styles/HeroImageRight.module.css'
-import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function HeroImageRight() {
+	const router = useRouter()
+
 	return (
 		<div className={classes.root}>
 			<Container size='lg'>
@@ -33,8 +37,7 @@ export default function HeroImageRight() {
 							size='xl'
 							className={classes.control}
 							mt={40}
-							component={Link}
-							href={'/auth/login'}
+							onClick={() => router.push('/auth/login')}
 						>
 							Get started
 						</Button>

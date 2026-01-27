@@ -1,3 +1,5 @@
+'use client'
+
 import HeroImageRight from '@/components/landing/Hero'
 import { Navbar } from '@/components/Navbar'
 import Features from '@/components/landing/Features'
@@ -6,8 +8,11 @@ import AboutMe from '@/components/landing/AboutMe'
 import { Button, Title } from '@mantine/core'
 import classes from '@/styles/HeroImageRight.module.css'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+	const router = useRouter()
+
 	return (
 		<>
 			<Navbar />
@@ -23,8 +28,9 @@ export default function Home() {
 					gradient={{ from: 'green', to: 'yellow' }}
 					size='xl'
 					className={classes.control}
-					component={Link}
-					href={'/auth/login'}
+					// component={Link}
+					// href={'/auth/login'}
+					onClick={() => router.push('/auth/login')}
 				>
 					Sign in!
 				</Button>
@@ -36,8 +42,9 @@ export default function Home() {
 					gradient={{ from: 'green', to: 'teal' }}
 					size='md'
 					className={classes.control}
-					component={Link}
-					href={'/auth/login'}
+					// component={Link}
+					// href={'/auth/login'}
+					onClick={() => router.push('/auth/signup')}
 				>
 					Sign up!
 				</Button>

@@ -6,18 +6,26 @@ import { User as UserType } from '@/types/user'
 import Recipe from '@/models/Recipe'
 import { Data } from '@/types/recipe'
 
-export const fetchLikedRecipes = async () => {
+export const fetchLikedRecipes = async (limit: number, iteration: number) => {
 	const userInfo = await getSession()
 	if (!userInfo) return
 
 	const user: UserType | null = await User.findById(userInfo.user.id)
 	if (!user) return
 
-	const likedRecipes = user.likedPosts
+	const likedRecipes = user.likedPosts.slice(0, limit * iteration)
 
-	const fetchedData = await Promise.all(
-		likedRecipes.map(lr => Recipe.findById(lr))
+	const recipes = await Promise.all(
+		likedRecipes.map(lr => {
+			return Recipe.findById(lr)
+		})
 	)
 
-	return JSON.parse(JSON.stringify(fetchedData)) as Data[]
+	const fetchedData = await Promise.all(
+		user.likedPosts.map(lr => Recipe.findById(lr))
+	)
+
+	return JSON.parse(
+		JSON.stringify({ recipes, totalNumber: fetchedData.length })
+	) as { recipes: Data[]; totalNumber: number }
 }

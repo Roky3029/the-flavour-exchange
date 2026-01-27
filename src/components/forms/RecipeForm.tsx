@@ -47,7 +47,6 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 	})
 
 	const onSubmit = handleSubmit(async (formData: RecipeFormZod) => {
-		console.log('is this executing?')
 		setLoading(true)
 		const id = showNotification(
 			'We are processing your request!',
@@ -255,7 +254,6 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 					gradient={{ from: 'green', to: 'yellow' }}
 					disabled={loading}
 					type='submit'
-					// onClick={() => console.log('Is being clicked')}
 				>
 					{recipe ? 'Update recipe' : 'Submit recipe'}
 				</Button>
