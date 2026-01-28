@@ -6,6 +6,7 @@ import { useHandlePagination } from '@/hooks/useHandlePagination'
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import { getRecipes } from '@/methods/recipes/getRecipes'
 import { LIMIT_PER_SEARCH } from '@/data/consts'
+import { PuffLoader } from 'react-spinners'
 
 interface RecipesWrapperInterface {
 	sessionId: string
@@ -45,7 +46,7 @@ export default function RecipesWrapper({ sessionId }: RecipesWrapperInterface) {
 					totalNumber={totalNumber}
 				/>
 			) : (
-				<p>Loading...</p>
+				<PuffLoader color='green' />
 			)}
 		</>
 	)
