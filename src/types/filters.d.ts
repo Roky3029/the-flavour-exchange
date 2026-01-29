@@ -4,5 +4,5 @@ export interface Filters {
 	categories: string[]
 	etc: string
 	rating: string
-	connection: string
+	connection: 'everyone' | 'following'
 }

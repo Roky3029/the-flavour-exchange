@@ -56,6 +56,7 @@ export default function Recipes({
 									likes={recipe.likeCount}
 									variant={variant}
 									userIdDB={recipe.user._id}
+									userName={recipe.user.name}
 									rating={recipe.rating}
 								/>
 							)

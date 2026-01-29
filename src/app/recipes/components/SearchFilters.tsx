@@ -83,7 +83,12 @@ export default function SearchFilters({
 						label='Connection'
 						data={connectionOptions}
 						value={filters.connection}
-						onChange={e => setFilters({ ...filters, connection: e as string })}
+						onChange={e =>
+							setFilters({
+								...filters,
+								connection: e as 'everyone' | 'following'
+							})
+						}
 					/>
 				</div>
 			)}

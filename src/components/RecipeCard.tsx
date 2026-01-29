@@ -15,6 +15,7 @@ import Link from 'next/link'
 import LikeButton from './LikeButton'
 import { Rating as RatingType } from '@/models/Recipe'
 import { calculateRating } from '@/utils/calculateRating'
+import { BoringAvatar } from './BoringAvatar'
 
 export interface Tag {
 	icon: string
@@ -30,6 +31,7 @@ export interface RecipeCardProps {
 	id: string
 	likes: number
 	userIdDB: string
+	userName: string
 	rating: RatingType[]
 	variant?: boolean
 }
@@ -43,7 +45,8 @@ export function RecipeCard({
 	likes,
 	variant,
 	userIdDB,
-	rating
+	rating,
+	userName
 }: RecipeCardProps) {
 	const features = tags.map((tag, i) => (
 		<Badge variant='light' key={i} leftSection={tag.icon}>
@@ -63,9 +66,22 @@ export function RecipeCard({
 
 			<CardSection className={classes.section} mt='md'>
 				<div className='flex justify-center gap-4 flex-col'>
-					<Text fz='lg' fw={500} className='text-start'>
-						{title}
-					</Text>
+					<div className='w-full flex items-center justify-between'>
+						<Text fz='lg' fw={500} className='text-start'>
+							{title}
+						</Text>
+
+						{variant ? (
+							<div className='flex items-center justify-end gap-3 border-[1] border-amber-100 w-fit px-4 py-2 rounded-lg'>
+								<BoringAvatar name={userName} size={30} />
+								<Text fz='sm' fw={500}>
+									{userName}
+								</Text>
+							</div>
+						) : (
+							<></>
+						)}
+					</div>
 					<div className='flex items-center justify-between w-full'>
 						<Badge size='sm' variant='light' leftSection={tag?.icon}>
 							{tag?.name}
@@ -82,7 +98,7 @@ export function RecipeCard({
 
 			<CardSection className={`${classes.section} mb-auto`}>
 				<Text mt='md' className={classes.label} c='dimmed'>
-					Perfect for you, if you enjoy
+					{variant ? 'Perfect for you, if you enjoy' : 'Selected tags'}
 				</Text>
 				<Group gap={7} mt={5}>
 					{features}

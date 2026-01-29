@@ -4,11 +4,13 @@ import { etcIntegers } from '@/data/searchFilters'
 import Recipe from '@/models/Recipe'
 import User from '@/models/User'
 import { Filters } from '@/types/filters'
+import { User as UserType } from '@/types/user'
 
 export const getRecipesGivenFilters = async (
 	filters: Filters,
 	limit: number,
-	iteration: number
+	iteration: number,
+	userId: string
 ) => {
 	let filteringOptions = {}
 
@@ -49,6 +51,18 @@ export const getRecipesGivenFilters = async (
 			rating: { $gte: filters.rating.split('-')[1] }
 			// the format of the rating ID is min-X, X being the number, so we get that
 		}
+
+	const userWhoCalledTheFetch: UserType | null = await User.findById(userId)
+
+	if (!userWhoCalledTheFetch) return
+
+	console.log(filters.connection)
+	if (filters.connection === 'following') {
+		filteringOptions = {
+			...filteringOptions,
+			user: userWhoCalledTheFetch.following
+		}
+	}
 
 	// TODO: implement the connection functionality
 	const recipes = await Recipe.find(filteringOptions)

@@ -16,7 +16,7 @@ export default async function Recipe({ params }: RecipeInterface) {
 	const recipe = await fetchRecipe(recipeId)
 	const session = await getSession()
 
-	if (!recipe || !session) return notFound()
+	if (!recipe) return notFound()
 
 	const r = recipe as Data
 

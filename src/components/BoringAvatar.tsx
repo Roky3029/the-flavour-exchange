@@ -1,4 +1,8 @@
+'use client'
+
+import User from '@/models/User'
 import Avatar from 'boring-avatars'
+import { useEffect, useTransition } from 'react'
 
 interface BoringAvatarProps {
 	name: string

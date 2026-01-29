@@ -9,9 +9,7 @@ export const fetchUser = async (userId: string, sessionId: string) => {
 
 		const foundUser = await User.findOne({ _id: userId })
 		return foundUser
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	} catch (e) {
-		// throw new Error('There was an error: ' + e)
 		return
 	}
 }

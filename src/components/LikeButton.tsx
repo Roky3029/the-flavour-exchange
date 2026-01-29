@@ -29,9 +29,8 @@ export default function LikeButton({
 		})
 	}, [recipeId, session, res])
 
-	if (!session) return
-
 	const handleLikeButton = () => {
+		if (!session) return
 		if (hasBeenLiked) {
 			startTransition(async () => {
 				const res = await removeLike(recipeId, session?.user.id)
@@ -54,7 +53,7 @@ export default function LikeButton({
 					radius='md'
 					size={36}
 					className={`${
-						session.user.id === userWhoCreatedTheRecipe
+						session && session.user.id === userWhoCreatedTheRecipe
 							? 'pointer-events-none'
 							: ''
 					}`}
@@ -84,7 +83,7 @@ export default function LikeButton({
 					radius='md'
 					size={36}
 					className={`${
-						session.user.id === userWhoCreatedTheRecipe
+						session && session.user.id === userWhoCreatedTheRecipe
 							? 'pointer-events-none'
 							: ''
 					}`}

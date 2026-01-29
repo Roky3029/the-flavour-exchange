@@ -10,8 +10,10 @@ import { Data } from '@/types/recipe'
 import Recipes from '@/app/user/components/Recipes'
 import { LIMIT_PER_SEARCH } from '@/data/consts'
 import { useHandlePagination } from '@/hooks/useHandlePagination'
+import { useSession } from '@/hooks/useSession'
 
 export default function RecipesSearch() {
+	const session = useSession()
 	const [filters, setFilters] = useState<Filters>({
 		text: '',
 		type: '',
@@ -37,12 +39,13 @@ export default function RecipesSearch() {
 			const { recipes, totalNumber } = await getRecipesGivenFilters(
 				filters,
 				LIMIT_PER_SEARCH,
-				iteration
+				iteration,
+				session?.user.id
 			)
 			setData(recipes)
 			setTotalNumber(totalNumber)
 		})
-	}, [filters, iteration, setPaginationDisabled, setTotalNumber])
+	}, [filters, iteration, setPaginationDisabled, setTotalNumber, session])
 
 	useEffect(() => {
 		if (!paginationDisabled) {
