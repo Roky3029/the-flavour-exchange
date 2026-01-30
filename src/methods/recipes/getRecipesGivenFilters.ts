@@ -10,7 +10,7 @@ export const getRecipesGivenFilters = async (
 	filters: Filters,
 	limit: number,
 	iteration: number,
-	userId: string
+	userId: string | undefined
 ) => {
 	let filteringOptions = {}
 
@@ -52,15 +52,16 @@ export const getRecipesGivenFilters = async (
 			// the format of the rating ID is min-X, X being the number, so we get that
 		}
 
-	const userWhoCalledTheFetch: UserType | null = await User.findById(userId)
+	if (userId) {
+		const userWhoCalledTheFetch: UserType | null = await User.findById(userId)
 
-	if (!userWhoCalledTheFetch) return
+		if (!userWhoCalledTheFetch) return
 
-	console.log(filters.connection)
-	if (filters.connection === 'following') {
-		filteringOptions = {
-			...filteringOptions,
-			user: userWhoCalledTheFetch.following
+		if (filters.connection === 'following') {
+			filteringOptions = {
+				...filteringOptions,
+				user: userWhoCalledTheFetch.following
+			}
 		}
 	}
 

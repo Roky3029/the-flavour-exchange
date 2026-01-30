@@ -21,12 +21,14 @@ interface SearchFiltersProps {
 	filters: Filters
 	setFilters: Dispatch<SetStateAction<Filters>>
 	handleSearch: () => void
+	sessionId: string | undefined
 }
 
 export default function SearchFilters({
 	filters,
 	setFilters,
-	handleSearch
+	handleSearch,
+	sessionId
 }: SearchFiltersProps) {
 	const [showMoreFilters, setShowMoreFilters] = useState(false)
 	const theme = useMantineTheme()
@@ -79,17 +81,19 @@ export default function SearchFilters({
 						value={filters.rating}
 						onChange={e => setFilters({ ...filters, rating: e as string })}
 					/>
-					<DropdownFilter
-						label='Connection'
-						data={connectionOptions}
-						value={filters.connection}
-						onChange={e =>
-							setFilters({
-								...filters,
-								connection: e as 'everyone' | 'following'
-							})
-						}
-					/>
+					{sessionId && (
+						<DropdownFilter
+							label='Connection'
+							data={connectionOptions}
+							value={filters.connection}
+							onChange={e =>
+								setFilters({
+									...filters,
+									connection: e as 'everyone' | 'following'
+								})
+							}
+						/>
+					)}
 				</div>
 			)}
 
