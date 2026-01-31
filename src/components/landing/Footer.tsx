@@ -1,3 +1,4 @@
+import { Text } from '@mantine/core'
 import Image from 'next/image'
 
 interface SocialProps {
@@ -51,6 +52,12 @@ const Footer = () => {
 			</div>
 
 			<p>Miguel R. &copy; 2026. &emsp; Built with 🩵 in NextJS</p>
+			<Text c='dark' className='opacity-40'>
+				Stock images by Pexels{' '}
+				<a href='https://www.pexels.com/es-es/' target='_blank'>
+					(https://www.pexels.com/es-es/)
+				</a>
+			</Text>
 		</footer>
 	)
 }
