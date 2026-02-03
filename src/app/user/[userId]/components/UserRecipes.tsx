@@ -21,9 +21,9 @@ export default function UserRecipes({ username, recipes }: UserRecipesProps) {
 			<div
 				className={`grid ${
 					recipes && recipes.length > 0
-						? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
+						? 'lg:grid-cols-2 xl:grid-cols-3 grid-cols-1'
 						: 'grid-cols-1'
-				} px-40 gap-16 w-full`}
+				} px-5 lg:px-40 gap-16 w-full`}
 			>
 				{recipes && recipes.length >= 1 ? (
 					recipes.map((recipe: Data) => (

@@ -18,11 +18,10 @@ type RecipesResponse = Data[] | undefined
 export default async function UserPage({ params }: UserPageInterface) {
 	const { userId } = await params
 	const session = await getSession()
-	if (!session) return
 
-	if (userId === session.user.id) redirect('/user')
+	if (session && userId === session?.user?.id) redirect('/user')
 
-	const user: User = await fetchUser(userId, session.user.id)
+	const user: User = await fetchUser(userId)
 	if (!user) return notFound()
 
 	const userRecipes = await getRecipesByUserId(user._id)

@@ -59,20 +59,20 @@ export function RecipeCard({
 	return (
 		<Card withBorder radius='md' p='md' className={classes.card}>
 			<CardSection>
-				<div className='h-25 md:h-50 xl:h-75 overflow-hidden'>
+				<div className='h-50 md:h-75 overflow-hidden'>
 					<Image src={image} alt={title} height={180} fit='cover' />
 				</div>
 			</CardSection>
 
 			<CardSection className={classes.section} mt='md'>
 				<div className='flex justify-center gap-4 flex-col'>
-					<div className='w-full flex items-center justify-between'>
+					<div className='w-full flex items-center justify-between gap-3'>
 						<Text fz='lg' fw={500} className='text-start'>
 							{title}
 						</Text>
 
 						{variant ? (
-							<div className='flex items-center justify-end gap-3 border-[1] border-amber-100 w-fit px-4 py-2 rounded-lg'>
+							<div className='flex items-center justify-end gap-3 border-[1] border-amber-100 w-fit px-1 py-1 lg:px-4 lg:py-2 rounded-lg'>
 								<BoringAvatar name={userName} size={30} />
 								<Text fz='sm' fw={500}>
 									{userName}

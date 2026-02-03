@@ -5,6 +5,7 @@ import {
 	Button,
 	Container,
 	Group,
+	Modal,
 	useMantineTheme
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
@@ -42,6 +43,29 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 		<header
 			className={`${classes.header} ${wantMarginBottom ? `${classes.mb}` : ''}`}
 		>
+			<Modal opened={opened} onClose={toggle} fullScreen centered>
+				<div className='w-full flex items-center justify-center flex-col gap-30'>
+					{!session && <Group gap={5}>{items}</Group>}
+
+					{session && <UserButton session={session} />}
+					<Button
+						variant='outline'
+						onClick={() => router.push('/recipes')}
+						color={theme.colors.green[3]}
+					>
+						Search recipes
+					</Button>
+					<Link href='/'>
+						<Image
+							src='/logo.png'
+							alt='Logo'
+							width={100}
+							height={100}
+							className='w-auto h-auto'
+						/>
+					</Link>
+				</div>
+			</Modal>
 			<Container size='md'>
 				<div className={classes.inner}>
 					<Link href='/'>
@@ -64,6 +88,7 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 						variant='outline'
 						onClick={() => router.push('/recipes')}
 						color={theme.colors.green[3]}
+						visibleFrom='sm'
 					>
 						Search recipes
 					</Button>

@@ -22,7 +22,7 @@ export default function Recipes({
 }: RecipesProps) {
 	return (
 		<>
-			<Title className={`text-center ${variant ? '' : 'pt-40'} pb-20`}>
+			<Title className={`text-center ${variant ? '' : 'pt-40'} pb-20 px-2`}>
 				{variant
 					? recipes.length > 0
 						? `Showing ${recipes.length} (/${totalNumber}) recipe${
@@ -35,9 +35,9 @@ export default function Recipes({
 			<div
 				className={`grid ${
 					recipes.length >= 1
-						? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
+						? 'xl:grid-cols-3 md:grid-cols-2 grid-cols-1'
 						: 'grid-cols-1'
-				} px-40 gap-16 w-full`}
+				} px-10 lg:px-40 gap-16 w-full`}
 			>
 				{recipes && recipes.length >= 1 ? (
 					<>

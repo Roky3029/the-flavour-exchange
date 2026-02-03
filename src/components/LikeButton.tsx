@@ -57,7 +57,7 @@ export default function LikeButton({
 							? 'pointer-events-none'
 							: ''
 					}`}
-					w='10%'
+					w='15%'
 					onClick={handleLikeButton}
 					bg={hasBeenLiked ? 'gray' : 'dark'}
 				>

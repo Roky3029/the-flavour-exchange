@@ -24,7 +24,7 @@ const Social = ({ url, src, text, size }: SocialProps) => {
 const Footer = () => {
 	return (
 		<footer className='border-t-4 border-zinc-600 w-full px-10 py-10 mt-auto flex items-center justify-center flex-col text-white gap-5'>
-			<div className='flex items-center justify-center gap-5'>
+			<div className='flex items-center flex-col lg:flex-row justify-center gap-5'>
 				<Social
 					src='/socials/email.png'
 					size={20}
@@ -51,8 +51,10 @@ const Footer = () => {
 				/>
 			</div>
 
-			<p>Miguel R. &copy; 2026. &emsp; Built with 🩵 in NextJS</p>
-			<Text c='dark' className='opacity-40'>
+			<p className='text-center'>
+				Miguel R. &copy; 2026. &emsp; Built with 🩵 in NextJS
+			</p>
+			<Text c='dark' className='opacity-40 text-center'>
 				Stock images by Pexels{' '}
 				<a href='https://www.pexels.com/es-es/' target='_blank'>
 					(https://www.pexels.com/es-es/)

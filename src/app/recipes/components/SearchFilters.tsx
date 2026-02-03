@@ -35,7 +35,7 @@ export default function SearchFilters({
 
 	return (
 		<>
-			<div className='flex items-end justify-center w-full gap-10 px-40'>
+			<div className='flex items-center lg:items-end flex-col lg:flex-row justify-center w-full gap-10 px-10 md:px-20 xl:px-40'>
 				<TextInput
 					radius='xl'
 					size='sm'
@@ -68,7 +68,7 @@ export default function SearchFilters({
 				</Button>
 			</div>
 			{showMoreFilters && (
-				<div className='flex items-end justify-center w-full gap-10 px-40'>
+				<div className='flex items-center lg:items-end flex-col lg:flex-row justify-center w-full gap-10 px-10 lg:px-40'>
 					<DropdownFilter
 						label='Estimeted Time of Cooking'
 						data={etcOptions}

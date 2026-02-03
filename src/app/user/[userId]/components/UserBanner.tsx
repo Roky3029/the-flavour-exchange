@@ -2,14 +2,7 @@
 
 import { BoringAvatar } from '@/components/BoringAvatar'
 import FollowButton from '@/components/FollowButton'
-import {
-	Container,
-	Grid,
-	GridCol,
-	SimpleGrid,
-	Text,
-	Title
-} from '@mantine/core'
+import { Container, Text, Title } from '@mantine/core'
 
 interface MainBannerProps {
 	name: string
@@ -26,40 +19,36 @@ export default function UserBanner({
 }: MainBannerProps) {
 	return (
 		<Container my='md'>
-			<SimpleGrid cols={{ base: 1, sm: 2 }} spacing='md'>
+			<section className='grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20'>
 				<BoringAvatar name={name} size={200} />
-				<Grid gutter='md'>
-					<GridCol>
-						<Title>{name}</Title>
-					</GridCol>
-					<GridCol span={12}>
-						<FollowButton userId={id} />
-					</GridCol>
+				<div className='flex justify-around flex-col gap-5'>
+					<Title className='text-center'>{name}</Title>
+					<FollowButton userId={id} />
+				</div>
 
-					<GridCol span={6} className='text-center text-2xl'>
-						<Text
-							component='span'
-							inherit
-							variant='gradient'
-							gradient={{ from: 'green', to: 'yellow' }}
-						>
-							{followers}
-						</Text>{' '}
-						followers
-					</GridCol>
-					<GridCol span={6} className='text-center text-2xl'>
-						<Text
-							component='span'
-							inherit
-							variant='gradient'
-							gradient={{ from: 'green', to: 'yellow' }}
-						>
-							{following}
-						</Text>{' '}
-						following
-					</GridCol>
-				</Grid>
-			</SimpleGrid>
+				<div className='text-center text-2xl'>
+					<Text
+						component='span'
+						inherit
+						variant='gradient'
+						gradient={{ from: 'green', to: 'yellow' }}
+					>
+						{followers}
+					</Text>{' '}
+					followers
+				</div>
+				<div className='text-center text-2xl'>
+					<Text
+						component='span'
+						inherit
+						variant='gradient'
+						gradient={{ from: 'green', to: 'yellow' }}
+					>
+						{following}
+					</Text>{' '}
+					following
+				</div>
+			</section>
 		</Container>
 	)
 }

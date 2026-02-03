@@ -52,7 +52,7 @@ export function AnotherUserRecipeCard({
 	return (
 		<Card withBorder radius='md' p='md' className={classes.card}>
 			<CardSection>
-				<div className='h-25 md:h-50 xl:h-75 overflow-hidden'>
+				<div className='h-50 md:h-75 overflow-hidden'>
 					<Image src={image} alt={title} height={180} fit='cover' />
 				</div>
 			</CardSection>

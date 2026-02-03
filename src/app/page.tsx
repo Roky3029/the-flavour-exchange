@@ -22,14 +22,12 @@ export default function Home() {
 
 			<Features />
 
-			<div className='pb-30 w-full flex items-center justify-center gap-30'>
+			<div className='pb-30 w-full flex items-center justify-center gap-10 lg:gap-30 flex-col lg:flex-row'>
 				<Button
 					variant='gradient'
 					gradient={{ from: 'green', to: 'yellow' }}
 					size='xl'
-					className={classes.control}
-					// component={Link}
-					// href={'/auth/login'}
+					className={`${classes.control} max-w-4/5`}
 					onClick={() => router.push('/auth/login')}
 				>
 					Sign in!
@@ -41,9 +39,7 @@ export default function Home() {
 					variant='gradient'
 					gradient={{ from: 'green', to: 'teal' }}
 					size='md'
-					className={classes.control}
-					// component={Link}
-					// href={'/auth/login'}
+					className={`${classes.control} max-w-4/5`}
 					onClick={() => router.push('/auth/signup')}
 				>
 					Sign up!

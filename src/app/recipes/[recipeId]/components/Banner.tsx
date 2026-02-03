@@ -51,21 +51,21 @@ export default function Banner({
 	const formattedDate = new Date(date).toLocaleDateString('en-GB', options)
 
 	return (
-		<section className='grid grid-cols-1 lg:grid-cols-2 place-content-center px-16 mt-10 w-full'>
+		<section className='grid grid-cols-1 lg:grid-cols-2 place-content-center px-5 lg:px-16 mt-10 w-full'>
 			<section className='flex items-center justify-center w-full'>
 				<Image alt={title} src={imageUrl} width={300} height={300} />
 			</section>
 
-			<section className='flex items-center justify-center flex-col gap-20'>
-				<div className='flex items-center justify-between w-[60%]'>
-					<Title>{title}</Title>
+			<section className='flex items-center justify-center flex-col gap-20 w-full'>
+				<div className='flex items-center justify-center lg:justify-between flex-col lg:flex-row gap-3 w-[90%]'>
+					<Title className='text-base! lg:text-3xl!'>{title}</Title>
 					<LikeButton
 						likeCount={likeCount}
 						userWhoCreatedTheRecipe={userId}
 						recipeId={recipeId}
 					/>
 				</div>
-				<div className='flex items-center justify-between gap-10'>
+				<div className='flex items-center justify-between flex-col lg:flex-row gap-10'>
 					<Text>ETC: {formatMinutes(etc)}</Text>
 					<Badge variant='filled' leftSection={mainTagWithIcon?.icon}>
 						{mainTagWithIcon?.name}
@@ -78,7 +78,7 @@ export default function Banner({
 						recipeId={recipeId}
 					/>
 				</div>
-				<div className='flex items-center justify-center gap-10'>
+				<div className='grid place-content-center grid-cols-2 xl:grid-cols-5 gap-10'>
 					{labelsWithIcon.map(label => (
 						<Badge
 							variant='outline'

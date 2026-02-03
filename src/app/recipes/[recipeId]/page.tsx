@@ -39,7 +39,7 @@ export default async function Recipe({ params }: RecipeInterface) {
 				recipeId={r._id.toString()}
 			/>
 
-			<div className='grid place-content-center grid-cols-1 lg:grid-cols-2 w-full gap-16 px-16'>
+			<div className='grid place-content-center grid-cols-1 lg:grid-cols-2 w-full gap-16 px-3 lg:px-16'>
 				<Ingredients ingredients={r.ingredients} />
 				<Steps steps={r.steps} />
 			</div>
