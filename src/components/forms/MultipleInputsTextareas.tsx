@@ -127,7 +127,7 @@ export function MultipleInputsTextareas({
 				<div className='flex items-center justify-center gap-5' key={i}>
 					<Title pt={18}> {mode === 'inputs' ? ' - ' : `${i + 1}.`} </Title>
 					{mode === 'inputs' ? (
-						<>
+						<div className='w-full lg:flex gap-3 xl:gap-10 block space-y-3'>
 							<TextInput
 								flex={1}
 								type='number'
@@ -179,11 +179,11 @@ export function MultipleInputsTextareas({
 								}
 								error={mode === 'inputs' ? (error as string) : ''}
 							/>
-						</>
+						</div>
 					) : (
 						<Textarea
 							flex={1}
-							className='max-w-[60%]'
+							className='max-w-full lg:max-w-[60%]'
 							placeholder='Heat to medium the pan with a splash of olive oil and then throw inside the diced breast...'
 							minRows={2}
 							maxRows={5}
@@ -208,8 +208,8 @@ export function MultipleInputsTextareas({
 			))}
 
 			{number !== maxN && (
-				<Button color='green' w='30%' onClick={() => handleResize('+')}>
-					Add new {mode === 'inputs' ? 'ingredients' : 'step'}
+				<Button color='green' w='40%' onClick={() => handleResize('+')}>
+					Add new
 				</Button>
 			)}
 		</div>

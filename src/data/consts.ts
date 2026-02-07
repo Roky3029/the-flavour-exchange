@@ -1,1 +1,1 @@
-export const LIMIT_PER_SEARCH = 3
+export const LIMIT_PER_SEARCH = 6

@@ -92,172 +92,169 @@ export function RecipeForm({ recipeString }: RecipeFormProps) {
 	})
 
 	return (
-		<Stack gap='md'>
-			<form
-				onSubmit={onSubmit}
-				className='w-full flex items-center justify-center flex-col pb-40'
+		<form
+			onSubmit={onSubmit}
+			className='w-full flex items-center justify-center flex-col pb-40 px-5 lg:px-20'
+		>
+			<section className='grid grid-cols-1 md:grid-cols-2 w-full gap-10'>
+				<div className='flex items-center justify-center w-full'>
+					<Controller
+						name='imageUrl'
+						control={control}
+						render={({ field }) => <DropzoneButton field={field} />}
+					/>
+				</div>
+				<div>
+					<Controller
+						name='title'
+						control={control}
+						rules={{
+							required: {
+								message: 'The title is required',
+								value: true
+							}
+						}}
+						render={({ field }) => (
+							<RecipeInput
+								label='Title'
+								placeholder='Mashed potatoes with garlic mayo'
+								type='text'
+								field={field}
+								error={errors.title ? errors.title.message : ''}
+							/>
+						)}
+					/>
+
+					<Controller
+						name='etc'
+						control={control}
+						rules={{
+							required: {
+								message: 'The estimated time of cooking is required',
+								value: true
+							}
+						}}
+						render={({ field }) => (
+							<RecipeInput
+								label='ETC'
+								placeholder='40'
+								type='number'
+								field={field}
+								error={errors.etc ? errors.etc.message : ''}
+							/>
+						)}
+					/>
+				</div>
+			</section>
+			<Container
+				w='100%'
+				mt={'md'}
+				className='flex justify-center items-center w-full flex-col lg:flex-row gap-20'
 			>
-				<section className='grid grid-cols-1 md:grid-cols-2 w-full gap-10'>
-					<div className='flex items-center justify-center w-full'>
-						<Controller
-							name='imageUrl'
-							control={control}
-							render={({ field }) => <DropzoneButton field={field} />}
-						/>
-					</div>
-					<div>
-						<Controller
-							name='title'
-							control={control}
-							rules={{
-								required: {
-									message: 'The title is required',
-									value: true
-								}
-							}}
-							render={({ field }) => (
-								<RecipeInput
-									label='Title'
-									placeholder='Mashed potatoes with garlic mayo'
-									type='text'
-									field={field}
-									error={errors.title ? errors.title.message : ''}
-								/>
-							)}
-						/>
-
-						<Controller
-							name='etc'
-							control={control}
-							rules={{
-								required: {
-									message: 'The estimated time of cooking is required',
-									value: true
-								}
-							}}
-							render={({ field }) => (
-								<RecipeInput
-									label='ETC'
-									placeholder='40'
-									type='number'
-									field={field}
-									error={errors.etc ? errors.etc.message : ''}
-								/>
-							)}
-						/>
-					</div>
-				</section>
-				<Container
-					w='100%'
-					mt={'md'}
-					className='flex justify-center items-center w-full gap-20'
-				>
-					<div className='w-1/2 flex justify-center items-center'>
-						<Controller
-							name='tag'
-							control={control}
-							rules={{
-								required: {
-									message: 'The tag is required',
-									value: true
-								}
-							}}
-							render={({ field }) => (
-								<SelectInput
-									options={TYPES_OF_FOOD_ICONS}
-									label='Select the main tag of the recipe'
-									field={field}
-									error={errors.tag ? errors.tag.message : ''}
-								/>
-							)}
-						/>
-					</div>
-					<div className='w-1/2 flex justify-center items-center'>
-						<Controller
-							name='categories'
-							control={control}
-							rules={{
-								required: {
-									message: 'The categories are required',
-									value: true
-								}
-							}}
-							render={({ field }) => (
-								<MultipleSelectionInput
-									options={CATEGORIES_ICONS}
-									label='Select the categories of the recipe (5 max)'
-									field={field}
-									error={errors.categories ? errors.categories.message : ''}
-								/>
-							)}
-						/>
-					</div>
-				</Container>
-
-				<Container
-					w='100%'
-					mt={'md'}
-					className='flex items-center justify-center w-full gap-20 pt-20'
-				>
+				<div className='lg:w-1/2 flex justify-center items-center'>
 					<Controller
-						name='ingredients'
+						name='tag'
 						control={control}
 						rules={{
 							required: {
-								message: 'The ingredients are required',
+								message: 'The tag is required',
 								value: true
 							}
 						}}
 						render={({ field }) => (
-							<MultipleInputsTextareas
-								mode='inputs'
-								maxN={15}
-								title='Ingredient list'
+							<SelectInput
+								options={TYPES_OF_FOOD_ICONS}
+								label='Select the main tag of the recipe'
 								field={field}
-								error={errors.ingredients ? errors.ingredients.message : ''}
-								recipe={recipe}
+								error={errors.tag ? errors.tag.message : ''}
 							/>
 						)}
 					/>
-				</Container>
-
-				<Container
-					w='100%'
-					mt={'md'}
-					className='flex items-center justify-center w-full gap-20'
-				>
+				</div>
+				<div className='lg:w-1/2 flex justify-center items-center'>
 					<Controller
-						name='steps'
+						name='categories'
 						control={control}
 						rules={{
 							required: {
-								message: 'The steps are required',
+								message: 'The categories are required',
 								value: true
 							}
 						}}
 						render={({ field }) => (
-							<MultipleInputsTextareas
-								mode='textarea'
-								maxN={10}
-								title='Steps'
+							<MultipleSelectionInput
+								options={CATEGORIES_ICONS}
+								label='Select the categories of the recipe (5 max)'
 								field={field}
-								error={errors.steps ? errors.steps.message : ''}
-								recipe={recipe}
+								error={errors.categories ? errors.categories.message : ''}
 							/>
 						)}
 					/>
-				</Container>
+				</div>
+			</Container>
 
-				<Button
-					w='100%'
-					variant='gradient'
-					gradient={{ from: 'green', to: 'yellow' }}
-					disabled={loading}
-					type='submit'
-				>
-					{recipe ? 'Update recipe' : 'Submit recipe'}
-				</Button>
-			</form>
-		</Stack>
+			<Container
+				mt={'md'}
+				className='flex items-center justify-center w-full pt-20'
+			>
+				<Controller
+					name='ingredients'
+					control={control}
+					rules={{
+						required: {
+							message: 'The ingredients are required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<MultipleInputsTextareas
+							mode='inputs'
+							maxN={15}
+							title='Ingredient list'
+							field={field}
+							error={errors.ingredients ? errors.ingredients.message : ''}
+							recipe={recipe}
+						/>
+					)}
+				/>
+			</Container>
+
+			<Container
+				w='100%'
+				mt={'md'}
+				className='flex items-center justify-center w-full gap-20'
+			>
+				<Controller
+					name='steps'
+					control={control}
+					rules={{
+						required: {
+							message: 'The steps are required',
+							value: true
+						}
+					}}
+					render={({ field }) => (
+						<MultipleInputsTextareas
+							mode='textarea'
+							maxN={10}
+							title='Steps'
+							field={field}
+							error={errors.steps ? errors.steps.message : ''}
+							recipe={recipe}
+						/>
+					)}
+				/>
+			</Container>
+
+			<Button
+				w='100%'
+				variant='gradient'
+				gradient={{ from: 'green', to: 'yellow' }}
+				disabled={loading}
+				type='submit'
+			>
+				{recipe ? 'Update recipe' : 'Submit recipe'}
+			</Button>
+		</form>
 	)
 }

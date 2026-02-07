@@ -43,28 +43,26 @@ export default function MainBanner({
 				title='People you are following'
 				variant='following'
 			/>
-			<Container my='md'>
-				<SimpleGrid cols={{ base: 1, sm: 2 }} spacing='md'>
+			<section>
+				<div className='flex items-center justify-center flex-col lg:flex-row w-full px-3 lg:px-20'>
 					<BoringAvatar name={name} size={200} />
-					<Grid gutter='md'>
-						<GridCol>
-							<Title>Welcome {name}. What are we feeling today?</Title>
-						</GridCol>
-						<GridCol span={6}>
+					<section className='px-3'>
+						<Title>Welcome {name}. What are we feeling today?</Title>
+						<div className='flex items-center justify-center gap-3 py-5'>
 							<Link href={'/create'}>
 								<Button radius='xl' color='#15803d'>
 									Publish a new recipe
 								</Button>
 							</Link>
-						</GridCol>
-						<GridCol span={6}>
 							<Link href={'/timeline'}>
 								<Button radius='xl' color='#05a8b7'>
 									Explore your timeline
 								</Button>
 							</Link>
-						</GridCol>
-					</Grid>
+						</div>
+					</section>
+				</div>
+				<section className='flex items-center justify-center gap-5 lg:gap-20 lg:flex-row flex-col'>
 					<div className='text-center text-2xl cursor-pointer' onClick={open}>
 						<Text
 							component='span'
@@ -87,8 +85,8 @@ export default function MainBanner({
 						</Text>{' '}
 						following
 					</div>
-				</SimpleGrid>
-			</Container>
+				</section>
+			</section>
 		</>
 	)
 }

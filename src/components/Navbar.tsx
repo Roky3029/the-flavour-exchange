@@ -15,6 +15,7 @@ import Image from 'next/image'
 import { UserButton } from './UserProfileNavbar'
 import { useSession } from '@/hooks/useSession'
 import { useRouter } from 'next/navigation'
+import ModalNavbar from './ModalNavbar'
 
 const links = [
 	{ link: '/auth/signup', label: 'Sign Up' },
@@ -30,6 +31,11 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 	const session = useSession()
 	const theme = useMantineTheme()
 	const router = useRouter()
+	let isMobile = false
+
+	if (typeof window !== 'undefined') {
+		isMobile = window ? window.matchMedia('(max-width: 600px)').matches : false
+	}
 
 	const items = links.map(link => {
 		return (
@@ -43,29 +49,15 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 		<header
 			className={`${classes.header} ${wantMarginBottom ? `${classes.mb}` : ''}`}
 		>
-			<Modal opened={opened} onClose={toggle} fullScreen centered>
-				<div className='w-full flex items-center justify-center flex-col gap-30'>
-					{!session && <Group gap={5}>{items}</Group>}
+			<ModalNavbar
+				items={items}
+				opened={opened}
+				router={router}
+				session={session}
+				theme={theme}
+				toggle={toggle}
+			/>
 
-					{session && <UserButton session={session} />}
-					<Button
-						variant='outline'
-						onClick={() => router.push('/recipes')}
-						color={theme.colors.green[3]}
-					>
-						Search recipes
-					</Button>
-					<Link href='/'>
-						<Image
-							src='/logo.png'
-							alt='Logo'
-							width={100}
-							height={100}
-							className='w-auto h-auto'
-						/>
-					</Link>
-				</div>
-			</Modal>
 			<Container size='md'>
 				<div className={classes.inner}>
 					<Link href='/'>
@@ -83,7 +75,7 @@ export function Navbar({ wantMarginBottom }: NavbarProps) {
 						</Group>
 					)}
 
-					{session && <UserButton session={session} />}
+					{session && <UserButton session={session} doNotShowText={isMobile} />}
 					<Button
 						variant='outline'
 						onClick={() => router.push('/recipes')}

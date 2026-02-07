@@ -51,9 +51,9 @@ export default function PageClient() {
 				<div
 					className={`grid ${
 						likedRecipes && likedRecipes.length > 0
-							? 'lg:grid-cols-3 md:grid-cols-2 grid-cols-1'
+							? 'xl:grid-cols-3 md:grid-cols-2 grid-cols-1'
 							: 'grid-cols-1'
-					} px-40 gap-16 w-full`}
+					} px-6 lg:px-40 gap-16 w-full`}
 				>
 					{likedRecipes && likedRecipes.length !== 0 ? (
 						<>

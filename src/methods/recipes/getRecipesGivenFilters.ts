@@ -65,7 +65,6 @@ export const getRecipesGivenFilters = async (
 		}
 	}
 
-	// TODO: implement the connection functionality
 	const recipes = await Recipe.find(filteringOptions)
 		.limit(limit * iteration)
 		.populate({ path: 'user', model: User })

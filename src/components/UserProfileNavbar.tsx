@@ -23,9 +23,13 @@ import { BoringAvatar } from './BoringAvatar'
 
 interface UserProfileNavbarInterface {
 	session: Response | null
+	doNotShowText?: boolean
 }
 
-export function UserButton({ session }: UserProfileNavbarInterface) {
+export function UserButton({
+	session,
+	doNotShowText
+}: UserProfileNavbarInterface) {
 	const theme = useMantineTheme()
 	const router = useRouter()
 
@@ -73,16 +77,20 @@ export function UserButton({ session }: UserProfileNavbarInterface) {
 					<Group>
 						{/* <Avatar src={session?.user.image} radius='xl' /> */}
 						<BoringAvatar name={session!.user.name} />
-						<div style={{ flex: 1 }}>
-							<Text size='sm' fw={500}>
-								{session?.user.name}
-							</Text>
+						{!doNotShowText && (
+							<>
+								<div style={{ flex: 1 }}>
+									<Text size='sm' fw={500}>
+										{session?.user.name}
+									</Text>
 
-							<Text c='dimmed' size='xs'>
-								{session?.user.email}
-							</Text>
-						</div>
-						<IconChevronRight size={14} stroke={1.5} />
+									<Text c='dimmed' size='xs'>
+										{session?.user.email}
+									</Text>
+								</div>
+								<IconChevronRight size={14} stroke={1.5} />
+							</>
+						)}
 					</Group>
 				</UnstyledButton>
 			</Menu.Target>

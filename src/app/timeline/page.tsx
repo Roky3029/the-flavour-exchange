@@ -3,8 +3,7 @@ import { getTimelineRecipes } from '@/methods/misc/getTimelineRecipes'
 import { getSession } from '@/methods/user/getSession'
 import { Data } from '@/types/recipe'
 import { checkIfUserIsLogged } from '@/utils/checkIfUserIsLogged'
-import FollowingRecipes from './components/FollowingRecipes'
-import DiscoverRecipes from './components/DiscoverRecipes'
+import RecipesTimeline from './components/RecipesTimeline'
 
 interface recipesInterface {
 	recipesFromFollowingUsers: Data[]
@@ -22,12 +21,11 @@ export default async function Timeline() {
 		<div>
 			<Navbar />
 
-			{/* TODO: componentize this */}
-			<FollowingRecipes
-				recipesFromFollowers={recipes.recipesFromFollowingUsers}
+			<RecipesTimeline
+				variant='following'
+				recipes={recipes.recipesFromFollowingUsers}
 			/>
-
-			<DiscoverRecipes mostRecentRecipes={recipes.mostRecentRecipes} />
+			<RecipesTimeline variant='discover' recipes={recipes.mostRecentRecipes} />
 		</div>
 	)
 }
