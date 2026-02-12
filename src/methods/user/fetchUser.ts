@@ -1,9 +1,10 @@
 'use server'
 
+import connectDB from '@/lib/connectDB'
 import User from '@/models/User'
-import { redirect } from 'next/navigation'
 
 export const fetchUser = async (userId: string) => {
+	await connectDB()
 	try {
 		const foundUser = await User.findOne({ _id: userId })
 		return foundUser

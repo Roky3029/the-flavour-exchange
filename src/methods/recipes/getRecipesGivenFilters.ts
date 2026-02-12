@@ -1,6 +1,7 @@
 'use server'
 
 import { etcIntegers } from '@/data/searchFilters'
+import connectDB from '@/lib/connectDB'
 import Recipe from '@/models/Recipe'
 import User from '@/models/User'
 import { Filters } from '@/types/filters'
@@ -12,6 +13,7 @@ export const getRecipesGivenFilters = async (
 	iteration: number,
 	userId: string | undefined
 ) => {
+	await connectDB()
 	let filteringOptions = {}
 
 	if (filters.text)

@@ -1,8 +1,10 @@
 'use server'
 
+import connectDB from '@/lib/connectDB'
 import Recipe from '@/models/Recipe'
 
 export const deleteRecipe = async (recipeId: string) => {
+	await connectDB()
 	try {
 		await Recipe.findByIdAndDelete(recipeId)
 		return { success: true, code: 200 }

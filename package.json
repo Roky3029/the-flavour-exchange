@@ -20,8 +20,6 @@
 		"@mantinex/mantine-logo": "2.0.0",
 		"@smastrom/react-rating": "1.5.0",
 		"@tabler/icons-react": "3.34.1",
-		"@types/bcrypt": "6.0.0",
-		"bcrypt": "6.0.0",
 		"better-auth": "^1.4.18",
 		"boring-avatars": "2.0.1",
 		"embla-carousel": "8.6.0",

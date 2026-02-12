@@ -3,8 +3,10 @@
 import mongoose from 'mongoose'
 import Recipe from '@/models/Recipe'
 import User from '@/models/User'
+import connectDB from '@/lib/connectDB'
 
 export const getTimelineRecipes = async (userId: string) => {
+	await connectDB()
 	const followingIds = (await User.findOne({ _id: userId }))['following']
 
 	// We will get the recipes from the users we are following and are 1 month or less old

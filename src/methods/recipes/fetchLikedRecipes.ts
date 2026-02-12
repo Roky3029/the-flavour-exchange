@@ -5,8 +5,10 @@ import { getSession } from '../user/getSession'
 import { User as UserType } from '@/types/user'
 import Recipe from '@/models/Recipe'
 import { Data } from '@/types/recipe'
+import connectDB from '@/lib/connectDB'
 
 export const fetchLikedRecipes = async (limit: number, iteration: number) => {
+	await connectDB()
 	const userInfo = await getSession()
 	if (!userInfo) return
 

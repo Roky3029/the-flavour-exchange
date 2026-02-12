@@ -5,12 +5,14 @@ import { fetchRecipe } from '../recipes/fetchRecipe'
 import { User as UserType } from '@/types/user'
 import { Data } from '@/types/recipe'
 import Recipe from '@/models/Recipe'
+import connectDB from '@/lib/connectDB'
 
 export const rateRecipe = async (
 	userId: string,
 	recipeId: string,
 	rating: number
 ) => {
+	await connectDB()
 	const user: UserType | null = await User.findOne({ _id: userId })
 	const recipe: Data | null = await fetchRecipe(recipeId)
 
@@ -34,6 +36,7 @@ export const rateRecipe = async (
 }
 
 export const removeRate = async (userId: string, recipeId: string) => {
+	await connectDB()
 	const user: UserType | null = await User.findOne({ _id: userId })
 	const recipe: Data | null = await fetchRecipe(recipeId)
 

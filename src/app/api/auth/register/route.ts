@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server'
 import User from '@/models/User'
+import connectDB from '@/lib/connectDB'
 
 export async function POST(req: Request) {
+	await connectDB()
 	try {
 		const body = await req.json()
 

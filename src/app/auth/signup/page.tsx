@@ -1,6 +1,8 @@
 import { SignUpForm } from '@/components/forms/SignUpForm'
+import connectDB from '@/lib/connectDB'
 
-export default function LoginPage() {
+export default async function LoginPage() {
+	await connectDB()
 	return (
 		<div className='flex items-center justify-center w-full h-screen bg-[url(/restaurant.jpg)] relative bg-cover bg-center'>
 			<div className='absolute inset-0 bg-black/70'></div>

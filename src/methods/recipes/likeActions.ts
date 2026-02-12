@@ -1,11 +1,13 @@
 'use server'
 
+import connectDB from '@/lib/connectDB'
 import Recipe from '@/models/Recipe'
 import User from '@/models/User'
 import { Data } from '@/types/recipe'
 import { User as UserType } from '@/types/user'
 
 export const addLike = async (recipeId: string, userId: string) => {
+	await connectDB()
 	// Update the like count on the post
 	// add the post id to the liked posts array of the user
 	try {
@@ -39,6 +41,7 @@ export const addLike = async (recipeId: string, userId: string) => {
 }
 
 export const removeLike = async (recipeId: string, userId: string) => {
+	await connectDB()
 	try {
 		// const updatedRecipe = await Recipe.findByIdAndUpdate(recipeId, {
 		// 	likeCount: likes + 1

@@ -1,5 +1,6 @@
 'use server'
 
+import connectDB from '@/lib/connectDB'
 import User from '@/models/User'
 import { User as UserType } from '@/types/user'
 
@@ -7,10 +8,10 @@ export const followUser = async (
 	userFollowingId: string,
 	userToBeFollowedId: string
 ) => {
+	await connectDB()
 	const userFollowing: UserType | null = await User.findById(userFollowingId) // The user that has clicked on the "follow" button
-	const userToBeFollowed: UserType | null = await User.findById(
-		userToBeFollowedId
-	) // The user which is now being followed
+	const userToBeFollowed: UserType | null =
+		await User.findById(userToBeFollowedId) // The user which is now being followed
 
 	if (!userFollowing || !userToBeFollowed) return false
 
@@ -32,10 +33,10 @@ export const unfollowUser = async (
 	userFollowingId: string,
 	userToBeUnfollowedId: string
 ) => {
+	await connectDB()
 	const userFollowing: UserType | null = await User.findById(userFollowingId) // The user that has clicked on the "follow" button
-	const userToBeFollowed: UserType | null = await User.findById(
-		userToBeUnfollowedId
-	) // The user to remove from followed
+	const userToBeFollowed: UserType | null =
+		await User.findById(userToBeUnfollowedId) // The user to remove from followed
 
 	if (!userFollowing || !userToBeFollowed) return false
 

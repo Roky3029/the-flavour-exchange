@@ -3,8 +3,10 @@
 import Recipe from '@/models/Recipe'
 import { RecipeFormZod } from '@/schemas/recipeSchema'
 import { getSession } from '@/methods/user/getSession'
+import connectDB from '@/lib/connectDB'
 
 export async function createRecipe(formData: RecipeFormZod) {
+	await connectDB()
 	try {
 		const { title, tag, imageUrl, steps, ingredients, etc, categories } =
 			formData
