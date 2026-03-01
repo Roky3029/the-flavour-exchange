@@ -1,3 +1,5 @@
+'use client'
+
 import { authClient } from '@/lib/authClient'
 import connectDB from '@/lib/connectDB'
 import { FormDataZod } from '@/schemas/logInSchema'

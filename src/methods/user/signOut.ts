@@ -1,3 +1,5 @@
+'use server'
+
 import { authClient } from '@/lib/authClient'
 import connectDB from '@/lib/connectDB'
 

@@ -1,3 +1,5 @@
+'use server'
+
 import connectDB from '@/lib/connectDB'
 import User from '@/models/User'
 import { User as UserType } from '@/types/user'

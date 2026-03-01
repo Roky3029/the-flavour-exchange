@@ -7,10 +7,10 @@ const AboutMe = () => {
 		<div className='flex flex-col lg:flex-row items-center justify-center pt-36 gap-10 lg:gap-20'>
 			<Image
 				alt='Profile picture'
-				src='/img.jpg'
+				src='/me.jpg'
 				width={350}
 				height={350}
-				className='rounded-full'
+				className='rounded-full overflow-hidden'
 			/>
 
 			<div className='max-w-[90%] lg:max-w-[30%] flex items-start flex-col gap-10 lg:gap-20'>
