@@ -37,7 +37,9 @@ export default function RootLayout({
 		<html lang='en' {...mantineHtmlProps}>
 			<head>
 				<ColorSchemeScript />
-				<link rel='shortcut icon' href='logo.ico' type='image/x-icon' />
+				{/* <link rel='shortcut icon' href='logo.ico' type='image/x-icon' />
+				<link rel='icon' type='image/x-icon' href='/logo.ico' /> */}
+				<link rel='shortcut icon' href='%PUBLIC_URL%/favicon.ico' />
 			</head>
 
 			<body
